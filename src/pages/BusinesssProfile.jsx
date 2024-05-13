@@ -111,17 +111,17 @@ const BusinesssProfile = () => {
       instagram_link: data?.instagram_link,
       facebook_link: data?.facebook_link,
 
-      city_id: data?.city_id,
-      pincode: data?.pincode,
-      latitude: data?.latitude,
-      longitude: data?.longitude,
-      area: data?.area,
-      street_name: data?.street_name,
-      country: data?.country,
-      state: data?.state,
-      formatted_address: data?.formatted_address,
-      city: data?.city,
-      place_id: data?.place_id,
+      city_id: data?.city_id || "",
+      pincode: data?.pincode || "",
+      latitude: data?.latitude || "",
+      longitude: data?.longitude || "",
+      area: data?.area || "",
+      street_name: data?.street_name || "",
+      country: data?.country || "",
+      state: data?.state || "",
+      formatted_address: data?.formatted_address || "",
+      city: data?.city || "",
+      place_id: data?.place_id || "",
     }));
   }, [data]);
 
@@ -204,7 +204,7 @@ const BusinesssProfile = () => {
 
     const country = address_components?.find(c => c?.types?.includes('country')) || {};
     const state = address_components?.find(c => c?.types?.includes('administrative_area_level_1')) || {};
-    const city = address_components?.find(c => c?.types?.includes('administrative_area_level_3')) || {};
+    const city = address_components?.find(c => c?.types?.includes('locality')) || {};
     const pincode = address_components?.find(c => c?.types?.includes('postal_code')) || {};
     const area = address_components?.find(c => c?.types?.includes('locality')) || {};
     const street_name = address_components?.find(c => c?.types?.includes('locality')) || {};
@@ -216,16 +216,16 @@ const BusinesssProfile = () => {
 
     setValues({
       ...values,
-      street_name: street_name?.long_name,
-      area: area?.long_name,
-      pincode: pincode?.long_name,
-      latitude: lat(),
-      longitude: lng(),
-      address: name,
-      city: city?.long_name,
-      state: state?.long_name,
-      country: country?.long_name,
-      formatted_address: formatted_address,
+      street_name: street_name?.long_name || "",
+      area: area?.long_name || "",
+      pincode: pincode?.long_name || "",
+      latitude: lat() || "",
+      longitude: lng() || "",
+      address: name || "",
+      city: city?.long_name || "",
+      state: state?.long_name || "",
+      country: country?.long_name || "",
+      formatted_address: formatted_address || "",
       place_id: locationPlaceId
     })
   }
