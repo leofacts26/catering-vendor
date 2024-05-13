@@ -9,7 +9,16 @@ const Layout = () => {
   const { accessToken } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
+  // if accesstoken is not there redirect to login page 
+  useEffect(() => {
+    if (!accessToken) {
+      navigate("/create-account");
+    }
+  }, [])
 
+
+
+  // if accesstoken expired redirect to login page 
   useEffect(() => {
     if (accessToken) {
       const decodedToken = jwtDecode(accessToken);
