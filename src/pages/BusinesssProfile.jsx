@@ -314,25 +314,6 @@ const BusinesssProfile = () => {
                 <Grid item xs={6}>
                   <div className="">
                     <p className="business-profile-name">Working days/hours</p>
-                    {/* <CssTextField
-                      value={values.working_days_hours}
-                      onChange={handleChange}
-                      name="working_days_hours"
-                      variant="outlined"
-                      placeholder="Eg. Monday - Saturday (9A - 10PM) - Date and Time Picker"
-                      className='mt-0'
-                      style={{ width: '100%' }}
-                      InputLabelProps={{
-                        style: { color: '#777777', fontSize: '10px' },
-                      }}
-                      InputProps={{
-                        style: {
-                          borderRadius: '8px',
-                          backgroundColor: '#FFFFFF',
-                        }
-                      }}
-                    /> */}
-
                     <div className="business-date-picker">
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DateTimeRangePicker', 'DateTimeRangePicker']}>
@@ -345,10 +326,9 @@ const BusinesssProfile = () => {
                       </LocalizationProvider>
                       {values.working_days_hours && values.working_days_hours}
                     </div>
-                    {/* {errors.working_days_hours && <small className='text-danger mt-2 ms-1'>{errors.working_days_hours}</small>} */}
                   </div>
 
-                  <div style={values.working_days_hours ? { marginTop: '30px' } : {}}>
+                  <div style={values.working_days_hours ? { marginTop: '40px' } : {marginTop: '50px'}}>
                     <p className="business-profile-name">Total No. of Staffs Approx</p>
                     <CssTextField
                       value={values.total_staffs_approx}
@@ -371,97 +351,7 @@ const BusinesssProfile = () => {
                     {errors.total_staffs_approx && <small className='text-danger mt-2 ms-1'>{errors.total_staffs_approx}</small>}
                   </div>
 
-                  {/* <div>
-                    <p className="business-profile-name">Street Name</p>
-                    <CssTextField
-                      value={values.street_name}
-                      onChange={handleChange}
-                      name="street_name"
-                      variant="outlined"
-                      placeholder="Eg. 8th Cross Street"
-                      className='mt-0'
-                      style={{ width: '100%' }}
-                      InputLabelProps={{
-                        style: { color: '#777777', fontSize: '10px' },
-                      }}
-                      InputProps={{
-                        style: {
-                          borderRadius: '8px',
-                          backgroundColor: '#FFFFFF',
-                        }
-                      }}
-                    />
-                    {errors.street_name && <small className='text-danger mt-2 ms-1'>{errors.street_name}</small>}
-                  </div> */}
-
-                  {/* <div className="mt-3">
-                    <p className="business-profile-name">Area</p>
-                    <CssTextField
-                      value={values.area}
-                      onChange={handleChange}
-                      name="area"
-                      variant="outlined"
-                      placeholder="Eg. Near Kalyan Nagar post"
-                      className='mt-0'
-                      style={{ width: '100%' }}
-                      InputLabelProps={{
-                        style: { color: '#777777', fontSize: '10px' },
-                      }}
-                      InputProps={{
-                        style: {
-                          borderRadius: '8px',
-                          backgroundColor: '#FFFFFF',
-                        }
-                      }}
-                    />
-                    {errors.area && <small className='text-danger mt-2 ms-1'>{errors.area}</small>}
-                  </div> */}
-
-                  {/* <div className="mt-3">
-                    <p className="business-profile-name">City</p>
-                    <CssTextField
-                      value={values.city}
-                      onChange={handleChange}
-                      name="city"
-                      variant="outlined"
-                      placeholder="Eg. Bangalore"
-                      className='mt-0'
-                      style={{ width: '100%' }}
-                      InputLabelProps={{
-                        style: { color: '#777777', fontSize: '10px' },
-                      }}
-                      InputProps={{
-                        style: {
-                          borderRadius: '8px',
-                          backgroundColor: '#FFFFFF',
-                        }
-                      }}
-                    />
-                    {errors.city && <small className='text-danger mt-2 ms-1'>{errors.city}</small>}
-                  </div> */}
-
-                  {/* <div className="mt-3">
-                    <p className="business-profile-name">Pin Code</p>
-                    <CssTextField
-                      value={values.pincode}
-                      onChange={handleChange}
-                      name="pincode"
-                      variant="outlined"
-                      placeholder="Eg. 624 301"
-                      className='mt-0'
-                      style={{ width: '100%' }}
-                      InputLabelProps={{
-                        style: { color: '#777777', fontSize: '10px' },
-                      }}
-                      InputProps={{
-                        style: {
-                          borderRadius: '8px',
-                          backgroundColor: '#FFFFFF',
-                        }
-                      }}
-                    />
-                    {errors.pincode && <small className='text-danger mt-2 ms-1'>{errors.pincode}</small>}
-                  </div> */}
+                  
 
 
                 </Grid>
