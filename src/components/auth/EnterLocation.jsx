@@ -48,21 +48,40 @@ const EnterLocation = () => {
 
         try {
             const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE}`);
-            const addressComponents = response.data.results[0].address_components;
-            const addressData = {
-                street_name: getAddressComponent(addressComponents, 'route'),
-                area: getAddressComponent(addressComponents, 'sublocality_level_1'),
-                pincode: getAddressComponent(addressComponents, 'postal_code'),
-                latitude: latitude,
-                longitude: longitude,
-                address: getAddressComponent(addressComponents, 'sublocality_level_2'),
-                city: getAddressComponent(addressComponents, 'locality'),
-                state: getAddressComponent(addressComponents, 'administrative_area_level_1'),
-                country: getAddressComponent(addressComponents, 'country'),
-                formatted_address: response.data.results[0].formatted_address,
-                place_id: response.data.results[0].place_id,
-            };
-            handleSubmit(addressData);
+            const results = response.data.results;
+            let maxAddressComponentsLength = -1;
+            let selectedAddress = null;
+
+
+            results.forEach(result => {
+                const addressComponentsLength = result.address_components.length;
+                if (addressComponentsLength > maxAddressComponentsLength) {
+                    maxAddressComponentsLength = addressComponentsLength;
+                    selectedAddress = result;
+                }
+            });
+
+
+            if (selectedAddress) {
+                const addressComponents = selectedAddress.address_components;
+                const addressData = {
+                    street_name: getAddressComponent(addressComponents, 'route'),
+                    area: getAddressComponent(addressComponents, 'sublocality_level_1'),
+                    pincode: getAddressComponent(addressComponents, 'postal_code'),
+                    latitude: latitude,
+                    longitude: longitude,
+                    address: getAddressComponent(addressComponents, 'administrative_area_level_3'),
+                    city: getAddressComponent(addressComponents, 'locality'),
+                    state: getAddressComponent(addressComponents, 'administrative_area_level_1'),
+                    country: getAddressComponent(addressComponents, 'country'),
+                    formatted_address: response.data.results[0].formatted_address,
+                    place_id: response.data.results[0].place_id,
+                };
+                handleSubmit(addressData);
+            } else {
+                console.log("No suitable address found");
+            }
+
         } catch (error) {
             console.log(error);
         }
@@ -134,7 +153,7 @@ const EnterLocation = () => {
                                         <Button variant="contained" className='ct-box-allow-location' onClick={() => getCurrentLocation()}>
                                             {loading ? 'Loading...' : 'Allow Location Access'}
                                         </Button>
-                                        <div style={{width: '100%', textAlign: 'center'}}>
+                                        <div style={{ width: '100%', textAlign: 'center' }}>
                                             <Link to="/enter-location-manually" className="text-decoration-none text-center">
                                                 <Button variant="contained" className='ct-box-loc'>Enter Location Manually</Button>
                                             </Link>
