@@ -351,7 +351,7 @@ const BusinesssProfile = () => {
                     </div>
                   </div>
 
-                  <div style={values.working_days_hours ? { marginTop: '40px' } : { marginTop: '50px' }}>
+                  <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
                     <p className="business-profile-name">Total No. of Staffs Approx</p>
                     <CssTextField
                       value={values.total_staffs_approx}
