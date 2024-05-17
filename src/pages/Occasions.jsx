@@ -51,7 +51,7 @@ const Occasions = () => {
         setOpen(false);
         // fetchOccations()
     };
- 
+
     const handleSelectChange = async (item) => {
         const updatedOccasions = occasionsList?.map((occasion) => {
             if (occasion?.id === item?.id) {
@@ -101,7 +101,7 @@ const Occasions = () => {
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                         <p className='cuisines-title'>Occasions You cater</p>
                         <Button variant="contained" className="inquiries-btn" onClick={handleClickOpen}>
-                            {occasionsList?.filter((item) => item?.selected === "1").length >= 1 ? '+ Update Occasions' : '+ Add Occasions'}
+                            + Add Occasions
                         </Button>
                     </Stack>
                     <Divider
@@ -183,7 +183,7 @@ const Occasions = () => {
                     </DialogContent>
                     <DialogActions style={{ backgroundColor: '#c89f9f29', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', position: 'absolute', bottom: 0 }}>
                         <Button variant="contained" className="inquiries-btn" type="submit" onClick={handleClickOpen}>
-                            {isLoading ? 'Loading...' : 'Add Occasions'}  </Button>
+                            {isLoading ? 'Loading...' : '+ Add Occasions'}  </Button>
                     </DialogActions>
                 </form>
             </BootstrapDialog>

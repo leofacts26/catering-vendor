@@ -77,6 +77,8 @@ const formatPhoneNumber = (phoneNumber) => {
 //   city_id: ''
 // }
 
+// working_days_hours : "2024-05-17 00:20:00 - 2024-05-24 12:20:00"
+
 const BusinesssProfile = () => {
   const [values, setValues] = useState({})
   const { accessToken } = useSelector((state) => state.user)
@@ -90,6 +92,13 @@ const BusinesssProfile = () => {
   ]);
   const formattedValues = value?.map(date => date?.format('YYYY-MM-DD HH:mm:ss'));
   const working_days_hours_time = formattedValues?.join(' - ');
+
+  // console.log(value, "value 000");
+  // console.log(data?.working_days_hours, "working_days_hours");
+
+  // console.log(start[0], "start, end");
+
+
 
 
   useEffect(() => {
@@ -162,6 +171,19 @@ const BusinesssProfile = () => {
       console.error('Error while updating business profile:', error);
     }
   }
+
+
+  useEffect(() => {
+    if (data?.working_days_hours) {
+      const dateResult = data.working_days_hours.split(' - ');
+      if (dateResult.length === 2) {
+        setValue([
+          dayjs(dateResult[0]),
+          dayjs(dateResult[1]),
+        ]);
+      }
+    }
+  }, [data?.working_days_hours]);
 
   // location start
   // const [locationValues, setLocationValues] = useState(initialState)
@@ -324,11 +346,11 @@ const BusinesssProfile = () => {
                           />
                         </DemoContainer>
                       </LocalizationProvider>
-                      {values.working_days_hours && values.working_days_hours}
+                      <span style={{ color: '#57636c', fontSize: '10px' }}>{values.working_days_hours && values.working_days_hours}</span>
                     </div>
                   </div>
 
-                  <div style={values.working_days_hours ? { marginTop: '40px' } : {marginTop: '50px'}}>
+                  <div style={values.working_days_hours ? { marginTop: '40px' } : { marginTop: '50px' }}>
                     <p className="business-profile-name">Total No. of Staffs Approx</p>
                     <CssTextField
                       value={values.total_staffs_approx}
@@ -351,7 +373,7 @@ const BusinesssProfile = () => {
                     {errors.total_staffs_approx && <small className='text-danger mt-2 ms-1'>{errors.total_staffs_approx}</small>}
                   </div>
 
-                  
+
 
 
                 </Grid>
