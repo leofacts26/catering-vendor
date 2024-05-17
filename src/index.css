@@ -1113,12 +1113,12 @@ code {
 }
 
 .outlet-container::-webkit-scrollbar {
-  display: none;
+  /* display: none; */
 }
 
 .outlet-container {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  /* -ms-overflow-style: none;
+  scrollbar-width: none; */
 }
 
 /* right side fixed end  */

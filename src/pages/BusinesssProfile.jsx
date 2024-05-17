@@ -269,7 +269,7 @@ const BusinesssProfile = () => {
         {/*   */}
         <Formik enableReinitialize={true} initialValues={values} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
           {({ values, errors, handleChange, handleSubmit }) => (
-            <form className='card-box-shadow px-5 py-4 mb-4' onSubmit={handleSubmit}>
+            <form className='card-box-shadow px-5 py-4 mb-4' onSubmit={handleSubmit} autocomplete="off">
               <p className='cuisines-title text-center'>BUSINESS INFORMATION</p>
               <Divider
                 className='mt-2'
@@ -333,6 +333,7 @@ const BusinesssProfile = () => {
                 </Grid>
 
 
+
                 <Grid item xs={6}>
                   <div className="">
                     <p className="business-profile-name">Working days/hours</p>
@@ -346,7 +347,7 @@ const BusinesssProfile = () => {
                           />
                         </DemoContainer>
                       </LocalizationProvider>
-                      <span style={{ color: '#57636c', fontSize: '10px' }}>{values.working_days_hours && values.working_days_hours}</span>
+                      {/* <span style={{ color: '#57636c', fontSize: '10px' }}>{values.working_days_hours && values.working_days_hours}</span> */}
                     </div>
                   </div>
 
@@ -386,6 +387,7 @@ const BusinesssProfile = () => {
                     <p className="business-profile-name">Address</p>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                       <textarea
+                        autocomplete="false"
                         required
                         style={{ height: '65px' }}
                         onChange={(evt) => {

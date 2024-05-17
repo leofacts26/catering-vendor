@@ -30,10 +30,10 @@ const ReactSelect = ({ text1, selectedOption, handleSelectedChange }) => {
                     ...baseStyles,
                     fontSize: '12px',
                     borderRadius: '8px',
-                    padding: '0px 0px',
+                    padding: '0px',
                     margin: '0px',
                     border: `2px solid #e0e3e7`,
-                    outline: isFocused ? '2px solid #C33332' : 'none', 
+                    outline: isFocused ? '2px solid #C33332' : 'none',
                     width: '200px',
                     color: '#FFFFFF',
                     '&:hover': {

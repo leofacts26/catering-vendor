@@ -120,7 +120,7 @@ const EnterLocationManually = () => {
 
         setLocationValues({
             ...locationValues,
-            street_name: street_name  || "",
+            street_name: street_name || "",
             area: area,
             pincode: pincode?.long_name,
             latitude: lat(),
@@ -274,12 +274,13 @@ const EnterLocationManually = () => {
                 </div>
                 <Grid container spacing={2} className='box-negative'>
                     <Grid item xs={12} sm={6.5} md={4.5} lg={4.5}>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} autocomplete="off">
                             <div className="ct-box ct-box-padding">
                                 <div className="px-4">
                                     <h4 className='ct-box-loc-title'>Enter your area or address</h4>
 
                                     <CssTextField
+                                        autocomplete="false"
                                         inputRef={inputElement}
                                         required
                                         onChange={(evt) => {
