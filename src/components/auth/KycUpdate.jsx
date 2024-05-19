@@ -55,7 +55,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
             .matches(/^\d*$/, 'Invalid Number')
             .matches(/^\d{12}$/, 'Aadhar card number must be exactly 12 digits'),
         gstin_number: Yup.string()
-            .required('GSTIN number is required')
+            // .required('GSTIN number is required')
             .matches(/^[A-Z0-9]*$/, 'GSTIN number must contain only uppercase letters and numbers')
             .min(15, 'GSTIN number must be at least 15 characters long')
             .max(15, 'GSTIN number must not exceed 15 characters'),
@@ -154,7 +154,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
                         />
                         {errors.pan_number && <small className='text-danger mt-2 ms-0'>{errors.pan_number}</small>}
 
-                        <h4 className='ct-box-profile-title mt-1'>Please Enter Your GSTIN Number *</h4>
+                        <h4 className='ct-box-profile-title mt-1'>Please Enter Your GSTIN Number</h4>
                         <CssTextFieldTwo
                             value={values.gstin_number}
                             name="gstin_number"

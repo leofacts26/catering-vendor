@@ -20,11 +20,17 @@ import LoaderSpinner from "../components/LoaderSpinner";
 import { useLocation } from "react-router-dom";
 import { MenuItem, Select } from '@mui/material';
 
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 import dayjs from 'dayjs';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimeRangePicker } from '@mui/x-date-pickers-pro/DateTimeRangePicker';
 
 
@@ -139,12 +145,17 @@ const BusinesssProfile = () => {
     vendor_service_name: Yup.string().required('Name is required.'),
     point_of_contact_name: Yup.string().required('contact person name is required.'),
     // working_days_hours: Yup.string().required('working days hours is required.'),
-    total_staffs_approx: Yup.string().required('total staffs approx is required.'),
+    // total_staffs_approx: Yup.string().required('total staffs approx is required.'),
     about_description: Yup.string().required('about description is required.'),
-    business_email: Yup.string().required('Business email is required.'),
-    working_since: Yup.string()
-      .matches(/^\d{4}$/, 'Year must be exactly 4 digits Eg: 2024')
-      .required('Working since is required.'),
+    business_phone_number: Yup.string()
+    .required('Business phone number is required')
+    // .matches(/^[0-9]{10}$/, 'Business phone number must contain exactly 10 digits'),
+
+
+    // business_email: Yup.string().required('Business email is required.'),
+    // working_since: Yup.string()
+    //   .matches(/^\d{4}$/, 'Year must be exactly 4 digits Eg: 2024')
+    //   .required('Working since is required.'),
   });
 
   const handleSubmit = async (values, resetForm) => {
@@ -247,18 +258,35 @@ const BusinesssProfile = () => {
       city: city?.long_name || "",
       state: state?.long_name || "",
       country: country?.long_name || "",
-      formatted_address: formatted_address || "",
+      formatted_address: manualLocation || "",
       place_id: locationPlaceId
     })
   }
 
   const selectLocation = (item) => {
+    console.log(item, "Item");
     setSelectedLocation(item);
     setManualLocation(item.description);
     setLocationPlaceId(item?.place_id)
   }
   // loc end 
 
+
+  const [startDate, setStartDate] = useState('');
+  const [startTime, setStartTime] = useState(null);
+
+  const [endDate, setEndDate] = useState('');
+  const [endTime, setEndTime] = useState(null);
+
+  const handleStartChange = (event) => {
+    setStartDate(event.target.value);
+  };
+
+  const handleEndChange = (event) => {
+    setEndDate(event.target.value);
+  };
+
+  console.log({startDate, startTime, endDate, endTime}, "startDate, startTime, endDate, endTime");
 
 
   return (
@@ -307,15 +335,19 @@ const BusinesssProfile = () => {
                     />
                     {errors.vendor_service_name && <small className='text-danger mt-2 ms-1'>{errors.vendor_service_name}</small>}
                   </div>
+                </Grid>
 
-                  <div className="mt-5">
-                    <p className="business-profile-name">Conatct person Name</p>
+
+
+                <Grid item xs={6}>
+                  <div className="mt-0">
+                    <p className="business-profile-name">Contact person Name</p>
                     <CssTextField
                       value={values.point_of_contact_name}
                       onChange={handleChange}
                       name="point_of_contact_name "
                       variant="outlined"
-                      placeholder="Enter Conatct person name"
+                      placeholder="Enter Contact person name"
                       className='mt-0'
                       style={{ width: '100%' }}
                       InputLabelProps={{
@@ -330,26 +362,104 @@ const BusinesssProfile = () => {
                     />
                     {errors.point_of_contact_name && <small className='text-danger mt-2 ms-1'>{errors.point_of_contact_name}</small>}
                   </div>
+
                 </Grid>
+              </Grid>
 
 
+              <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Grid item xs={8} >
 
-                <Grid item xs={6}>
-                  <div className="">
+                  <div className="mt-5">
                     <p className="business-profile-name">Working days/hours</p>
-                    <div className="business-date-picker">
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['DateTimeRangePicker', 'DateTimeRangePicker']}>
-                          <DateTimeRangePicker
-                            required
-                            value={value}
-                            onChange={(newValue) => setValue(newValue)}
+
+                    <Stack direction="row" justifyContent="start" alignItems="center" spacing={2}>
+                      <Box>
+                        <FormControl>
+                          <InputLabel id="demo-simple-select-label">Monday</InputLabel>
+                          <Select
+                            style={{ width: '150px' }}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={startDate}
+                            label="startDate"
+                            onChange={handleStartChange}
+                          >
+                            <MenuItem value="Monday">Monday</MenuItem>
+                            <MenuItem value="Tuesday">Tuesday</MenuItem>
+                            <MenuItem value="Wednesday">Wednesday</MenuItem>
+                            <MenuItem value="Thursday">Thursday</MenuItem>
+                            <MenuItem value="Friday">Friday</MenuItem>
+                            <MenuItem value="Saturday">Saturday</MenuItem>
+                            <MenuItem value="Sunday">Sunday</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Box>
+
+                      <Box sx={{ width: '150px' }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <TimePicker
+                            label="Select Time"
+                            value={startTime}
+                            onChange={(newValue) => {
+                              setStartTime(newValue);
+                            }}
+                            renderInput={(params) => <TextField
+                              {...params}
+                            />}
                           />
-                        </DemoContainer>
-                      </LocalizationProvider>
-                      {/* <span style={{ color: '#57636c', fontSize: '10px' }}>{values.working_days_hours && values.working_days_hours}</span> */}
-                    </div>
+                        </LocalizationProvider>
+                      </Box>
+
+                      <span>-</span>
+
+                      <Box>
+                        <FormControl>
+                          <InputLabel id="demo-simple-select-label">Monday</InputLabel>
+                          <Select
+                            style={{ width: '150px' }}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={endDate}
+                            label="endDate"
+                            onChange={handleEndChange}
+                          >
+                            <MenuItem value="Monday">Monday</MenuItem>
+                            <MenuItem value="Tuesday">Tuesday</MenuItem>
+                            <MenuItem value="Wednesday">Wednesday</MenuItem>
+                            <MenuItem value="Thursday">Thursday</MenuItem>
+                            <MenuItem value="Friday">Friday</MenuItem>
+                            <MenuItem value="Saturday">Saturday</MenuItem>
+                            <MenuItem value="Sunday">Sunday</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Box>
+
+                      <Box sx={{ width: '150px' }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <TimePicker
+                            label="Select Time"
+                            value={endTime}
+                            onChange={(newValue) => {
+                              setEndTime(newValue);
+                            }}
+                            renderInput={(params) => <TextField
+                              {...params}
+                              sx={{ gridColumn: "span 1" }}
+                            />}
+                          />
+                        </LocalizationProvider>
+                      </Box>
+                    </Stack>
                   </div>
+                </Grid>
+              </Grid>
+
+
+
+
+              <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Grid item xs={8} >
 
                   <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
                     <p className="business-profile-name">Total No. of Staffs Approx</p>
@@ -371,11 +481,8 @@ const BusinesssProfile = () => {
                         }
                       }}
                     />
-                    {errors.total_staffs_approx && <small className='text-danger mt-2 ms-1'>{errors.total_staffs_approx}</small>}
+                    {/* {errors.total_staffs_approx && <small className='text-danger mt-2 ms-1'>{errors.total_staffs_approx}</small>} */}
                   </div>
-
-
-
 
                 </Grid>
               </Grid>
@@ -396,7 +503,7 @@ const BusinesssProfile = () => {
                           getPlacePredictions({ input: evt.target.value });
                           handleChange(evt); // This line ensures Formik's handleChange is called
                         }}
-                        value={values.formatted_address}
+                        value={manualLocation ? manualLocation : values.formatted_address}
                         name="formatted_address" // Make sure the name matches the field name in initialValues
                         rows="20" id="comment_text" cols="40"
                         className="job-textarea" autoComplete="off" role="textbox"
@@ -472,7 +579,7 @@ const BusinesssProfile = () => {
                         }
                       }}
                     />
-                    {errors.working_since && <small className='text-danger mt-2 ms-1'>{errors.working_since}</small>}
+                    {/* {errors.working_since && <small className='text-danger mt-2 ms-1'>{errors.working_since}</small>} */}
                   </div>
                 </Grid>
               </Grid>
@@ -511,7 +618,7 @@ const BusinesssProfile = () => {
                         }
                       }}
                     />
-                    {errors.business_email && <small className='text-danger mt-2 ms-1'>{errors.business_email}</small>}
+                    {/* {errors.business_email && <small className='text-danger mt-2 ms-1'>{errors.business_email}</small>} */}
                   </div>
 
                   <div className="mt-3">
@@ -535,6 +642,7 @@ const BusinesssProfile = () => {
                         }
                       }}
                     />
+                     {errors.business_phone_number && <small className='text-danger mt-2 ms-1'>{errors.business_phone_number}</small>} 
                   </div>
 
                   <div className="mt-3">
