@@ -45,7 +45,7 @@ const useBusinessProfile = (url, accessToken) => {
     }, [accessToken, url]);
 
 
-    return [data, updateBusinessProfile]
+    return [data, updateBusinessProfile, fetchBusinessProfile]
 }
 
 export default useBusinessProfile

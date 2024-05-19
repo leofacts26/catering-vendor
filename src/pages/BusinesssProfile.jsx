@@ -91,7 +91,7 @@ const BusinesssProfile = () => {
   const { vendor_id } = useSelector((state) => state?.user?.vendorId)
   const [loading, setLoading] = useState(false)
   // const [date, setDate] = useState(null)
-  const [data, updateBusinessProfile] = useBusinessProfile('/get-vendor-business-profile', accessToken)
+  const [data, updateBusinessProfile, fetchBusinessProfile] = useBusinessProfile('/get-vendor-business-profile', accessToken)
   const [value, setValue] = useState([
     dayjs(''),
     dayjs(''),
@@ -118,9 +118,9 @@ const BusinesssProfile = () => {
       about_description: data?.about_description,
       total_staffs_approx: data?.total_staffs_approx,
       business_email: data?.business_email,
-      business_phone_number: data?.business_phone_number,
+      business_phone_number: data?.business_phone_number?.slice(4,14),
       landline_number: data?.landline_number,
-      whatsapp_business_phone_number: data?.whatsapp_business_phone_number,
+      whatsapp_business_phone_number: data?.whatsapp_business_phone_number?.slice(4,14),
       website_link: data?.website_link,
       twitter_id: data?.twitter_id,
       instagram_link: data?.instagram_link,
@@ -146,9 +146,9 @@ const BusinesssProfile = () => {
     point_of_contact_name: Yup.string().required('contact person name is required.'),
     // working_days_hours: Yup.string().required('working days hours is required.'),
     // total_staffs_approx: Yup.string().required('total staffs approx is required.'),
-    about_description: Yup.string().required('about description is required.'),
+    // about_description: Yup.string().required('about description is required.'),
     business_phone_number: Yup.string()
-    .required('Business phone number is required')
+      .required('Business phone number is required')
     // .matches(/^[0-9]{10}$/, 'Business phone number must contain exactly 10 digits'),
 
 
@@ -177,6 +177,7 @@ const BusinesssProfile = () => {
       }
       await updateBusinessProfile(data, vendor_id);
       setLoading(false);
+      fetchBusinessProfile()
     } catch (error) {
       setLoading(false);
       console.error('Error while updating business profile:', error);
@@ -286,7 +287,7 @@ const BusinesssProfile = () => {
     setEndDate(event.target.value);
   };
 
-  console.log({startDate, startTime, endDate, endTime}, "startDate, startTime, endDate, endTime");
+  console.log({ startDate, startTime, endDate, endTime }, "startDate, startTime, endDate, endTime");
 
 
   return (
@@ -544,7 +545,7 @@ const BusinesssProfile = () => {
                         className="job-textarea" autoComplete="off" role="textbox"
                         aria-autocomplete="list" aria-haspopup="true"></textarea>
                     </Box>
-                    {errors.about_description && <small className='text-danger mt-2 ms-1'>{errors.about_description}</small>}
+                    {/* {errors.about_description && <small className='text-danger mt-2 ms-1'>{errors.about_description}</small>} */}
                   </div>
                 </Grid>
               </Grid>
@@ -634,7 +635,7 @@ const BusinesssProfile = () => {
                       InputLabelProps={{
                         style: { color: '#777777', fontSize: '10px' },
                       }}
-                      inputProps={{ maxLength: 14 }}
+                      inputProps={{ maxLength: 10 }}
                       InputProps={{
                         style: {
                           borderRadius: '8px',
@@ -642,7 +643,7 @@ const BusinesssProfile = () => {
                         }
                       }}
                     />
-                     {errors.business_phone_number && <small className='text-danger mt-2 ms-1'>{errors.business_phone_number}</small>} 
+                    {errors.business_phone_number && <small className='text-danger mt-2 ms-1'>{errors.business_phone_number}</small>}
                   </div>
 
                   <div className="mt-3">
@@ -676,7 +677,7 @@ const BusinesssProfile = () => {
                       name="whatsapp_business_phone_number"
                       variant="outlined"
                       className='mt-0'
-                      inputProps={{ maxLength: 14 }}
+                      inputProps={{ maxLength: 10 }}
                       style={{ width: '100%' }}
                       InputLabelProps={{
                         style: { color: '#777777', fontSize: '10px' },
