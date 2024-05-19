@@ -42,7 +42,7 @@ const initialState = {
 }
 
 const GstnNumber = () => {
-    const { settings } = useFetchPhotoGallery()
+    const { settings, getVendorSettingsImages } = useFetchPhotoGallery()
     const { accessToken } = useSelector((state) => state.user);
     const { isLoading } = useSelector((state) => state.user);
     const [initialValues, setInitialValues] = useState(initialState);
@@ -70,6 +70,7 @@ const GstnNumber = () => {
             toast.success(successToast(response))
             resetForm(initialState);
             dispatch(setIsLoading(false))
+            getVendorSettingsImages()
         } catch (error) {
             console.log(error);
             toast.error(datavalidationerror(error))

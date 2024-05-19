@@ -136,7 +136,7 @@ const BrandedLogo = () => {
                                             <img
                                                 className="gallery-round"
                                                 key={logo?.id}
-                                                src={logo?.image_name[0]?.medium}
+                                                src={logo?.image_name[0]?.original}
                                                 alt={`Brand Logo ${index}`}
                                             />
                                         ))}

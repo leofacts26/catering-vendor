@@ -137,6 +137,12 @@ const Packages = () => {
     const onHandleSubmit = async (e) => {
         e.preventDefault();
 
+        if (parseInt(minimumCapacity) >= parseInt(maximumCapacity)) {
+            toast.error("Minimum capacity should be less than maximum capacity.");
+            return;
+        }
+
+
         setLoading(true)
 
         const updatedFoodTypes = foodTypes.map(food => ({ id: +food.id, selected: +food.selected }));

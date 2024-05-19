@@ -949,7 +949,9 @@ const useFetchPhotoGallery = (handleBoxClose) => {
 
         // Fssai Licence
         onUploadFssai,
-        onReUploadFssai
+        onReUploadFssai,
+
+        getVendorSettingsImages
 
     }
 }

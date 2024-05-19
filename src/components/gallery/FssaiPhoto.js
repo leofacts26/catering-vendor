@@ -133,7 +133,7 @@ const FssaiPhoto = () => {
                                             className="img-fluid mx-auto gallery-round"
                                             style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                                             key={logo?.id}
-                                            src={logo?.image_name[0]?.medium}
+                                            src={logo?.image_name[0]?.original}
                                             alt={`Brand Logo ${index}`}
                                         />
                                     ))}

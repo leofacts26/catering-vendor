@@ -143,7 +143,7 @@ const Settings = () => {
                                       className="img-fluid mx-auto"
                                       style={{ width: '100%', height: '200px', objectFit: 'contain', borderRadius: '8px' }}
                                       key={logo?.id}
-                                      src={logo?.image_name[0]?.medium}
+                                      src={logo?.image_name[0]?.original}
                                       alt={`Brand Logo ${index}`}
                                     />
                                   ))}
