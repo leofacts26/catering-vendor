@@ -155,7 +155,7 @@ const PanCard = () => {
                             )
                         }
 
-                        <p className="settings-small mt-1">Upload FSSAI Licence</p>
+                        <p className="settings-small mt-1">Upload PAN Card</p>
 
                         <div className="mt-3 text-center">
                             <input

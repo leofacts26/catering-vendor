@@ -77,7 +77,7 @@ const Reviews = () => {
             <Container maxWidth="lg">
                 <div className='card-box-shadow px-3 py-0 mb-4'>
                     <Stack direction="row" alignItems="center" justifyContent="end" className='mb-4'>
-                        <p className='me-2 mt-2 sort-reviews'>Sort Reviews By:</p>
+                        {/* <p className='me-2 mt-2 sort-reviews'>Sort Reviews By:</p> */}
                         <ReactSelect selectedOption={selectedOption} handleSelectedChange={handleSelectedChange} />
                     </Stack>
                     <>

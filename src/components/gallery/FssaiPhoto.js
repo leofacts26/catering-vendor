@@ -122,7 +122,7 @@ const FssaiPhoto = () => {
                         aria-controls="panel1-content"
                         id="panel1-header"
                     >
-                        <p className="settings-faq-title" style={{ fontSize: '14px', fontWeight: '500' }}> FSSAI Licence </p>
+                        <p className="settings-faq-title" style={{ fontSize: '14px', fontWeight: '500' }}> FSSAI License </p>
                     </AccordionSummary>
                     <AccordionDetails>
                         {
@@ -151,7 +151,7 @@ const FssaiPhoto = () => {
                             )
                         }
 
-                        <p className="settings-small mt-1">Upload FSSAI Licence</p>
+                        <p className="settings-small mt-1">Upload FSSAI License</p>
 
                         <div className="mt-3 text-center">
                             <input

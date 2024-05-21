@@ -239,23 +239,24 @@ const Packages = () => {
 
 
                             <Grid item xs={12} lg={6}>
+                                <Stack direction="row" justifyContent="center" flexDirection="column">
                                 <h3 className='package-capacity mt-0'>Starting Price / Plate</h3>
-                                <p className='max-min-capacity-para-green text-center mt-3'>Enter Starting price / Plate</p>
-                                <Stack direction="row" justifyContent="end">
+                                <p className='max-min-capacity-para-green text-center mt-2 mb-2'>Enter Starting price / Plate</p>
                                     <CssTextFieldSmall
                                         value={startPrice}
                                         onChange={(e) => setStartPrice(e.target.value)}
                                         id="outlined-number"
                                         variant="outlined"
                                         placeholder="Enter Minimum Capacity - Eg: 100plates"
-                                        className='mt-1'
-                                        style={{ width: '75%' }}
+                                        className='text-center mx-auto'
+                                        style={{ width: '100%' }}
                                         InputLabelProps={{
                                             style: { color: '#777777', fontSize: '10px' },
                                         }}
                                         InputProps={{
                                             style: {
                                                 borderRadius: '8px',
+                                                width: '100%',
                                                 backgroundColor: '#FFFFFF',
                                             }
                                         }}

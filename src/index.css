@@ -1556,6 +1556,7 @@ code {
   font-family: var(--fontPrimary);
   font-weight: 400;
   color: var(--tertiary);
+  background: transparent !important;
 }
 
 .company-id {

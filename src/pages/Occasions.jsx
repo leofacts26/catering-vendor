@@ -181,7 +181,7 @@ const Occasions = () => {
                         ))}
 
                     </DialogContent>
-                    <DialogActions style={{ backgroundColor: '#c89f9f29', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', position: 'absolute', bottom: 0 }}>
+                    <DialogActions style={{  display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', position: 'absolute', bottom: 0 }}>
                         <Button variant="contained" className="inquiries-btn" type="submit" onClick={handleClickOpen}>
                             {isLoading ? 'Loading...' : '+ Add Occasions'}  </Button>
                     </DialogActions>

@@ -143,7 +143,7 @@ const BusinesssProfile = () => {
   // validation schema 
   const schema = Yup.object().shape({
     vendor_service_name: Yup.string().required('Name is required.'),
-    point_of_contact_name: Yup.string().required('contact person name is required.'),
+    point_of_contact_name: Yup.string().required('Contact person name is required.'),
     // working_days_hours: Yup.string().required('working days hours is required.'),
     // total_staffs_approx: Yup.string().required('total staffs approx is required.'),
     // about_description: Yup.string().required('about description is required.'),

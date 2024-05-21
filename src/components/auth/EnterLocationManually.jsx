@@ -325,11 +325,11 @@ const EnterLocationManually = () => {
                                         <LoaderSpinner />
                                     ) : (
                                         selectedLocation ? (
-                                            <h2 className='ct-box-search-results' onClick={() => setSelectedLocation(null)}>{selectedLocation.description}</h2>
+                                            <h2 className='ct-box-search-results cursor-pointer' onClick={() => setSelectedLocation(null)}>{selectedLocation.description}</h2>
                                         ) : (
                                             placePredictions?.map((item, index) => (
                                                 <>
-                                                    <h2 className='ct-box-search-results' key={index} onClick={() => selectLocation(item)}>{item?.description}</h2>
+                                                    <h2 className='ct-box-search-results cursor-pointer' key={index} onClick={() => selectLocation(item)}>{item?.description}</h2>
                                                     <hr className='mt-1 mb-0' />
                                                 </>
                                             ))

@@ -134,6 +134,7 @@ const BrandedLogo = () => {
                                     <>
                                         {gallery['vendor-brand-logo']?.map((logo, index) => (
                                             <img
+                                                style={{ width: '250px' }}
                                                 className="gallery-round"
                                                 key={logo?.id}
                                                 src={logo?.image_name[0]?.original}

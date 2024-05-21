@@ -136,6 +136,7 @@ const MainBannerLogo = () => {
                                     <>
                                         {gallery['vendor-banner']?.map((logo, index) => (
                                             <img
+                                                style={{ width: '400px', height: '180px', objectFit: 'cover' }}
                                                 className="gallery-round"
                                                 key={logo?.id}
                                                 src={logo?.image_name[0]?.original}
