@@ -103,34 +103,54 @@ const Cuisines = () => {
         setOpen(false);
     };
 
-    // console.log(cuisinesList, "cuisinesList");
-
     const handleAutocompleteChange = (event, value, parentItem) => {
-        const updatedCuisinesList = cuisinesList.map(item => {
-            if (item?.id === parentItem?.id) {
-                const allSelected = value.includes('All');
-                const updatedChildren = item?.children?.map(child => ({
-                    ...child,
-                    selected: allSelected ? "1" : (value.includes(child?.name) ? "1" : "0")
-                }));
+        const updatedCuisinesList = cuisinesList.map(cuisine => {
+            if (cuisine.id === parentItem.id) {
                 return {
-                    ...item,
-                    children: updatedChildren
+                    ...cuisine,
+                    children: cuisine.children.map(child => ({
+                        ...child,
+                        selected: value.includes(child.name) ? "1" : "0"
+                    }))
                 };
             }
-            return item;
+            return cuisine;
         });
         setCuisinesList(updatedCuisinesList);
-        return updatedCuisinesList;
+    };
+
+    const handleCheckboxToggle = (event, option, parentItem) => {
+        const updatedCuisinesList = cuisinesList.map(cuisine => {
+            if (cuisine.id === parentItem.id) {
+                if (option === 'All') {
+                    const allSelected = parentItem.children.every(child => child.selected === "1");
+                    return {
+                        ...cuisine,
+                        children: cuisine.children.map(child => ({
+                            ...child,
+                            selected: allSelected ? "0" : "1"
+                        }))
+                    };
+                }
+                return {
+                    ...cuisine,
+                    children: cuisine.children.map(child =>
+                        child.name === option ? { ...child, selected: child.selected === "1" ? "0" : "1" } : child
+                    )
+                };
+            }
+            return cuisine;
+        });
+        setCuisinesList(updatedCuisinesList);
     };
 
 
     const handleSubmit = async (event) => {
         setIsLoading(true)
         event.preventDefault();
-        const updatedOccasions = await handleAutocompleteChange();
+        // const updatedOccasions = await handleAutocompleteChange();
 
-        const cuisinesData = updatedOccasions?.map((item) => {
+        const cuisinesData = cuisinesList?.map((item) => {
             return item.children.map((childItem) => {
                 return {
                     cuisine_id: parseInt(childItem?.id),
@@ -187,7 +207,7 @@ const Cuisines = () => {
                                     {item.children.some(childItem => childItem.selected === "1") ? (
                                         <>
                                             <h6 className='top-header-desc'> {item?.name}</h6>
-                                            <Grid container spacing={2} className='mt-1 mb-3' marginLeft={{marginLeft: '40px'}}>
+                                            <Grid container spacing={2} className='mt-1 mb-3' marginLeft={{ marginLeft: '40px' }}>
                                                 {item.children.filter(childItem => childItem.selected === "1").map((childItem) => (
                                                     <Stack direction="row" flexWrap="wrap" spacing={2} key={childItem.id}>
                                                         <Button variant="contained" className="cuisines-list-btn mb-2 me-2"> {childItem?.name} </Button>
@@ -232,8 +252,8 @@ const Cuisines = () => {
                     </IconButton>
                     <DialogContent dividers>
                         <Grid container spacing={2}>
-                            {console.log(cuisinesList, "cuisinesList")}
                             {cuisinesList?.map((item) => (
+                                item.children.length > 0 && (
                                 <Grid item xs={12} sm={6} md={6} lg={6} xl={6} key={item.id}>
                                     <Autocomplete
                                         multiple
@@ -242,11 +262,14 @@ const Cuisines = () => {
                                         disableCloseOnSelect
                                         getOptionLabel={(option) => option}
                                         renderOption={(props, option, { selected }) => (
-                                            <li {...props} style={{ fontSize: '10px' }}>
+                                            <li {...props} style={{ fontSize: '10px' }} onClick={(event) => handleCheckboxToggle(event, option, item)}>
                                                 <Checkbox
                                                     style={{ marginRight: 8, fontSize: '10px' }}
-                                                    checked={selected}
-                                                    onChange={() => { }} // This will allow toggling
+                                                    checked={
+                                                        option === 'All'
+                                                            ? item.children.every(child => child.selected === "1")
+                                                            : item.children.some(child => child.name === option && child.selected === "1")
+                                                    }
                                                 />
                                                 {option}
                                             </li>
@@ -269,6 +292,7 @@ const Cuisines = () => {
                                         value={item.children.filter(child => child.selected === "1").map(child => child.name)}
                                     />
                                 </Grid>
+                                )
                             ))}
                         </Grid>
                     </DialogContent>
