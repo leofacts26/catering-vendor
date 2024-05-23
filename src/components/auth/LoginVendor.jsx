@@ -293,7 +293,7 @@ const LoginVendor = () => {
                                 <div className="mt-3">
                                     <Button type='submit' variant="contained" className='ct-box-btn-catering'
                                         style={{ textTransform: 'capitalize', margin: '0px auto', display: 'block' }}>
-                                        {loading ? 'Loading...' : 'Get Otp'}
+                                        {loading ? 'Loading...' : 'Get OTP'}
                                     </Button>
                                 </div>
                                 {/* </Link> */}

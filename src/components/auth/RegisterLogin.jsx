@@ -260,7 +260,7 @@ const RegisterLogin = () => {
 
                                                                 <div className="mt-4">
                                                                     <Button disabled={loading} variant="contained" type='submit' className='ct-box-btn-catering ' style={{ textTransform: 'capitalize', margin: '0px auto', display: 'block' }}>
-                                                                        {loading ? 'Loading...' : 'Get Otp'}
+                                                                        {loading ? 'Loading...' : 'Get OTP'}
                                                                     </Button>
                                                                 </div>
                                                             </form>

@@ -92,7 +92,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
             if (response?.data) {
                 navigate("/");
             }
-            toast.success('Login Details Sended to your mail...');
+            toast.success('Login Details have been sent to the registered Phone number');
         } catch (error) {
             setLoading(false);
             console.log(error, " error");
