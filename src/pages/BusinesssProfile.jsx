@@ -401,7 +401,7 @@ const BusinesssProfile = () => {
                     <CssTextField
                       value={values.point_of_contact_name}
                       onChange={handleChange}
-                      name="point_of_contact_name "
+                      name="point_of_contact_name"
                       variant="outlined"
                       placeholder="Enter Contact person name"
                       className='mt-0'
