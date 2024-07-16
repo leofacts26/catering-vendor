@@ -393,6 +393,11 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         formData.append('image', file);
         formData.append('action_type', 'insert')
 
+        // const formData = new FormData();
+        // formData.append('id', '');
+        // formData.append('image', event.target.files[0]);
+        // formData.append('action_type', 'insert')
+
         try {
             toast.loading('Uploading Image...');
             const response = await api.post(`${BASE_URL}/upload-vendor-menu-image`, formData, {
