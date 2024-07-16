@@ -651,8 +651,9 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         }
     }
 
-    // Aadhar card 
-    const onUploadAdharCard = async (event) => {
+    // Aadhar card Front
+
+    const onUploadFrontAadharBanner = async (event) => {
         const formData = new FormData();
         formData.append('id', '');
         formData.append('image', event.target.files[0]);
@@ -675,10 +676,11 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
+            handleBoxClose()
         }
     }
 
-    const onReUploadAdharCard = async (event) => {
+    const onReUploadFrontAadharBanner = async (event) => {
         const formData = new FormData();
         formData.append('id', parseInt(settings['vendor-enca'][0]?.id && settings['vendor-enca'][0]?.id));
         formData.append('image', event.target.files[0]);
@@ -701,13 +703,162 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
+            handleBoxClose()
+        }
+    }
+
+    const onUploadFrontAadharLogo = async (event) => {
+        dispatch(setIsLoading(true))
+
+        const { file, url } = await getCroppedImg(
+            photoURL,
+            croppedAreaPixels,
+            rotation
+        );
+
+        const formData = new FormData();
+        formData.append('id', '');
+        formData.append('image', file);
+        formData.append('action_type', 'insert')
+
+        try {
+            toast.loading('Uploading Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-enca`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleClose();
+            handleBrandClose()
+        }
+    }
+
+    const onReUploadFrontAadharLogo = async (event) => {
+        dispatch(setIsLoading(true))
+        const { file, url } = await getCroppedImg(
+            photoURL,
+            croppedAreaPixels,
+            rotation
+        );
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-enca'][0]?.id && settings['vendor-enca'][0]?.id));
+        formData.append('image', file);
+        formData.append('action_type', 'replace')
+
+        try {
+            toast.loading('Re Uploading Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-enca`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleClose();
+            handleBrandClose()
+        }
+    }
+
+    const onHandleRemoveFrontAadharLogo = async () => {
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-enca'][0]?.id && settings['vendor-enca'][0]?.id));
+        formData.append('action_type', 'remove')
+
+        dispatch(setIsLoading(true))
+        try {
+            toast.loading('Removing Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-enca`, formData, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response));
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error));
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleBrandClose()
         }
     }
 
 
 
     // Back 
-    const onUploadAdharCardBack = async (event) => {
+    // const onUploadAdharCardBack = async (event) => {
+    //     const formData = new FormData();
+    //     formData.append('id', '');
+    //     formData.append('image', event.target.files[0]);
+    //     formData.append('action_type', 'insert')
+
+    //     dispatch(setIsLoading(true))
+    //     try {
+    //         toast.loading('Uploading Image...');
+    //         const response = await api.post(`${BASE_URL}/upload-vendor-enca-back`, formData, {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    //         getVendorSettingsImages();
+    //         toast.success(successToast(response))
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error(datavalidationerror(error))
+    //     } finally {
+    //         dispatch(setIsLoading(false))
+    //         toast.dismiss();
+    //     }
+    // }
+
+    // const onReUploadAdharCardBack = async (event) => {
+    //     const formData = new FormData();
+    //     formData.append('id', parseInt(settings['vendor-enca-back'][0]?.id && settings['vendor-enca-back'][0]?.id));
+    //     formData.append('image', event.target.files[0]);
+    //     formData.append('action_type', 'replace')
+
+    //     dispatch(setIsLoading(true))
+    //     try {
+    //         toast.loading('Uploading Image...');
+    //         const response = await api.post(`${BASE_URL}/upload-vendor-enca-back`, formData, {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    //         getVendorSettingsImages();
+    //         toast.success(successToast(response))
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error(datavalidationerror(error))
+    //     } finally {
+    //         dispatch(setIsLoading(false))
+    //         toast.dismiss();
+    //     }
+    // }
+
+
+
+
+    const onUploadBackAadharBanner = async (event) => {
         const formData = new FormData();
         formData.append('id', '');
         formData.append('image', event.target.files[0]);
@@ -730,10 +881,11 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
+            handleBoxClose()
         }
     }
 
-    const onReUploadAdharCardBack = async (event) => {
+    const onReUploadBackAadharBanner = async (event) => {
         const formData = new FormData();
         formData.append('id', parseInt(settings['vendor-enca-back'][0]?.id && settings['vendor-enca-back'][0]?.id));
         formData.append('image', event.target.files[0]);
@@ -756,8 +908,106 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
+            handleBoxClose()
         }
     }
+
+    const onUploadBackAadharLogo = async (event) => {
+        dispatch(setIsLoading(true))
+
+        const { file, url } = await getCroppedImg(
+            photoURL,
+            croppedAreaPixels,
+            rotation
+        );
+
+        const formData = new FormData();
+        formData.append('id', '');
+        formData.append('image', file);
+        formData.append('action_type', 'insert')
+
+        try {
+            toast.loading('Uploading Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-enca-back`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleClose();
+            handleBrandClose()
+        }
+    }
+
+    const onReUploadBackAadharLogo = async (event) => {
+        dispatch(setIsLoading(true))
+        const { file, url } = await getCroppedImg(
+            photoURL,
+            croppedAreaPixels,
+            rotation
+        );
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-enca-back'][0]?.id && settings['vendor-enca-back'][0]?.id));
+        formData.append('image', file);
+        formData.append('action_type', 'replace')
+
+        try {
+            toast.loading('Re Uploading Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-enca-back`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleClose();
+            handleBrandClose()
+        }
+    }
+
+    const onHandleRemoveBackAadharLogo = async () => {
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-enca-back'][0]?.id && settings['vendor-enca-back'][0]?.id));
+        formData.append('action_type', 'remove')
+
+        dispatch(setIsLoading(true))
+        try {
+            toast.loading('Removing Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-enca-back`, formData, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response));
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error));
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleBrandClose()
+        }
+    }
+
+
+
+
 
     // PAN START
     // Main Banner Photo
@@ -1110,16 +1360,21 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         onReUploadEditOtherPhotos,
         onHandleRemoveOtherPhotos,
 
-        // Aadhar Card 
-        onUploadAdharCard,
-        onReUploadAdharCard,
+        // Aadhar Card Front
+        onUploadFrontAadharBanner,
+        onReUploadFrontAadharBanner,
+        onUploadFrontAadharLogo,
+        onReUploadFrontAadharLogo,
+        onHandleRemoveFrontAadharLogo,
 
-        onUploadAdharCardBack,
-        onReUploadAdharCardBack,
+        // Back 
+        onUploadBackAadharBanner,
+        onReUploadBackAadharBanner,
+        onUploadBackAadharLogo,
+        onReUploadBackAadharLogo,
+        onHandleRemoveBackAadharLogo,
 
         // Pan card
-        // onUploadPancard,
-        // onReUploadPancard,
         onUploadPanBanner,
         onReUploadPanBanner,
         onUploadPanLogo,
