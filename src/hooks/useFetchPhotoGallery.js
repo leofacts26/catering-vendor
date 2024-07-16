@@ -704,6 +704,9 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         }
     }
 
+
+
+    // Back 
     const onUploadAdharCardBack = async (event) => {
         const formData = new FormData();
         formData.append('id', '');
@@ -756,52 +759,15 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         }
     }
 
-
-
-
-    // Pan Card 
-    const onUploadPancard = async (event) => {
-        dispatch(setIsLoading(true))
-        const { file, url } = await getCroppedImg(
-            photoURL,
-            croppedAreaPixels,
-            rotation
-        );
+    // PAN START
+    // Main Banner Photo
+    const onUploadPanBanner = async (event) => {
         const formData = new FormData();
         formData.append('id', '');
-        formData.append('image', file);
+        formData.append('image', event.target.files[0]);
         formData.append('action_type', 'insert')
-        try {
-            toast.loading('Removing Image...');
-            const response = await api.post(`${BASE_URL}/upload-vendor-encp`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            getVendorSettingsImages();
-            toast.success(successToast(response))
-        } catch (error) {
-            console.log(error);
-            toast.error(datavalidationerror(error))
-        } finally {
-            dispatch(setIsLoading(false))
-            toast.dismiss();
-            handleClose();
-        }
-    }
 
-    const onReUploadPancard = async (event) => {
         dispatch(setIsLoading(true))
-        const { file, url } = await getSettingsCroppedImg(
-            photoURL,
-            croppedAreaPixels,
-            rotation
-        );
-        const formData = new FormData();
-        formData.append('id', parseInt(settings['vendor-encp'][0]?.id && settings['vendor-encp'][0]?.id));
-        formData.append('image', file);
-        formData.append('action_type', 'replace')
         try {
             toast.loading('Uploading Image...');
             const response = await api.post(`${BASE_URL}/upload-vendor-encp`, formData, {
@@ -818,77 +784,129 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
-            handleClose();
+            handleBoxClose()
         }
     }
 
+    const onReUploadPanBanner = async (event) => {
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-encp'][0]?.id && settings['vendor-encp'][0]?.id));
+        formData.append('image', event.target.files[0]);
+        formData.append('action_type', 'replace')
 
-    // fssai Licence
-    // const onUploadFssai = async (event) => {
-    //     dispatch(setIsLoading(true))
-    //     const { file, url } = await getCroppedImg(
-    //         photoURL,
-    //         croppedAreaPixels,
-    //         rotation
-    //     );
-    //     const formData = new FormData();
-    //     formData.append('id', '');
-    //     formData.append('image', file);
-    //     formData.append('action_type', 'insert')
-    //     try {
-    //         toast.loading('Uploading Image...');
-    //         const response = await api.post(`${BASE_URL}/upload-vendor-encf`, formData, {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data',
-    //                 Authorization: `Bearer ${accessToken}`,
-    //             },
-    //         });
-    //         getVendorSettingsImages();
-    //         toast.success(successToast(response))
-    //     } catch (error) {
-    //         console.log(error);
-    //         toast.error(datavalidationerror(error))
-    //     } finally {
-    //         dispatch(setIsLoading(false))
-    //         toast.dismiss();
-    //         handleClose();
-    //     }
-    // }
+        dispatch(setIsLoading(true))
+        try {
+            toast.loading('Uploading Image...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encp`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleBoxClose()
+        }
+    }
 
-    // const onReUploadFssai = async (event) => {
-    //     dispatch(setIsLoading(true))
-    //     const { file, url } = await getSettingsCroppedImg(
-    //         photoURL,
-    //         croppedAreaPixels,
-    //         rotation
-    //     );
-    //     const formData = new FormData();
-    //     formData.append('id', parseInt(settings['vendor-encf'][0]?.id && settings['vendor-encf'][0]?.id));
-    //     formData.append('image', file);
-    //     formData.append('action_type', 'replace')
+    const onUploadPanLogo = async (event) => {
+        dispatch(setIsLoading(true))
 
-    //     try {
-    //         toast.loading('Uploading Image...');
-    //         const response = await api.post(`${BASE_URL}/upload-vendor-encf`, formData, {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data',
-    //                 Authorization: `Bearer ${accessToken}`,
-    //             },
-    //         });
-    //         getVendorSettingsImages();
-    //         toast.success(successToast(response))
-    //     } catch (error) {
-    //         console.log(error);
-    //         toast.error(datavalidationerror(error))
-    //     } finally {
-    //         dispatch(setIsLoading(false))
-    //         toast.dismiss();
-    //         handleClose();
-    //     }
-    // }
+        const { file, url } = await getCroppedImg(
+            photoURL,
+            croppedAreaPixels,
+            rotation
+        );
 
+        const formData = new FormData();
+        formData.append('id', '');
+        formData.append('image', file);
+        formData.append('action_type', 'insert')
 
+        try {
+            toast.loading('Uploading Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encp`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleClose();
+            handleBrandClose()
+        }
+    }
 
+    const onReUploadPanLogo = async (event) => {
+        dispatch(setIsLoading(true))
+        const { file, url } = await getCroppedImg(
+            photoURL,
+            croppedAreaPixels,
+            rotation
+        );
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-encp'][0]?.id && settings['vendor-encp'][0]?.id));
+        formData.append('image', file);
+        formData.append('action_type', 'replace')
+
+        try {
+            toast.loading('Re Uploading Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encp`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleClose();
+            handleBrandClose()
+        }
+    }
+
+    const onHandleRemovePanLogo = async () => {
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-encp'][0]?.id && settings['vendor-encp'][0]?.id));
+        formData.append('action_type', 'remove')
+
+        dispatch(setIsLoading(true))
+        try {
+            toast.loading('Removing Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encp`, formData, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response));
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error));
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleBrandClose()
+        }
+    }
 
 
     // FSSAI START 
@@ -946,7 +964,6 @@ const useFetchPhotoGallery = (handleBoxClose) => {
             handleBoxClose()
         }
     }
-
 
     const onUploadFssaiLogo = async (event) => {
         dispatch(setIsLoading(true))
@@ -1101,12 +1118,15 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         onReUploadAdharCardBack,
 
         // Pan card
-        onUploadPancard,
-        onReUploadPancard,
+        // onUploadPancard,
+        // onReUploadPancard,
+        onUploadPanBanner,
+        onReUploadPanBanner,
+        onUploadPanLogo,
+        onReUploadPanLogo,
+        onHandleRemovePanLogo,
 
         // Fssai Licence
-        // onUploadFssai,
-        // onReUploadFssai,
         onUploadFssaiBanner,
         onReUploadFssaiBanner,
         onUploadFssaiLogo,

@@ -24,6 +24,11 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -36,6 +41,14 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 const PanCard = () => {
     const dispatch = useDispatch()
     const { isLoading } = useSelector((state) => state.user);
+
+    const [openBox, setOpenBox] = useState(false);
+    const handleClickBoxOpen = () => {
+        setOpenBox(true);
+    };
+    const handleBoxClose = () => {
+        setOpenBox(false);
+    };
 
     const {
         settings,
@@ -51,20 +64,26 @@ const PanCard = () => {
         BrandDeleteopen,
         open,
 
-        // Fssai Photo
-        // onUploadPancard,
-        // onReUploadFssai
-
         // Pan card
-        onUploadPancard,
-        onReUploadPancard,
+        onUploadPanBanner,
+        onReUploadPanBanner,
+        onUploadPanLogo,
+        onReUploadPanLogo,
+        onHandleRemovePanLogo,
+    } = useFetchPhotoGallery(handleBoxClose)
 
-    } = useFetchPhotoGallery()
+    // crop 
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+
+
+
 
     // console.log(settings['vendor-encp']?.length && settings['vendor-encp']?.length > 0, "settings");
 
     // handleChange fn 
     const handleChange = (event) => {
+        handleBoxClose()
         handleClickOpen()
         const file = event.target.files[0];
         const formData = new FormData();
@@ -80,9 +99,9 @@ const PanCard = () => {
         try {
             if (photoURL) {
                 if (settings['vendor-encp']?.length && settings['vendor-encp']?.length > 0) {
-                    await onReUploadPancard();
+                    await onReUploadPanLogo();
                 } else {
-                    await onUploadPancard();
+                    await onUploadPanLogo();
                 }
             } else {
                 console.log("No photo URL to submit.");
@@ -92,9 +111,6 @@ const PanCard = () => {
         }
     };
 
-    // crop 
-    const [crop, setCrop] = useState({ x: 0, y: 0 });
-    const [zoom, setZoom] = useState(1);
 
     // console.log(crop, "crop");
     // console.log(zoom, "zoom");
@@ -157,21 +173,18 @@ const PanCard = () => {
 
                         <p className="settings-small mt-1">Upload PAN Card</p>
 
-                        <div className="mt-3 text-center">
-                            <input
-                                accept="image/*"
-                                id="vendor-encp"
-                                multiple
-                                type="file"
-                                style={{ display: 'none' }}
-                                onChange={handleChange}
-                            />
-                            <label htmlFor="vendor-encp">
-                                <Button variant="contained" component="span" className="cuisines-list-white-btn" disabled={isLoading}>
-                                    {settings['vendor-encp']?.length && settings['vendor-encp']?.length > 0 ? 'Re Upload' : 'Upload'}
-                                </Button>
-                            </label>
-                        </div>
+                        <Stack direction="row" justifyContent="center">
+                            <Button variant="contained" component="span" className="cuisines-list-white-btn" onClick={handleClickBoxOpen}>
+                                Upload
+                            </Button>
+
+                            <Button onClick={handleBrandClickOpen} variant="contained" component="span" className="cuisines-list-white-btn"
+                                disabled={isLoading || !(settings['vendor-encp']?.length && settings['vendor-encp']?.length > 0)}
+                            >
+                                Delete
+                            </Button>
+                        </Stack>
+
 
                     </AccordionDetails>
                 </Accordion>
@@ -264,11 +277,103 @@ const PanCard = () => {
                 </form>
             </BootstrapDialog>
 
+
+
             {/* Delete Image Modal */}
-            {/* <DeleteModal
+            <DeleteModal
                 DeleteModalopen={BrandDeleteopen}
                 handleDeleteModalClose={handleBrandClose}
-                onHandleRemoveModalLogo={onHandleRemoveBrandLogo} /> */}
+                onHandleRemoveModalLogo={onHandleRemovePanLogo} />
+
+
+            {/* open Box Modal  */}
+            <React.Fragment>
+                <BootstrapDialog
+                    onClose={handleBoxClose}
+                    aria-labelledby="customized-dialog-title"
+                    open={openBox}
+                >
+                    <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+                        Upload Image
+                    </DialogTitle>
+                    <IconButton
+                        aria-label="close"
+                        onClick={handleBoxClose}
+                        sx={{
+                            position: 'absolute',
+                            right: 8,
+                            top: 8,
+                            color: (theme) => theme.palette.grey[500],
+                        }}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                    <DialogContent dividers>
+                        <Stack direction="row" alignItems="center" justifyContent="center" spacing={2} >
+
+                            <div className="text-center">
+                                {settings['vendor-encp']?.length && settings['vendor-encp']?.length > 0 ? (
+                                    <>
+                                        <input
+                                            accept="image/*"
+                                            id="onReUploadPanBanner"
+                                            multiple
+                                            type="file"
+                                            style={{ display: 'none' }}
+                                            onChange={onReUploadPanBanner}
+                                        />
+                                        <label htmlFor="onReUploadPanBanner">
+
+                                            <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
+                                                <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" /> Re Upload Image </Button>
+                                        </label>
+                                    </>
+                                ) : (
+                                    <>
+                                        <input
+                                            accept="image/*"
+                                            id="onUploadPanBanner"
+                                            multiple
+                                            type="file"
+                                            style={{ display: 'none' }}
+                                            onChange={onUploadPanBanner}
+                                        />
+                                        <label htmlFor="onUploadPanBanner">
+                                            <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
+                                                <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" />  Upload Image </Button>
+                                        </label>
+                                    </>
+                                )}
+                            </div>
+
+                            <div> OR </div>
+
+                            <div>
+                                <input
+                                    accept="image/*"
+                                    id="mainbannerlogo"
+                                    multiple
+                                    type="file"
+                                    style={{ display: 'none' }}
+                                    onChange={handleChange}
+                                />
+                                <label htmlFor="mainbannerlogo">
+                                    <Button variant="contained" component="span" className="cuisines-list-white-btn" disabled={isLoading}>
+                                        {settings['vendor-encp']?.length && settings['vendor-encp']?.length > 0 ? 'Re Upload Crop Image' : 'Upload Crop Image'}
+                                    </Button>
+                                </label>
+                            </div>
+                        </Stack>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button autoFocus onClick={handleBoxClose}>
+                            Close
+                        </Button>
+                    </DialogActions>
+                </BootstrapDialog>
+            </React.Fragment>
+
+
 
         </>
     )
