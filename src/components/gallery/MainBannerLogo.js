@@ -158,24 +158,9 @@ const MainBannerLogo = () => {
                             }
                         </>
 
-                        {/* <input
-                            accept="image/*"
-                            id="mainbannerlogo"
-                            multiple
-                            type="file"
-                            style={{ display: 'none' }}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="mainbannerlogo">
-                            <Button variant="contained" component="span" className="cuisines-list-white-btn" disabled={isLoading}>
-                                {gallery['vendor-banner']?.length && gallery['vendor-banner']?.length > 0 ? 'Re Upload' : 'Upload'}
-                            </Button>
-                        </label> */}
-
                         <Button variant="contained" component="span" className="cuisines-list-white-btn" onClick={handleClickBoxOpen}>
                             Upload
                         </Button>
-
 
                         <Button onClick={handleBrandClickOpen} variant="contained" component="span" className="cuisines-list-white-btn"
                             disabled={isLoading || !(gallery['vendor-banner']?.length && gallery['vendor-banner']?.length > 0)}

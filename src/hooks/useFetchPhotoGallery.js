@@ -67,7 +67,7 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
-            })  
+            })
             setSettings(response?.data?.data || []);
         } catch (error) {
             console.log(error);
@@ -227,6 +227,8 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         }
     }
 
+    // ----------------------------------------------------------------START------------------------------------------------------------------------------
+
     // Main Banner Photo
     const onUploadBoxBanner = async (event) => {
         const formData = new FormData();
@@ -375,6 +377,8 @@ const useFetchPhotoGallery = (handleBoxClose) => {
             handleBrandClose()
         }
     }
+
+    // ----------------------------------------------------------------END------------------------------------------------------------------------------
 
     // Package / Menu 
     const onUploadBannerPackageMenu = async (event) => {
@@ -820,17 +824,82 @@ const useFetchPhotoGallery = (handleBoxClose) => {
 
 
     // fssai Licence
-    const onUploadFssai = async (event) => {
-        dispatch(setIsLoading(true))
-        const { file, url } = await getCroppedImg(
-            photoURL,
-            croppedAreaPixels,
-            rotation
-        );
+    // const onUploadFssai = async (event) => {
+    //     dispatch(setIsLoading(true))
+    //     const { file, url } = await getCroppedImg(
+    //         photoURL,
+    //         croppedAreaPixels,
+    //         rotation
+    //     );
+    //     const formData = new FormData();
+    //     formData.append('id', '');
+    //     formData.append('image', file);
+    //     formData.append('action_type', 'insert')
+    //     try {
+    //         toast.loading('Uploading Image...');
+    //         const response = await api.post(`${BASE_URL}/upload-vendor-encf`, formData, {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    //         getVendorSettingsImages();
+    //         toast.success(successToast(response))
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error(datavalidationerror(error))
+    //     } finally {
+    //         dispatch(setIsLoading(false))
+    //         toast.dismiss();
+    //         handleClose();
+    //     }
+    // }
+
+    // const onReUploadFssai = async (event) => {
+    //     dispatch(setIsLoading(true))
+    //     const { file, url } = await getSettingsCroppedImg(
+    //         photoURL,
+    //         croppedAreaPixels,
+    //         rotation
+    //     );
+    //     const formData = new FormData();
+    //     formData.append('id', parseInt(settings['vendor-encf'][0]?.id && settings['vendor-encf'][0]?.id));
+    //     formData.append('image', file);
+    //     formData.append('action_type', 'replace')
+
+    //     try {
+    //         toast.loading('Uploading Image...');
+    //         const response = await api.post(`${BASE_URL}/upload-vendor-encf`, formData, {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    //         getVendorSettingsImages();
+    //         toast.success(successToast(response))
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error(datavalidationerror(error))
+    //     } finally {
+    //         dispatch(setIsLoading(false))
+    //         toast.dismiss();
+    //         handleClose();
+    //     }
+    // }
+
+
+
+
+
+    // FSSAI START 
+    // Main Banner Photo
+    const onUploadFssaiBanner = async (event) => {
         const formData = new FormData();
         formData.append('id', '');
-        formData.append('image', file);
+        formData.append('image', event.target.files[0]);
         formData.append('action_type', 'insert')
+
+        dispatch(setIsLoading(true))
         try {
             toast.loading('Uploading Image...');
             const response = await api.post(`${BASE_URL}/upload-vendor-encf`, formData, {
@@ -847,13 +916,76 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
-            handleClose();
+            handleBoxClose()
         }
     }
 
-    const onReUploadFssai = async (event) => {
+    const onReUploadFssaiBanner = async (event) => {
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-encf'][0]?.id && settings['vendor-encf'][0]?.id));
+        formData.append('image', event.target.files[0]);
+        formData.append('action_type', 'replace')
+
         dispatch(setIsLoading(true))
-        const { file, url } = await getSettingsCroppedImg(
+        try {
+            toast.loading('Uploading Image...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encf`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleBoxClose()
+        }
+    }
+
+
+    const onUploadFssaiLogo = async (event) => {
+        dispatch(setIsLoading(true))
+
+        const { file, url } = await getCroppedImg(
+            photoURL,
+            croppedAreaPixels,
+            rotation
+        );
+
+        const formData = new FormData();
+        formData.append('id', '');
+        formData.append('image', file);
+        formData.append('action_type', 'insert')
+
+        try {
+            toast.loading('Uploading Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encf`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleClose();
+            handleBrandClose()
+        }
+    }
+
+    const onReUploadFssaiLogo = async (event) => {
+        dispatch(setIsLoading(true))
+        const { file, url } = await getCroppedImg(
             photoURL,
             croppedAreaPixels,
             rotation
@@ -864,7 +996,7 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         formData.append('action_type', 'replace')
 
         try {
-            toast.loading('Uploading Image...');
+            toast.loading('Re Uploading Banner logo...');
             const response = await api.post(`${BASE_URL}/upload-vendor-encf`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -880,9 +1012,34 @@ const useFetchPhotoGallery = (handleBoxClose) => {
             dispatch(setIsLoading(false))
             toast.dismiss();
             handleClose();
+            handleBrandClose()
         }
     }
 
+    const onHandleRemoveFssaiLogo = async () => {
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-encf'][0]?.id && settings['vendor-encf'][0]?.id));
+        formData.append('action_type', 'remove')
+
+        dispatch(setIsLoading(true))
+        try {
+            toast.loading('Removing Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encf`, formData, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response));
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error));
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleBrandClose()
+        }
+    }
 
 
 
@@ -948,8 +1105,13 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         onReUploadPancard,
 
         // Fssai Licence
-        onUploadFssai,
-        onReUploadFssai,
+        // onUploadFssai,
+        // onReUploadFssai,
+        onUploadFssaiBanner,
+        onReUploadFssaiBanner,
+        onUploadFssaiLogo,
+        onReUploadFssaiLogo,
+        onHandleRemoveFssaiLogo,
 
         getVendorSettingsImages
 
