@@ -222,7 +222,7 @@ const PhotoGallery = () => {
           <MainBannerLogo />
 
           {/* Package / Menu Card Photos  */}
-          {/* <div className="mt-2">
+          <div className="mt-2">
             <p className='cuisines-title text-center'>Package / Menu Card Photos</p>
             <Divider
               className='mt-2 mb-4'
@@ -298,8 +298,8 @@ const PhotoGallery = () => {
               </>
 
             </Stack>
-          </div> */}
-          <PackageMenuCards />
+          </div>
+          {/* <PackageMenuCards /> */}
 
           {/* Service Photos start */}
           {/* <div className="mt-2">

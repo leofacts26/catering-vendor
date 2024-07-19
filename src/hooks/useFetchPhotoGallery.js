@@ -383,20 +383,20 @@ const useFetchPhotoGallery = (handleBoxClose) => {
     // Package / Menu 
     const onUploadBannerPackageMenu = async (event) => {
         dispatch(setIsLoading(true))
-        const { file, url } = await getCroppedImg(
-            photoURL,
-            croppedAreaPixels,
-            rotation
-        );
-        const formData = new FormData();
-        formData.append('id', '');
-        formData.append('image', file);
-        formData.append('action_type', 'insert')
-
+        // const { file, url } = await getCroppedImg(
+        //     photoURL,
+        //     croppedAreaPixels,
+        //     rotation
+        // );
         // const formData = new FormData();
         // formData.append('id', '');
-        // formData.append('image', event.target.files[0]);
+        // formData.append('image', file);
         // formData.append('action_type', 'insert')
+
+        const formData = new FormData();
+        formData.append('id', '');
+        formData.append('image', event.target.files[0]);
+        formData.append('action_type', 'insert')
 
         try {
             toast.loading('Uploading Image...');
