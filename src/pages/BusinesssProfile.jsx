@@ -90,34 +90,20 @@ const BusinesssProfile = () => {
   const { accessToken } = useSelector((state) => state.user)
   const { vendor_id } = useSelector((state) => state?.user?.vendorId)
   const [loading, setLoading] = useState(false)
-  // const [date, setDate] = useState(null)
   const [data, updateBusinessProfile, fetchBusinessProfile] = useBusinessProfile('/get-vendor-business-profile', accessToken)
-  // const [value, setValue] = useState([
-  //   dayjs(''),
-  //   dayjs(''),
-  // ]);
-  // const formattedValues = value?.map(date => date?.format('YYYY-MM-DD HH:mm:ss'));
-  // const working_days_hours_time = formattedValues?.join(' - ');
 
-  // console.log(value, "value 000");
-  // console.log(data?.working_days_hours, "working_days_hours");
-
-  // console.log(start[0], "start, end");
 
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  const [formattedStartTime, setFormattedStartTime] = useState('');
-  const [formattedEndTime, setFormattedEndTime] = useState('');
+  // const [formattedStartTime, setFormattedStartTime] = useState('');
+  // const [formattedEndTime, setFormattedEndTime] = useState('');
 
-
-  console.log(formattedStartTime, formattedEndTime, "formattedStartTime, formattedEndTime");
-  console.log(startTime, endTime, "startTime, endTime");
-
-  const formatTime = (time) => {
-    return time ? dayjs(time).format('hh:mm:ss A') : null;
-  };
+  // const formatTime = (time) => {
+  //   return time ? dayjs(time).format('hh:mm:ss A') : null;
+  // };
 
 
   useEffect(() => {
@@ -157,19 +143,19 @@ const BusinesssProfile = () => {
   const schema = Yup.object().shape({
     vendor_service_name: Yup.string().required('Name is required.'),
     point_of_contact_name: Yup.string().required('Contact person name is required.'),
-    // working_days_hours: Yup.string().required('working days hours is required.'),
-    // total_staffs_approx: Yup.string().required('total staffs approx is required.'),
-    // about_description: Yup.string().required('about description is required.'),
     business_phone_number: Yup.string()
       .required('Business phone number is required')
-    // .matches(/^[0-9]{10}$/, 'Business phone number must contain exactly 10 digits'),
-
-
-    // business_email: Yup.string().required('Business email is required.'),
-    // working_since: Yup.string()
-    //   .matches(/^\d{4}$/, 'Year must be exactly 4 digits Eg: 2024')
-    //   .required('Working since is required.'),
   });
+
+  useEffect(() => {
+    if (data) {
+      setStartDate(data?.start_day);
+      setEndDate(data?.end_day);
+      setStartTime(data.start_time ? dayjs(data.start_time, 'HH:mm:ss') : null);
+      setEndTime(data.end_time ? dayjs(data.end_time, 'HH:mm:ss') : null);
+    }
+  }, [data])
+  console.log(data, "startTime, endTime" );
 
   const handleSubmit = async (values, resetForm) => {
     console.log(values, "values");
@@ -184,10 +170,15 @@ const BusinesssProfile = () => {
       if (values.business_phone_number) {
         values.business_phone_number = formattedBusinessPhoneNumber;
       }
+
+      const formattedStartTime = startTime ? dayjs(startTime).format('hh:mm:ss A') : '';
+      const formattedEndTime = endTime ? dayjs(endTime).format('hh:mm:ss A') : '';
+
+
       const data = {
         ...values,
-        working_hours_start:startTime || formattedStartTime,
-        working_hours_end: endTime || formattedEndTime,
+        working_hours_start: formattedStartTime || startTime,
+        working_hours_end: formattedEndTime || endTime,
         working_days_start: startDate,
         working_days_end: endDate,
       }
@@ -202,54 +193,89 @@ const BusinesssProfile = () => {
   }
 
 
-  useEffect(() => {
-    if (data) {
-      setStartDate(data?.start_day);
-      setEndDate(data?.end_day);
-  
-      // Helper function to parse and format time
-      const formatTime = (timeString) => {
-        const parsedTime = parse(timeString, 'hh:mm:ss a', new Date());
-        if (isValid(parsedTime)) {
-          return format(parsedTime, 'hh:mm:ss a');
-        } else {
-          console.error('Invalid time format', timeString);
-          return '';
-        }
-      };
-  
-      // Set the original times and format them
-      if (data?.start_time) {
-        setStartTime(data?.start_time);
-        setFormattedStartTime(formatTime(data?.start_time));
-      } else {
-        setStartTime('');
-        setFormattedStartTime('');
-      }
-  
-      if (data?.end_time) {
-        setEndTime(data?.end_time);
-        setFormattedEndTime(formatTime(data?.end_time));
-      } else {
-        setEndTime('');
-        setFormattedEndTime('');
-      }
-    }
-  }, [data])
+  // useEffect(() => {
+  //   if (data) {
+  //     setStartDate(data?.start_day);
+  //     setEndDate(data?.end_day);
+
+  //     // Helper function to parse and format time
+  //     const formatTime = (timeString) => {
+  //       const parsedTime = parse(timeString, 'hh:mm:ss a', new Date());
+  //       if (isValid(parsedTime)) {
+  //         return format(parsedTime, 'hh:mm:ss a');
+  //       } else {
+  //         console.error('Invalid time format', timeString);
+  //         return '';
+  //       }
+  //     };
+
+  //     // Set the original times and format them
+  //     if (data?.start_time) {
+  //       setStartTime(data?.start_time);
+  //       setFormattedStartTime(formatTime(data?.start_time));
+  //     } else {
+  //       setStartTime('');
+  //       setFormattedStartTime('');
+  //     }
+
+  //     if (data?.end_time) {
+  //       setEndTime(data?.end_time);
+  //       setFormattedEndTime(formatTime(data?.end_time));
+  //     } else {
+  //       setEndTime('');
+  //       setFormattedEndTime('');
+  //     }
+  //   }
+  // }, [data])
+
 
 
 
 
   // location start
-  // const [locationValues, setLocationValues] = useState(initialState)
   const [locationPlaceId, setLocationPlaceId] = useState(null)
   const [manualLocation, setManualLocation] = useState("")
   const [selectedLocation, setSelectedLocation] = useState(null);
   // location end 
 
-  // console.log(locationPlaceId, "locationPlaceId");
-  // console.log(selectedLocation, "selectedLocation");
-  // console.log(values, "values");
+
+  // const handleStartTimeChange = (newValue, setTime) => {
+  //   if (newValue && newValue.isValid()) { // Check if newValue exists and is valid
+  //     const formattedTime = formatTime(newValue);
+  //     setTime(formattedTime);
+  //   } else {
+  //     setTime(null); // Set null if newValue is invalid
+  //   }
+  // };
+
+  // const handleEndTimeChange = (newValue, setTime) => {
+  //   if (newValue && newValue.isValid()) { // Check if newValue exists and is valid
+  //     const formattedTime = formatTime(newValue);
+  //     setTime(formattedTime);
+  //   } else {
+  //     setTime(null); // Set null if newValue is invalid
+  //   }
+  // };
+
+  const handleStartChange = (event) => {
+    setStartDate(event.target.value);
+  };
+
+  const handleEndChange = (event) => {
+    setEndDate(event.target.value);
+  };
+
+  const handleStartTimeChange = (newValue) => {
+    setStartTime(newValue);
+  };
+
+  const handleEndTimeChange = (newValue) => {
+    setEndTime(newValue);
+  };
+
+  // console.log({ startDate, startTime, endDate, endTime }, "startDate, startTime, endDate, endTime");
+  // console.log({ formattedEndTime, formattedStartTime }, "formattedEndTime, formattedStartTime");
+
 
   // loc start
   const {
@@ -316,33 +342,7 @@ const BusinesssProfile = () => {
   // loc end 
 
 
-  const handleStartTimeChange = (newValue, setTime) => {
-    if (newValue && newValue.isValid()) { // Check if newValue exists and is valid
-      const formattedTime = formatTime(newValue);
-      setTime(formattedTime);
-    } else {
-      setTime(null); // Set null if newValue is invalid
-    }
-  };
 
-  const handleEndTimeChange = (newValue, setTime) => {
-    if (newValue && newValue.isValid()) { // Check if newValue exists and is valid
-      const formattedTime = formatTime(newValue);
-      setTime(formattedTime);
-    } else {
-      setTime(null); // Set null if newValue is invalid
-    }
-  };
-
-  const handleStartChange = (event) => {
-    setStartDate(event.target.value);
-  };
-
-  const handleEndChange = (event) => {
-    setEndDate(event.target.value);
-  };
-
-  // console.log({ startDate, startTime, endDate, endTime }, "startDate, startTime, endDate, endTime");
 
 
   return (
@@ -456,7 +456,7 @@ const BusinesssProfile = () => {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <TimePicker
                             label="Select Time"
-                            value={startTime ? dayjs(startTime, 'hh:mm:ss A') : null} // Parse startTime if it exists
+                            value={startTime ? dayjs(startTime, 'hh:mm:ss A') : null}
                             onChange={(newValue) => {
                               handleStartTimeChange(newValue, setStartTime);
                             }}
@@ -495,7 +495,7 @@ const BusinesssProfile = () => {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <TimePicker
                             label="Select Time"
-                            value={endTime ? dayjs(endTime, 'hh:mm:ss A') : null} // Parse startTime if it exists
+                            value={endTime ? dayjs(endTime, 'hh:mm:ss A') : null}
                             onChange={(newValue) => {
                               handleEndTimeChange(newValue, setEndTime);
                             }}
@@ -506,6 +506,7 @@ const BusinesssProfile = () => {
                           />
                         </LocalizationProvider>
                       </Box>
+
                     </Stack>
                   </div>
                 </Grid>
