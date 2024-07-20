@@ -335,10 +335,10 @@ const PhotoGallery = () => {
                                 multiple
                                 type="file"
                                 style={{ display: 'none' }}
-                                onChange={(e) => onReUploadEditService(e, item)}
+                                onChange={(e) => onReUploadEditService(e)}
                               />
                               <label htmlFor="onReUploadEditService">
-                                <span variant="contained" component="span" disabled={isLoading}>
+                                <span variant="contained" component="span" disabled={isLoading} onClick={()=> dispatch(setMultiImageDelete(item))}>
                                   {<EditIcon className="pg-img-icon" />}
                                 </span>
                               </label>
@@ -385,7 +385,7 @@ const PhotoGallery = () => {
           {/* <ServicePhotos /> */}
 
           {/* Other Photos */}
-          {/* <div className="mt-2">
+        <div className="mt-2">
             <p className='cuisines-title text-center'>Other Photos</p>
             <Divider
               className='mt-2 mb-4'
@@ -416,7 +416,7 @@ const PhotoGallery = () => {
                                 onChange={(e) => onReUploadEditOtherPhotos(e, item)}
                               />
                               <label htmlFor="onReUploadEditOtherPhotos">
-                                <span variant="contained" component="span" disabled={isLoading}>
+                                <span variant="contained" component="span" disabled={isLoading} onClick={()=> dispatch(setMultiImageDelete(item))}>
                                   {<EditIcon className="pg-img-icon" />}
                                 </span>
                               </label>
@@ -459,8 +459,8 @@ const PhotoGallery = () => {
               </>
 
             </Stack>
-          </div> */}
-          <OtherPhotos />
+          </div> 
+          {/* <OtherPhotos /> */}
 
 
         </div>

@@ -479,17 +479,102 @@ const useFetchPhotoGallery = (handleBoxClose) => {
     }
 
     // other service 
+    // const onUploadService = async (event) => {
+    //     dispatch(setIsLoading(true))
+    //     const { file, url } = await getCroppedImg(
+    //         photoURL,
+    //         croppedAreaPixels,
+    //         rotation
+    //     );
+    //     const formData = new FormData();
+    //     formData.append('id', '');
+    //     formData.append('image', file);
+    //     formData.append('action_type', 'insert')
+    //     try {
+    //         toast.loading('Uploading Image...');
+    //         const response = await api.post(`${BASE_URL}/upload-vendor-service-image`, formData, {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    //         getVendorImages();
+    //         toast.success(successToast(response))
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error(datavalidationerror(error))
+    //     } finally {
+    //         dispatch(setIsLoading(false))
+    //         toast.dismiss();
+    //         handleClose();
+    //         handleBrandClose()
+    //     }
+    // }
+
+    // const onReUploadEditService = async () => {
+    //     dispatch(setIsLoading(true))
+    //     const { file, url } = await getCroppedImg(
+    //         photoURL,
+    //         croppedAreaPixels,
+    //         rotation
+    //     );
+    //     const formData = new FormData();
+    //     formData.append('id', parseInt(multiImageDelete?.id && multiImageDelete?.id));
+    //     formData.append('image', file);
+    //     formData.append('action_type', 'replace')
+    //     try {
+    //         toast.loading('Uploading Image...');
+    //         const response = await api.post(`${BASE_URL}/upload-vendor-service-image`, formData, {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    //         getVendorImages();
+    //         toast.success(successToast(response))
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error(datavalidationerror(error))
+    //     } finally {
+    //         dispatch(setIsLoading(false))
+    //         toast.dismiss();
+    //         handleClose();
+    //         handleBrandClose()
+    //     }
+    // }
+
+    // const onHandleRemoveService = async () => {
+    //     const formData = new FormData();
+    //     formData.append('id', parseInt(multiImageDelete?.id && multiImageDelete?.id));
+    //     formData.append('action_type', 'remove')
+
+    //     dispatch(setIsLoading(true))
+    //     try {
+    //         toast.loading('Removing Image...');
+    //         const response = await api.post(`${BASE_URL}/upload-vendor-service-image`, formData, {
+    //             headers: {
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    //         toast.success(successToast(response));
+    //         getVendorImages();
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error(datavalidationerror(error));
+    //     } finally {
+    //         dispatch(setIsLoading(false))
+    //         toast.dismiss();
+    //         handleBrandClose()
+    //     }
+    // }
+
     const onUploadService = async (event) => {
         dispatch(setIsLoading(true))
-        const { file, url } = await getCroppedImg(
-            photoURL,
-            croppedAreaPixels,
-            rotation
-        );
         const formData = new FormData();
         formData.append('id', '');
-        formData.append('image', file);
+        formData.append('image', event.target.files[0]);
         formData.append('action_type', 'insert')
+
         try {
             toast.loading('Uploading Image...');
             const response = await api.post(`${BASE_URL}/upload-vendor-service-image`, formData, {
@@ -511,17 +596,13 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         }
     }
 
-    const onReUploadEditService = async () => {
+    const onReUploadEditService = async (event) => {
         dispatch(setIsLoading(true))
-        const { file, url } = await getCroppedImg(
-            photoURL,
-            croppedAreaPixels,
-            rotation
-        );
         const formData = new FormData();
         formData.append('id', parseInt(multiImageDelete?.id && multiImageDelete?.id));
-        formData.append('image', file);
+        formData.append('image', event.target.files[0]);
         formData.append('action_type', 'replace')
+
         try {
             toast.loading('Uploading Image...');
             const response = await api.post(`${BASE_URL}/upload-vendor-service-image`, formData, {
@@ -543,9 +624,9 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         }
     }
 
-    const onHandleRemoveService = async () => {
+    const onHandleRemoveService = async (item) => {
         const formData = new FormData();
-        formData.append('id', parseInt(multiImageDelete?.id && multiImageDelete?.id));
+        formData.append('id', parseInt(item?.id && item?.id));
         formData.append('action_type', 'remove')
 
         dispatch(setIsLoading(true))
@@ -568,18 +649,104 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         }
     }
 
+
     // other photos 
-    const onUploadOtherPhotos = async () => {
+    // const onUploadOtherPhotos = async () => {
+    //     dispatch(setIsLoading(true))
+    //     const { file, url } = await getCroppedImg(
+    //         photoURL,
+    //         croppedAreaPixels,
+    //         rotation
+    //     );
+    //     const formData = new FormData();
+    //     formData.append('id', '');
+    //     formData.append('image', file);
+    //     formData.append('action_type', 'insert')
+    //     try {
+    //         toast.loading('Uploading Image...');
+    //         const response = await api.post(`${BASE_URL}/upload-vendor-other-image`, formData, {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    //         getVendorImages();
+    //         toast.success(successToast(response))
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error(datavalidationerror(error))
+    //     } finally {
+    //         dispatch(setIsLoading(false))
+    //         toast.dismiss();
+    //         handleClose();
+    //         handleBrandClose()
+    //     }
+    // }
+
+    // const onReUploadEditOtherPhotos = async () => {
+    //     dispatch(setIsLoading(true))
+    //     const { file, url } = await getCroppedImg(
+    //         photoURL,
+    //         croppedAreaPixels,
+    //         rotation
+    //     );
+    //     const formData = new FormData();
+    //     formData.append('id', parseInt(multiImageDelete?.id && multiImageDelete?.id));
+    //     formData.append('image', file);
+    //     formData.append('action_type', 'replace')
+    //     try {
+    //         toast.loading('Uploading Image...');
+    //         const response = await api.post(`${BASE_URL}/upload-vendor-other-image`, formData, {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    //         getVendorImages();
+    //         toast.success(successToast(response))
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error(datavalidationerror(error))
+    //     } finally {
+    //         dispatch(setIsLoading(false))
+    //         toast.dismiss();
+    //         handleClose();
+    //         handleBrandClose()
+    //     }
+    // }
+
+    // const onHandleRemoveOtherPhotos = async () => {
+    //     const formData = new FormData();
+    //     formData.append('id', parseInt(multiImageDelete?.id && multiImageDelete?.id));
+    //     formData.append('action_type', 'remove')
+
+    //     dispatch(setIsLoading(true))
+    //     try {
+    //         toast.loading('Removing Image...');
+    //         const response = await api.post(`${BASE_URL}/upload-vendor-other-image`, formData, {
+    //             headers: {
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    //         toast.success(successToast(response));
+    //         getVendorImages();
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error(datavalidationerror(error));
+    //     } finally {
+    //         dispatch(setIsLoading(false))
+    //         toast.dismiss();
+    //         handleBrandClose()
+    //     }
+    // }
+
+    const onUploadOtherPhotos = async (event) => {
         dispatch(setIsLoading(true))
-        const { file, url } = await getCroppedImg(
-            photoURL,
-            croppedAreaPixels,
-            rotation
-        );
         const formData = new FormData();
         formData.append('id', '');
-        formData.append('image', file);
+        formData.append('image', event.target.files[0]);
         formData.append('action_type', 'insert')
+
         try {
             toast.loading('Uploading Image...');
             const response = await api.post(`${BASE_URL}/upload-vendor-other-image`, formData, {
@@ -601,17 +768,13 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         }
     }
 
-    const onReUploadEditOtherPhotos = async () => {
+    const onReUploadEditOtherPhotos = async (event) => {
         dispatch(setIsLoading(true))
-        const { file, url } = await getCroppedImg(
-            photoURL,
-            croppedAreaPixels,
-            rotation
-        );
         const formData = new FormData();
         formData.append('id', parseInt(multiImageDelete?.id && multiImageDelete?.id));
-        formData.append('image', file);
+        formData.append('image', event.target.files[0]);
         formData.append('action_type', 'replace')
+
         try {
             toast.loading('Uploading Image...');
             const response = await api.post(`${BASE_URL}/upload-vendor-other-image`, formData, {
@@ -633,9 +796,9 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         }
     }
 
-    const onHandleRemoveOtherPhotos = async () => {
+    const onHandleRemoveOtherPhotos = async (item) => {
         const formData = new FormData();
-        formData.append('id', parseInt(multiImageDelete?.id && multiImageDelete?.id));
+        formData.append('id', parseInt(item?.id && item?.id));
         formData.append('action_type', 'remove')
 
         dispatch(setIsLoading(true))
@@ -659,7 +822,6 @@ const useFetchPhotoGallery = (handleBoxClose) => {
     }
 
     // Aadhar card Front
-
     const onUploadFrontAadharBanner = async (event) => {
         const formData = new FormData();
         formData.append('id', '');
