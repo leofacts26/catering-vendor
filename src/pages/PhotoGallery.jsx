@@ -6,17 +6,19 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useFetchPhotoGallery from "../hooks/useFetchPhotoGallery";
 import BrandedLogo from "../components/gallery/BrandedLogo";
 import MainBannerLogo from "../components/gallery/MainBannerLogo";
 import PackageMenuCards from "../components/gallery/PackageMenuCards";
 import ServicePhotos from "../components/gallery/ServicePhotos";
 import OtherPhotos from "../components/gallery/OtherPhotos";
-
+import { v4 as uuidv4 } from 'uuid';
+import { setMultiImageDelete } from "../features/user/userSlice";
 
 const PhotoGallery = () => {
   const { isLoading } = useSelector((state) => state.user);
+  const dispatch = useDispatch()
 
   // const [gallery, setGallery] = useState([])
   const {
@@ -240,7 +242,8 @@ const PhotoGallery = () => {
                   <>
                     {gallery['vendor-menu'].map((item, index) => (
                       <div className="pg-shadow me-2">
-                        <img key={index} src={item?.image_name[0]?.medium} alt={`Package Menu ${index}`} className="img-fluid pg-gallery-img" />
+                        <img key={uuidv4()} src={item?.image_name[0]?.medium} alt={`Package Menu ${uuidv4()}`} className="img-fluid pg-gallery-img" />
+
                         <div className="pg-img-icons">
                           <Stack direction="row" justifyContent="space-between" className="py-2 px-2">
                             <>
@@ -250,16 +253,18 @@ const PhotoGallery = () => {
                                 multiple
                                 type="file"
                                 style={{ display: 'none' }}
-                                onChange={(e) => onReUploadPackageMenu(e, item)}
+                                onChange={(e) => onReUploadPackageMenu(e)}
                               />
                               <label htmlFor="onReUploadPackageMenu">
-                                <span variant="contained" component="span" disabled={isLoading}>
+                                <span variant="contained" component="span" disabled={isLoading} onClick={()=> dispatch(setMultiImageDelete(item))}>
                                   {<EditIcon className="pg-img-icon" />}
                                 </span>
                               </label>
                             </>
 
-                            <span variant="contained" component="span" disabled={isLoading} onClick={() => onHandleRemovePackageMenu(item)}>
+                            <span variant="contained" component="span" disabled={isLoading} onClick={() => {
+                              onHandleRemovePackageMenu(item);
+                            }}>
                               {<DeleteIcon className="pg-img-icon" />}
                             </span>
                           </Stack>
@@ -302,7 +307,7 @@ const PhotoGallery = () => {
           {/* <PackageMenuCards /> */}
 
           {/* Service Photos start */}
-          {/* <div className="mt-2">
+          <div className="mt-2">
             <p className='cuisines-title text-center'>Service Photos</p>
             <Divider
               className='mt-2 mb-4'
@@ -376,8 +381,8 @@ const PhotoGallery = () => {
               </>
 
             </Stack>
-          </div> */}
-          <ServicePhotos />
+          </div>
+          {/* <ServicePhotos /> */}
 
           {/* Other Photos */}
           {/* <div className="mt-2">

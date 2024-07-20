@@ -419,17 +419,19 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         }
     }
 
-    const onReUploadPackageMenu = async () => {
+    const onReUploadPackageMenu = async (event) => {
         dispatch(setIsLoading(true))
-        const { file, url } = await getCroppedImg(
-            photoURL,
-            croppedAreaPixels,
-            rotation
-        );
+        // const { file, url } = await getCroppedImg(
+        //     photoURL,
+        //     croppedAreaPixels,
+        //     rotation
+        // );
+
         const formData = new FormData();
         formData.append('id', parseInt(multiImageDelete?.id && multiImageDelete?.id));
-        formData.append('image', file);
+        formData.append('image', event.target.files[0]);
         formData.append('action_type', 'replace')
+
         try {
             toast.loading('Uploading Image...');
             const response = await api.post(`${BASE_URL}/upload-vendor-menu-image`, formData, {
@@ -451,9 +453,9 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         }
     }
 
-    const onHandleRemovePackageMenu = async () => {
+    const onHandleRemovePackageMenu = async (item) => {
         const formData = new FormData();
-        formData.append('id', parseInt(multiImageDelete?.id && multiImageDelete?.id));
+        formData.append('id', parseInt(item?.id && item?.id));
         formData.append('action_type', 'remove')
 
         dispatch(setIsLoading(true))
