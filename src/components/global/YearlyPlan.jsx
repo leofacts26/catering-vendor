@@ -4,9 +4,94 @@ import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
+import { api, BASE_URL } from '../../api/apiConfig';
+import axios from 'axios';
 
 
 const YearlyPlan = () => {
+
+    function loadScript(src) {
+        return new Promise((resolve) => {
+            const script = document.createElement("script");
+            script.src = src;
+            script.onload = () => {
+                resolve(true);
+            };
+            script.onerror = () => {
+                resolve(false);
+            };
+            document.body.appendChild(script);
+        });
+    }
+
+
+
+
+    async function displayRazorpay() {
+        const res = await loadScript(
+            "https://checkout.razorpay.com/v1/checkout.js"
+        );
+
+        if (!res) {
+            alert("Razorpay SDK failed to load. Are you online?");
+            return;
+        }
+
+        const result = await api.post(`/rz-create-one-time-payment`, {
+            vendorId: '241',
+            subscriptionTypeId: 2,
+            subscriptionDuration: 'monthly',
+            couponCode: 'MAR0324'
+        });
+        // console.log(result, "result");
+
+        if (!result) {
+            alert("Server error. Are you online?");
+            return;
+        }
+
+        const { amount, id, currency } = result?.data?.order;
+        console.log( amount, id, currency , " amount, id, currency ");
+
+        const options = {
+            key: "rzp_test_2M5D9mQwHZp8iP",
+            amount: amount.toString(),
+            currency: currency,
+            name: "Caterings And Tiffins",
+            description: "Test Transaction",
+            // image: { logo },
+            id: id,
+            handler: async function (response) {
+                console.log(response, "response response");
+                const data = {
+                    orderCreationId: id,
+                    razorpayPaymentId: response.razorpay_payment_id,
+                    razorpayOrderId: response.razorpay_order_id,
+                    razorpaySignature: response.razorpay_signature,
+                };
+
+                console.log(data, "data");
+
+                // const result = await axios.post("http://localhost:5000/payment/success", data);
+                // alert(result.data.msg);
+            },
+            prefill: {
+                name: "CAterings And Tiffins",
+                email: "cateringsandtiffin@example.com",
+                contact: "5555555555",
+            },
+            notes: {
+                address: "CAterings And Tiffins Corporate Office",
+            },
+            theme: {
+                color: "#61dafb",
+            },
+        };
+
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+    }
+
     return (
         <>
             <Grid container spacing={2}>
@@ -31,7 +116,7 @@ const YearlyPlan = () => {
                                 <p className="sub-plan-para">- Data analysis/improvement recommendation</p>
                                 <br />
                                 <Link to="javascript:void(0)" className="text-decoration-none mt-3">
-                                    <Button variant="contained" className="sub-plan-btn mx-auto taxt-center"> Subscribe Now </Button>
+                                    <Button variant="contained" className="sub-plan-btn mx-auto taxt-center" onClick={displayRazorpay}> Subscribe Now </Button>
                                 </Link>
                                 <br />
                             </div>
