@@ -1428,10 +1428,19 @@ code {
 }
 
 .sub-box-violet-title {
-  background-color: var(--branded);
   padding: 15px 0px;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
+}
+
+.normal-color{
+  background-color: #d9822b !important;
+}
+.popular-color{
+  background-color: #8e11a5 !important;
+}
+.branded-color{
+  background-color: #459412 !important;
 }
 
 .sub-box-name {
@@ -1482,7 +1491,7 @@ code {
 }
 
 .sub-plan-btn {
-  background-color: var(--branded) !important;
+  background-color: var(--branded);
   border-radius: var(--radiusTwo) !important;
   font-size: 12px !important;
   text-transform: capitalize !important;

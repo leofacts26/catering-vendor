@@ -16,7 +16,8 @@ const useLogin = () => {
         setLoading(true);
         try {
             const response = await api.post('/login-vendor-send-otp', loginData);
-            console.log(response, "response");
+            // console.log(response.data.data, "response");
+            dispatch(setVendorId(response.data.data))
             dispatch(setLoginUserData(loginData));
             setShowOtp(false);
             setLoading(false);
