@@ -6,8 +6,11 @@ import YearlyPlan from "../components/global/YearlyPlan";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubscriptionTypes } from "../features/subscriptionSlice";
+import MonthlyPlan from "../components/global/MonthlyPlan";
 
 const SubscriptionPlan = () => {
+
+  const [active, setActive] = useState(false)
 
   return (
     <>
@@ -29,10 +32,10 @@ const SubscriptionPlan = () => {
             className="mt-3 mb-4"
           >
             <h2 className="sub-plan-yearly">Monthly</h2>
-            <Switch defaultChecked />
+            <Switch defaultChecked={active} onClick={()=> setActive(!active)} />
             <h2 className="sub-plan-yearly">Yearly</h2>
           </Stack>
-          <YearlyPlan />
+         {active ? <YearlyPlan /> : <MonthlyPlan /> } 
         </div>
       </Container>
     </>

@@ -13,7 +13,7 @@ import Stack from '@mui/material/Stack';
 
 
 
-const YearlyPlan = () => {
+const MonthlyPlan = () => {
     const { vendor_id } = useSelector((state) => state?.user?.vendorId)
     const { subscriptionData, isLoading } = useSelector((state) => state.subscription);
     const dispatch = useDispatch();
@@ -126,7 +126,7 @@ const YearlyPlan = () => {
                                     </div>
                                     <div className="sub-body px-2 pt-2">
                                         <div className="sub-price">
-                                            <h3 className="text-center"> {`₹ ${item?.yearlyCharges}`} / <sub className="sub-plan-month">month</sub></h3>
+                                            <h3 className="text-center"> {`₹ ${item?.monthlyCharges}`} / <sub className="sub-plan-month">month</sub></h3>
                                         </div>
                                         <p className="sub-plan-brand mb-3 mt-3">List as {item?.subscriptionType} Caterer</p>
                                         <p className="sub-plan-para">Benifits:</p>
@@ -237,4 +237,4 @@ const YearlyPlan = () => {
     )
 }
 
-export default YearlyPlan
+export default MonthlyPlan
