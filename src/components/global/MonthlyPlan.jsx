@@ -92,7 +92,7 @@ const MonthlyPlan = () => {
     const onHandleSubscribe = async (item) => {
         await dispatch(setSubscribeData(item))
         const response = await dispatch(calculateOrderTotal(item));
-        await dispatch(setDiscountedData(response?.payload)) // without dispach will work for now coupon issue
+        // await dispatch(setDiscountedData(response?.payload)) // without dispach will work for now coupon issue
         console.log(response, "responseresponse");
         if (response.payload.status === "success") {
             handleClickOpen()
