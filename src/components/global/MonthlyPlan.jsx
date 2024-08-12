@@ -42,6 +42,10 @@ const MonthlyPlan = () => {
     const dispatch = useDispatch();
     const [openCouponModal, setOpenCouponModal] = useState(false);
     const [open, setOpen] = useState(false);
+    const [addDiscount, setAddDiscount] = useState(false);
+
+    console.log(addDiscount, "addDiscount addDiscount");
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -79,9 +83,18 @@ const MonthlyPlan = () => {
         await dispatch(setCouponCode(couponCode));
         const response = await dispatch(calculateOrderTotal(selectedSubscription));
         // if (response.payload.status === "success") {
-        //     handleClickOpen()
+        //     setAddDiscount(true);
         // }
-        dispatch(setDiscountedData(response?.payload))
+        console.log(response, "response");
+        // Check the response status
+        if (response?.payload?.status === "success") {
+            setAddDiscount(true);
+            dispatch(setDiscountedData(response?.payload));
+        } else if (response?.payload?.status === "error") {
+            setAddDiscount(false);
+            console.error("Error:", response?.payload?.message);
+            // Optionally, display an error message to the user
+        }
         onHandleCouponModalClose()
     }
 
@@ -92,7 +105,9 @@ const MonthlyPlan = () => {
     const onHandleSubscribe = async (item) => {
         await dispatch(setSubscribeData(item))
         const response = await dispatch(calculateOrderTotal(item));
-        // await dispatch(setDiscountedData(response?.payload)) // without dispach will work for now coupon issue
+        if (!addDiscount) {
+            await dispatch(setDiscountedData(response?.payload)) // without dispach will work for now coupon issue
+        }
         console.log(response, "responseresponse");
         if (response.payload.status === "success") {
             handleClickOpen()
