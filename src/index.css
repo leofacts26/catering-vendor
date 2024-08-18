@@ -1391,6 +1391,15 @@ code {
   text-align: left;
   color: var(--accent3);
 }
+.subscription-red {
+  font-size: 16px;
+  font-family: var(--fontPrimary);
+  font-weight: 500;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+  text-align: left;
+  color: var(--accent2);
+}
 
 .subscribe-btn {
   background-color: var(--branded) !important;

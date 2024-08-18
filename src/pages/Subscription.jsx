@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchActiveSubscription } from "../features/subscriptionSlice";
 import moment from 'moment';
-
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const Subscription = () => {
@@ -50,39 +50,45 @@ const Subscription = () => {
                   <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
                     <p className="subscription-type">Subscription Status:</p>
                     <Stack direction="row" spacing={1} alignItems="center">
-                      <DoneIcon style={{ fontSize: '18px', color: '#459412' }} /> <h4 className="subscription-green">
-                        {activeSubscriptionList?.activeSubscription?.status} </h4>
+                      {activeSubscriptionList?.activeSubscription?.status ? <DoneIcon style={{ fontSize: '18px', color: '#459412' }} /> :
+                        <CloseIcon style={{ fontSize: '18px', color: '#a81e1e' }} />}
+
+                      <h4 className={activeSubscriptionList?.activeSubscription?.status ? 'subscription-green' : 'subscription-red'}>
+                        {activeSubscriptionList?.activeSubscription?.status ? activeSubscriptionList?.activeSubscription?.status : 'InActive'} </h4>
                     </Stack>
                   </Stack>
 
                   <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
                     <p className="subscription-type">Subscription Plan:</p>
-                    <Button variant="contained" className="subscribe-btn"> {activeSubscriptionList?.activeSubscription?.subscription_name} </Button>
+                    <Button variant="contained" className="subscribe-btn"> 
+                      {activeSubscriptionList?.activeSubscription?.subscription_name ? activeSubscriptionList?.activeSubscription?.subscription_name : 'N/A'} </Button>
                   </Stack>
 
                   <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
                     <p className="subscription-type">Subscription Type:</p>
-                    <h4 className="subscription-dark"> {activeSubscriptionList?.activeSubscription?.subscription_pattern} </h4>
+                    <h4 className="subscription-dark"> 
+                      {activeSubscriptionList?.activeSubscription?.subscription_pattern ? activeSubscriptionList?.activeSubscription?.subscription_pattern : 'N/A'} 
+                      </h4>
                   </Stack>
 
                   <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
                     <p className="subscription-type">Subscription Charges:</p>
-                    <h4 className="subscription-dark"> {activeSubscriptionList?.activeSubscription?.final_amount} </h4>
+                    <h4 className="subscription-dark"> {activeSubscriptionList?.activeSubscription?.final_amount ? activeSubscriptionList?.activeSubscription?.final_amount : 'N/A'} </h4>
                   </Stack>
 
                   <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
                     <p className="subscription-type">Date of Subscription:</p>
-                    <h4 className="subscription-dark"> {startFormattedDate} </h4>
+                    <h4 className="subscription-dark"> {activeSubscriptionList?.activeSubscription?.start_date ? startFormattedDate : 'N/A'} </h4>
                   </Stack>
 
                   <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
                     <p className="subscription-type">Expiry Date:</p>
-                    <h4 className="subscription-dark">{starendFormattedDate}</h4>
+                    <h4 className="subscription-dark">{activeSubscriptionList?.activeSubscription?.end_date ? starendFormattedDate : 'N/A'}</h4>
                   </Stack>
 
                   <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3 mb-4">
                     <p className="subscription-type">Remaining Days:</p>
-                    <h4 className="subscription-dark">235 Days</h4>
+                    <h4 className="subscription-dark">N/A</h4>
                   </Stack>
 
 
