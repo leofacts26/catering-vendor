@@ -24,6 +24,7 @@ import Notification from './pages/Notification';
 import RaiseTicket from './pages/RaiseTicket';
 import { Toaster } from 'react-hot-toast';
 import PhotoGalleryTest from "./pages/PhotoGalleryTest";
+import SubscriptionPlanDetails from "./pages/SubscriptionPlanDetails";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
 
             <Route path='/dashboard/subscription' element={<Subscription />} />
             <Route path='/dashboard/subscription-plan' element={<SubscriptionPlan />} />
+            <Route path='/dashboard/subscription-plan-details' element={<SubscriptionPlanDetails />} />
             <Route path='/dashboard/settings' element={<Settings />} />
             <Route path='/dashboard/about-us' element={<AboutUs />} />
             <Route path='/dashboard/faq' element={<Faq />} />

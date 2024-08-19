@@ -7,11 +7,12 @@ const initialState = {
   isLoading: false,
   subscriptionData: [],
   couponCode: '',
-  checkedSubscriptionIds: [],
+  // checkedSubscriptionIds: [],
   selectedSubscription: null,
   discoundedData: null,
   subscribeData: null,
-  activeSubscriptionList: null
+  activeSubscriptionList: null,
+  couponStatus: null,
 };
 
 export const fetchSubscriptionTypes = createAsyncThunk(
@@ -36,6 +37,8 @@ export const fetchSubscriptionTypes = createAsyncThunk(
 export const calculateOrderTotal = createAsyncThunk(
   "homepage/calculateOrderTotal",
   async (data, thunkAPI) => {
+    console.log(data, "DATA");
+
     const { couponCode } = thunkAPI.getState().subscription;
     const { subscriptionTypeId } = data;
     const subscriptionDuration = "monthly";
@@ -128,16 +131,19 @@ export const subscriptionSlice = createSlice({
     setSubscribeData: (state, action) => {
       state.subscribeData = action.payload;
     },
-    toggleSubscriptionCheck: (state, action) => {
-      const subscriptionId = action.payload;
-      // If the subscriptionId is already checked, uncheck it
-      if (state.checkedSubscriptionIds.includes(subscriptionId)) {
-        state.checkedSubscriptionIds = [];
-      } else {
-        // Otherwise, only keep the new subscriptionId
-        state.checkedSubscriptionIds = [subscriptionId];
-      }
-    }
+    setCouponStatus: (state, action) => {
+      state.couponStatus = action.payload;
+    },
+    // toggleSubscriptionCheck: (state, action) => {
+    //   const subscriptionId = action.payload;
+    //   // If the subscriptionId is already checked, uncheck it
+    //   if (state.checkedSubscriptionIds.includes(subscriptionId)) {
+    //     state.checkedSubscriptionIds = [];
+    //   } else {
+    //     // Otherwise, only keep the new subscriptionId
+    //     state.checkedSubscriptionIds = [subscriptionId];
+    //   }
+    // }
   },
   extraReducers: (builder) => {
     builder
@@ -168,5 +174,5 @@ export const subscriptionSlice = createSlice({
   },
 });
 
-export const { setCouponCode, toggleSubscriptionCheck, setSelectedSubscription, setDiscountedData, setSubscribeData } = subscriptionSlice.actions;
+export const { setCouponCode, setCouponStatus, setSelectedSubscription, setDiscountedData, setSubscribeData } = subscriptionSlice.actions;
 export default subscriptionSlice.reducer;

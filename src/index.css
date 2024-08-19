@@ -2148,3 +2148,7 @@ textarea:-webkit-autofill:active {
   border: 0;
   border-top: 2px solid #0000000f;
 }
+
+.text-success{
+  color: var(--accent3) !important;
+}

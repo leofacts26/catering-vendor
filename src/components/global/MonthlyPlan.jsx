@@ -8,9 +8,10 @@ import { Link } from "react-router-dom";
 import { api, BASE_URL } from '../../api/apiConfig';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { calculateOrderTotal, createOneTimePayment, fetchSubscriptionTypes, setCouponCode, setDiscountedData, setSelectedSubscription, setSubscribeData, toggleSubscriptionCheck } from '../../features/subscriptionSlice';
+import { calculateOrderTotal, createOneTimePayment, fetchSubscriptionTypes, setCouponCode, setDiscountedData, setSelectedSubscription, setSubscribeData } from '../../features/subscriptionSlice';
 import { useEffect, useState } from 'react';
 import Stack from '@mui/material/Stack';
+import { useNavigate } from 'react-router-dom';
 
 import Checkbox from '@mui/material/Checkbox';
 import { styled } from '@mui/material/styles';
@@ -38,15 +39,10 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const MonthlyPlan = () => {
     // const { vendor_id } = useSelector((state) => state?.user?.vendorId)
     const { accessToken } = useSelector((state) => state.user)
-    const { subscriptionData, selectedSubscription, isLoading, couponCode, checkedSubscriptionIds, discoundedData, subscribeData } = useSelector((state) => state.subscription);
+    const navigate = useNavigate();
+    const { subscriptionData,  isLoading, couponCode } = useSelector((state) => state.subscription);
     const dispatch = useDispatch();
-    const [openCouponModal, setOpenCouponModal] = useState(false);
     const [open, setOpen] = useState(false);
-    const [addDiscount, setAddDiscount] = useState(false);
-
-    console.log(addDiscount, "addDiscount addDiscount");
-
-
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -58,145 +54,102 @@ const MonthlyPlan = () => {
         dispatch(fetchSubscriptionTypes());
     }, []);
 
-    // openCouponModal 
-    const onHandleCouponModalOpen = () => {
-        setOpenCouponModal(true);
-    };
-    const onHandleCouponModalClose = async () => {
-        setOpenCouponModal(false);
-        await dispatch(setCouponCode(""));
-    };
-
-    const handleCheckboxChange = async (subscriptionTypeId, item) => {
-        await dispatch(setSelectedSubscription(item))
-        if (!checkedSubscriptionIds.includes(subscriptionTypeId)) {
-            await dispatch(toggleSubscriptionCheck(subscriptionTypeId));
-        } else {
-            await dispatch(toggleSubscriptionCheck(subscriptionTypeId));
-        }
-        setOpenCouponModal(true);
-    };
-
-
-    const onCouponCodeSubmit = async (e) => {
-        e.preventDefault();
-        await dispatch(setCouponCode(couponCode));
-        const response = await dispatch(calculateOrderTotal(selectedSubscription));
-        // if (response.payload.status === "success") {
-        //     setAddDiscount(true);
-        // }
-        console.log(response, "response");
-        // Check the response status
-        if (response?.payload?.status === "success") {
-            setAddDiscount(true);
-            dispatch(setDiscountedData(response?.payload));
-        } else if (response?.payload?.status === "error") {
-            setAddDiscount(false);
-            console.error("Error:", response?.payload?.message);
-            // Optionally, display an error message to the user
-        }
-        onHandleCouponModalClose()
-    }
-
-    console.log(discoundedData, "discoundedData");
-    console.log(subscribeData, "subscribeData");
 
     // onHandleSubscribe 
     const onHandleSubscribe = async (item) => {
         await dispatch(setSubscribeData(item))
+        // console.log(item, "item item");        
         const response = await dispatch(calculateOrderTotal(item));
-        if (!addDiscount) {
-            await dispatch(setDiscountedData(response?.payload)) // without dispach will work for now coupon issue
+        // console.log(response.payload.status, "response LOP");
+        if (response?.payload?.status === "success") {
+            await dispatch(setDiscountedData(response?.payload)) 
+            navigate('/dashboard/subscription-plan-details');
         }
-        console.log(response, "responseresponse");
-        if (response.payload.status === "success") {
-            handleClickOpen()
-        }
+     
     }
 
 
     // loadScript 
-    function loadScript(src) {
-        return new Promise((resolve) => {
-            const script = document.createElement("script");
-            script.src = src;
-            script.onload = () => {
-                resolve(true);
-            };
-            script.onerror = () => {
-                resolve(false);
-            };
-            document.body.appendChild(script);
-        });
-    }
+    // function loadScript(src) {
+    //     return new Promise((resolve) => {
+    //         const script = document.createElement("script");
+    //         script.src = src;
+    //         script.onload = () => {
+    //             resolve(true);
+    //         };
+    //         script.onerror = () => {
+    //             resolve(false);
+    //         };
+    //         document.body.appendChild(script);
+    //     });
+    // }
 
-    console.log(couponCode, "couponCode");
+    // console.log(couponCode, "couponCode");
 
     // displayRazorpay 
-    async function displayRazorpay() {
-        const res = await loadScript(
-            "https://checkout.razorpay.com/v1/checkout.js"
-        );
+    // async function displayRazorpay() {
+    //     const res = await loadScript(
+    //         "https://checkout.razorpay.com/v1/checkout.js"
+    //     );
 
-        if (!res) {
-            alert("Razorpay SDK failed to load. Are you online?");
-            return;
-        }
+    //     if (!res) {
+    //         alert("Razorpay SDK failed to load. Are you online?");
+    //         return;
+    //     }
 
-        const result = await dispatch(createOneTimePayment())
+    //     const result = await dispatch(createOneTimePayment())
 
-        if (!result) {
-            alert("Server error. Are you online?");
-            return;
-        }
+    //     if (!result) {
+    //         alert("Server error. Are you online?");
+    //         return;
+    //     }
 
-        console.log(result, "result result TTTTTTTTTTTTTTt");
-        console.log(result?.payload?.data?.order, "result result");
+    //     console.log(result, "result result TTTTTTTTTTTTTTt");
+    //     console.log(result?.payload?.data?.order, "result result");
 
-        const { amount, id, currency } = result?.payload?.data?.order;
+    //     const { amount, id, currency } = result?.payload?.data?.order;
 
-        const options = {
-            key: "rzp_test_2M5D9mQwHZp8iP",
-            amount: amount.toString(),
-            currency: currency,
-            name: "Caterings And Tiffins",
-            description: "Test Transaction",
-            // image: { logo },
-            order_id: id,
-            handler: async function (response) {
-                console.log(response, "response response");
-                const data = {
-                    orderCreationId: id,
-                    razorpayPaymentId: response.razorpay_payment_id,
-                    razorpayOrderId: response.razorpay_order_id,
-                    razorpaySignature: response.razorpay_signature,
-                };
-                console.log(data);
+    //     const options = {
+    //         key: "rzp_test_2M5D9mQwHZp8iP",
+    //         amount: amount.toString(),
+    //         currency: currency,
+    //         name: "Caterings And Tiffins",
+    //         description: "Test Transaction",
+    //         // image: { logo },
+    //         order_id: id,
+    //         handler: async function (response) {
+    //             console.log(response, "response response");
+    //             const data = {
+    //                 orderCreationId: id,
+    //                 razorpayPaymentId: response.razorpay_payment_id,
+    //                 razorpayOrderId: response.razorpay_order_id,
+    //                 razorpaySignature: response.razorpay_signature,
+    //             };
+    //             console.log(data);
 
-            },
-            prefill: {
-                name: "Caterings And Tiffins",
-                email: "cateringsandtiffin@example.com",
-                contact: "9879879879",
-            },
-            notes: {
-                address: "Caterings And Tiffins Corporate Office",
-            },
-            theme: {
-                color: "#61dafb",
-            },
-        };
+    //         },
+    //         prefill: {
+    //             name: "Caterings And Tiffins",
+    //             email: "cateringsandtiffin@example.com",
+    //             contact: "9879879879",
+    //         },
+    //         notes: {
+    //             address: "Caterings And Tiffins Corporate Office",
+    //         },
+    //         theme: {
+    //             color: "#61dafb",
+    //         },
+    //     };
 
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
+    //     const paymentObject = new window.Razorpay(options);
+    //     paymentObject.open();
 
-        handleClose()
-    }
+    //     handleClose()
+    // }
 
     return (
         <>
             <Grid container spacing={2}>
-
                 {subscriptionData?.length > 0 && subscriptionData?.map((item, index) => {
                     let color = '';
                     if (item?.subscriptionType === 'normal') {
@@ -206,7 +159,6 @@ const MonthlyPlan = () => {
                     } else if (item?.subscriptionType === 'branded') {
                         color = 'branded-color'
                     }
-
                     return (
                         <Grid item xs={12} sm={6} md={6} lg={4} xl={4} className='mb-3' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }} key={index}>
                             <Stack className="subscription-plans-shadow" justifyContent="space-between">
@@ -227,14 +179,7 @@ const MonthlyPlan = () => {
                                     </div>
                                 </div>
                                 <div className="">
-                                    <div className="coupon-flex">
-                                        <span className='coupon-text'>
-                                            Apply Coupon if any
-                                        </span>
-                                        <Checkbox size="small" {...label}
-                                            checked={checkedSubscriptionIds.includes(item.subscriptionTypeId)}
-                                            onChange={() => handleCheckboxChange(item.subscriptionTypeId, item)} />
-                                    </div>
+                                    
 
                                     <Link to="javascript:void(0)" className="text-decoration-none mt-3">
                                         <Button variant="contained" className={`sub-plan-btn mx-auto taxt-center ${color}`}
@@ -250,8 +195,10 @@ const MonthlyPlan = () => {
             </Grid>
 
 
+
+
             {/* coupon modal  */}
-            <React.Fragment>
+            {/* <React.Fragment>
                 <BootstrapDialog
                     onClose={onHandleCouponModalOpen}
                     aria-labelledby="customized-dialog-title"
@@ -285,10 +232,10 @@ const MonthlyPlan = () => {
                         </Button>
                     </DialogActions>
                 </BootstrapDialog>
-            </React.Fragment>
+            </React.Fragment> */}
 
             {/* make payment */}
-            <React.Fragment>
+            {/* <React.Fragment>
                 <BootstrapDialog
                     onClose={handleClose}
                     aria-labelledby="customized-dialog-title"
@@ -354,7 +301,7 @@ const MonthlyPlan = () => {
                         </Button>
                     </DialogActions>
                 </BootstrapDialog>
-            </React.Fragment>
+            </React.Fragment> */}
 
 
         </>
