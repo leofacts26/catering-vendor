@@ -23,6 +23,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import toast from 'react-hot-toast';
 import { datavalidationerror, successToast } from '../../utils';
+import LoaderSpinner from '../LoaderSpinner';
+import LoadingAnimation from '../LoadingAnimation';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -40,7 +42,7 @@ const MonthlyPlan = () => {
     // const { vendor_id } = useSelector((state) => state?.user?.vendorId)
     const { accessToken } = useSelector((state) => state.user)
     const navigate = useNavigate();
-    const { subscriptionData,  isLoading, couponCode } = useSelector((state) => state.subscription);
+    const { subscriptionData, isLoading, couponCode } = useSelector((state) => state.subscription);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
@@ -62,10 +64,10 @@ const MonthlyPlan = () => {
         const response = await dispatch(calculateOrderTotal(item));
         // console.log(response.payload.status, "response LOP");
         if (response?.payload?.status === "success") {
-            await dispatch(setDiscountedData(response?.payload)) 
+            await dispatch(setDiscountedData(response?.payload))
             navigate('/dashboard/subscription-plan-details');
         }
-     
+
     }
 
 
@@ -147,6 +149,10 @@ const MonthlyPlan = () => {
     //     handleClose()
     // }
 
+    if (isLoading) {
+        return <LoadingAnimation center />
+    }
+
     return (
         <>
             <Grid container spacing={2}>
@@ -179,7 +185,7 @@ const MonthlyPlan = () => {
                                     </div>
                                 </div>
                                 <div className="">
-                                    
+
 
                                     <Link to="javascript:void(0)" className="text-decoration-none mt-3">
                                         <Button variant="contained" className={`sub-plan-btn mx-auto taxt-center ${color}`}

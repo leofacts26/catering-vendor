@@ -2152,3 +2152,6 @@ textarea:-webkit-autofill:active {
 .text-success{
   color: var(--accent3) !important;
 }
+.text-danger{
+  color: var(--accent2) !important;
+}

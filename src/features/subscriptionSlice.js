@@ -12,7 +12,7 @@ const initialState = {
   discoundedData: null,
   subscribeData: null,
   activeSubscriptionList: null,
-  couponStatus: null,
+  // couponStatus: null,
 };
 
 export const fetchSubscriptionTypes = createAsyncThunk(
@@ -68,6 +68,7 @@ export const createOneTimePayment = createAsyncThunk(
   async (data, thunkAPI) => {
     const { couponCode } = thunkAPI.getState().subscription.discoundedData;
     const { subscriptionTypeId } = thunkAPI.getState().subscription.subscribeData;
+
     const id = Number(subscriptionTypeId)
     const subscriptionDuration = "monthly";
     const updatedData = {
@@ -90,6 +91,45 @@ export const createOneTimePayment = createAsyncThunk(
     }
   }
 );
+
+
+
+export const createRecurringTimePayment = createAsyncThunk(
+  "homepage/createRecurringTimePayment",
+  async (data, thunkAPI) => {
+    console.log(data, "data slice");
+    
+    try {
+      const response = await api.post(`/rz-create-subscription`, data, {
+        headers: {
+          authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+        },
+      });
+
+      console.log(response, "response createRecurringTimePayment");
+      
+
+      // Display success toast message if the response is successful
+      // toast.success(
+      //   response.data.status === "success"
+      //     ? "Subscription created successfully"
+      //     : response.data.couponCode
+      //       ? "Coupon Code Applied"
+      //       : "Operation successful"
+      // );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error creating subscription:", error.response?.data || error.message);
+
+      // Improved error message
+      toast.error(error.response?.data?.message || "Failed to create subscription");
+
+      return thunkAPI.rejectWithValue(error.response?.data);
+    }
+  }
+);
+
 
 
 export const fetchActiveSubscription = createAsyncThunk(
@@ -131,9 +171,9 @@ export const subscriptionSlice = createSlice({
     setSubscribeData: (state, action) => {
       state.subscribeData = action.payload;
     },
-    setCouponStatus: (state, action) => {
-      state.couponStatus = action.payload;
-    },
+    // setCouponStatus: (state, action) => {
+    //   state.couponStatus = action.payload;
+    // },
     // toggleSubscriptionCheck: (state, action) => {
     //   const subscriptionId = action.payload;
     //   // If the subscriptionId is already checked, uncheck it
@@ -170,9 +210,20 @@ export const subscriptionSlice = createSlice({
       .addCase(fetchActiveSubscription.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(datavalidationerror(payload));
+      })
+      // createRecurringTimePayment 
+      .addCase(createRecurringTimePayment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createRecurringTimePayment.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+      })
+      .addCase(createRecurringTimePayment.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(datavalidationerror(payload));
       });
   },
 });
 
-export const { setCouponCode, setCouponStatus, setSelectedSubscription, setDiscountedData, setSubscribeData } = subscriptionSlice.actions;
+export const { setCouponCode, setSelectedSubscription, setDiscountedData, setSubscribeData } = subscriptionSlice.actions;
 export default subscriptionSlice.reducer;
