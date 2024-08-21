@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { Checkbox } from "@mui/material";
+import { successToast } from "../utils";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -55,7 +56,7 @@ const SubscriptionPlanDetails = () => {
     e.preventDefault();
     await dispatch(setCouponCode(couponCode));
     const response = await dispatch(calculateOrderTotal(subscribeData));
-    console.log(response, "responsePP");
+    // console.log(response, "responsePP");
     if (response.payload.status === "success") {
       await dispatch(setDiscountedData(response?.payload));
       // dispatch(setCouponStatus("Coupon applied successfully!"));
@@ -97,21 +98,28 @@ const SubscriptionPlanDetails = () => {
       result = await dispatch(createOneTimePayment());
     }
 
-    console.log(result, "result result result Details");
+    console.log(result, "result Top");
 
 
-    if (!result || result.payload.error) {
-      alert("Server error. Are you online?");
+    // Error handling for API response
+    if (!result || result.payload.error || result.payload.status === "failure") {
+      toast.error("Server error: " + (result.payload?.error?.message || result.payload.message || "Unknown error occurred."));
       setLoading(false);
       return;
     }
 
-    
+    // if (!result || result.payload.error) {
+    //   alert("Server error. Are you online?");
+    //   setLoading(false);
+    //   return;
+    // }
+
+
 
     let options;
 
     if (recurringPayments) {
-       // subscription payment case
+      // subscription payment case
       const {
         id: subscriptionId,
         plan_id,
@@ -138,7 +146,7 @@ const SubscriptionPlanDetails = () => {
             razorpayOrderId: response.razorpay_order_id,
             razorpaySignature: response.razorpay_signature,
           };
-          console.log(data);
+          await dispatch(setCouponCode(""));
           // Handle the post-payment logic for subscription
         },
         prefill: {
@@ -177,8 +185,8 @@ const SubscriptionPlanDetails = () => {
             razorpayOrderId: response.razorpay_order_id,
             razorpaySignature: response.razorpay_signature,
           };
-          console.log(data);
-
+          // console.log(data);
+          await dispatch(setCouponCode(""));
         },
         prefill: {
           name: "Caterings And Tiffins",

@@ -97,7 +97,7 @@ export const createOneTimePayment = createAsyncThunk(
 export const createRecurringTimePayment = createAsyncThunk(
   "homepage/createRecurringTimePayment",
   async (data, thunkAPI) => {
-    console.log(data, "data slice");
+    // console.log(data, "data slice");
     
     try {
       const response = await api.post(`/rz-create-subscription`, data, {
@@ -106,7 +106,7 @@ export const createRecurringTimePayment = createAsyncThunk(
         },
       });
 
-      console.log(response, "response createRecurringTimePayment");
+      // console.log(response, "response createRecurringTimePayment");
       
 
       // Display success toast message if the response is successful
