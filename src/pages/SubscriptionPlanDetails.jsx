@@ -19,14 +19,19 @@ const SubscriptionPlanDetails = () => {
   const dispatch = useDispatch();
   const { subscribeData, discoundedData, couponCode, selectedSubscription } = useSelector((state) => state.subscription);
   const [loading, setLoading] = useState(false);
-  const [recurringPayments, setRecurringPayments] = useState(true);
+  const [recurringPayments, setRecurringPayments] = useState(discoundedData?.is_one_recurring_subscription_already_present);
 
   // console.log(subscribeData, "subscribeData details");
   // console.log(discoundedData, "discoundedData details");
   // console.log(selectedSubscription, "selectedSubscription details");
   // console.log(recurringPayments, "recurringPayments details");
 
+  console.log(discoundedData?.is_one_recurring_subscription_already_present, "discoundedData?.is_one_recurring_subscription_already_present");
 
+
+  // useEffect(() => {
+  //   setRecurringPayments(discoundedData?.is_one_recurring_subscription_already_present)
+  // }, [discoundedData?.is_one_recurring_subscription_already_present])
 
 
   useEffect(() => {
@@ -92,7 +97,7 @@ const SubscriptionPlanDetails = () => {
     let result;
 
     // Determine whether to create a one-time payment or recurring payment
-    if (recurringPayments) {
+    if (!recurringPayments) {
       result = await dispatch(createRecurringTimePayment(recurringMonthlydata));
     } else {
       result = await dispatch(createOneTimePayment());
@@ -118,7 +123,7 @@ const SubscriptionPlanDetails = () => {
 
     let options;
 
-    if (recurringPayments) {
+    if (!recurringPayments) {
       // subscription payment case
       const {
         id: subscriptionId,
@@ -290,15 +295,18 @@ const SubscriptionPlanDetails = () => {
                 <div className="">
                   <div className="coupon-flex">
                     <span className='coupon-text'>
-                      {recurringPayments ? 'Subscription Activated' : 'Subscription DeActivated'}
+                      {recurringPayments ? 'Already Subscription Activated' : 'Subscription Not Activated'}
                     </span>
-                    <Checkbox size="small" {...label}
+                    <Checkbox
+                      disabled={discoundedData?.is_one_recurring_subscription_already_present}
+                      size="small" {...label}
                       checked={recurringPayments}
                       onChange={(e) => setRecurringPayments(e.target.checked)} />
                   </div>
 
                   <form className="search-wrapper cf" onSubmit={onCouponCodeSubmit}>
-                    <input name="couponCode" value={couponCode} onChange={(e) => dispatch(setCouponCode(e.target.value))}
+                    <input
+                      name="couponCode" value={couponCode} onChange={(e) => dispatch(setCouponCode(e.target.value))}
                       type="text" placeholder="Enter Coupon Code" required style={{ boxShadow: 'none' }} />
                     <button type="submit">Apply</button>
                   </form>
