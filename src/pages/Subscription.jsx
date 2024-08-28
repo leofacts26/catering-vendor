@@ -24,7 +24,7 @@ const Subscription = () => {
     dispatch(fetchActiveSubscription())
   }, [])
 
-  // console.log(activeSubscription, "activeSubscription activeSubscription");
+  // console.log(activeSubscriptionList?.activeSubscription, "activeSubscriptionList activeSubscriptionList");
 
   const startFormattedDate = moment(activeSubscriptionList?.activeSubscription?.start_date).format("MMM DD, YYYY");
   const starendFormattedDate = moment(activeSubscriptionList?.activeSubscription?.end_date).format("MMM DD, YYYY");
@@ -60,15 +60,15 @@ const Subscription = () => {
 
                   <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
                     <p className="subscription-type">Subscription Plan:</p>
-                    <Button variant="contained" className="subscribe-btn"> 
+                    <Button variant="contained" className="subscribe-btn">
                       {activeSubscriptionList?.activeSubscription?.subscription_name ? activeSubscriptionList?.activeSubscription?.subscription_name : 'N/A'} </Button>
                   </Stack>
 
                   <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
                     <p className="subscription-type">Subscription Type:</p>
-                    <h4 className="subscription-dark"> 
-                      {activeSubscriptionList?.activeSubscription?.subscription_pattern ? activeSubscriptionList?.activeSubscription?.subscription_pattern : 'N/A'} 
-                      </h4>
+                    <h4 className="subscription-dark">
+                      {activeSubscriptionList?.activeSubscription?.subscription_pattern ? activeSubscriptionList?.activeSubscription?.subscription_pattern : 'N/A'}
+                    </h4>
                   </Stack>
 
                   <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
@@ -93,7 +93,9 @@ const Subscription = () => {
 
 
                   <Link to="/dashboard/subscription-plan" className="text-decoration-none">
-                    <Button variant="contained" className="inquiries-btn mx-auto taxt-center"> Upgrade Subscription </Button>
+                    <Button variant="contained" className="inquiries-btn mx-auto taxt-center">
+                      {activeSubscriptionList?.activeSubscription === null ? 'Create Subscription' : 'Upgrade Subscription'}
+                    </Button>
                   </Link>
 
 

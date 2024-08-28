@@ -106,8 +106,8 @@ const SubscriptionDetails = () => {
 
 
       <Container maxWidth="lg">
-        <hr className="mb-4" />
-        <TopHeader title="Queud Subscriptions" description="" />
+        {activeSubscriptionList?.queuedSubscriptions?.length > 0 && <hr className="mb-4" />}
+        {activeSubscriptionList?.queuedSubscriptions?.length > 0 && <TopHeader title="Queud Subscriptions" description="" />}
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
 
