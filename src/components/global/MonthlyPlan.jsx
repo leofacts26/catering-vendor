@@ -1,153 +1,38 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import EditIcon from '@mui/icons-material/Edit';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
-import { api, BASE_URL } from '../../api/apiConfig';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { calculateOrderTotal, createOneTimePayment, fetchSubscriptionTypes, setCouponCode, setDiscountedData, setSelectedSubscription, setSubscribeData } from '../../features/subscriptionSlice';
-import { useEffect, useState } from 'react';
+import { calculateOrderTotal, fetchSubscriptionTypes, setDiscountedData, setSubscribeData } from '../../features/subscriptionSlice';
+import { useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
-
-import Checkbox from '@mui/material/Checkbox';
-import { styled } from '@mui/material/styles';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import toast from 'react-hot-toast';
-import { datavalidationerror, successToast } from '../../utils';
-import LoaderSpinner from '../LoaderSpinner';
 import LoadingAnimation from '../LoadingAnimation';
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-        padding: theme.spacing(2),
-    },
-    '& .MuiDialogActions-root': {
-        padding: theme.spacing(1),
-    },
-}));
-
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
 const MonthlyPlan = () => {
-    // const { vendor_id } = useSelector((state) => state?.user?.vendorId)
-    const { accessToken } = useSelector((state) => state.user)
     const navigate = useNavigate();
-    const { subscriptionData, isLoading, couponCode } = useSelector((state) => state.subscription);
+    const { subscriptionData, isLoading } = useSelector((state) => state.subscription);
     const dispatch = useDispatch();
-    const [open, setOpen] = useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     useEffect(() => {
         dispatch(fetchSubscriptionTypes());
     }, []);
 
-
     // onHandleSubscribe 
     const onHandleSubscribe = async (item) => {
         await dispatch(setSubscribeData(item))
-        // console.log(item, "item item");        
-        const response = await dispatch(calculateOrderTotal(item));
-        // console.log(response.payload.status, "response LOP");
+        const subscriptionDuration = "monthly";
+        const newItem = {
+            ...item,
+            subscriptionDuration
+        }
+        const response = await dispatch(calculateOrderTotal(newItem));
         if (response?.payload?.status === "success") {
             await dispatch(setDiscountedData(response?.payload))
             navigate('/dashboard/subscription-plan-details');
         }
-
     }
-
-
-    // loadScript 
-    // function loadScript(src) {
-    //     return new Promise((resolve) => {
-    //         const script = document.createElement("script");
-    //         script.src = src;
-    //         script.onload = () => {
-    //             resolve(true);
-    //         };
-    //         script.onerror = () => {
-    //             resolve(false);
-    //         };
-    //         document.body.appendChild(script);
-    //     });
-    // }
-
-    // console.log(couponCode, "couponCode");
-
-    // displayRazorpay 
-    // async function displayRazorpay() {
-    //     const res = await loadScript(
-    //         "https://checkout.razorpay.com/v1/checkout.js"
-    //     );
-
-    //     if (!res) {
-    //         alert("Razorpay SDK failed to load. Are you online?");
-    //         return;
-    //     }
-
-    //     const result = await dispatch(createOneTimePayment())
-
-    //     if (!result) {
-    //         alert("Server error. Are you online?");
-    //         return;
-    //     }
-
-    //     console.log(result, "result result TTTTTTTTTTTTTTt");
-    //     console.log(result?.payload?.data?.order, "result result");
-
-    //     const { amount, id, currency } = result?.payload?.data?.order;
-
-    //     const options = {
-    //         key: "rzp_test_2M5D9mQwHZp8iP",
-    //         amount: amount.toString(),
-    //         currency: currency,
-    //         name: "Caterings And Tiffins",
-    //         description: "Test Transaction",
-    //         // image: { logo },
-    //         order_id: id,
-    //         handler: async function (response) {
-    //             console.log(response, "response response");
-    //             const data = {
-    //                 orderCreationId: id,
-    //                 razorpayPaymentId: response.razorpay_payment_id,
-    //                 razorpayOrderId: response.razorpay_order_id,
-    //                 razorpaySignature: response.razorpay_signature,
-    //             };
-    //             console.log(data);
-
-    //         },
-    //         prefill: {
-    //             name: "Caterings And Tiffins",
-    //             email: "cateringsandtiffin@example.com",
-    //             contact: "9879879879",
-    //         },
-    //         notes: {
-    //             address: "Caterings And Tiffins Corporate Office",
-    //         },
-    //         theme: {
-    //             color: "#61dafb",
-    //         },
-    //     };
-
-    //     const paymentObject = new window.Razorpay(options);
-    //     paymentObject.open();
-
-    //     handleClose()
-    // }
 
     if (isLoading) {
         return <LoadingAnimation center />
@@ -199,117 +84,6 @@ const MonthlyPlan = () => {
                     )
                 })}
             </Grid>
-
-
-
-
-            {/* coupon modal  */}
-            {/* <React.Fragment>
-                <BootstrapDialog
-                    onClose={onHandleCouponModalOpen}
-                    aria-labelledby="customized-dialog-title"
-                    open={openCouponModal}
-                >
-                    <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                        Apply Coupon
-                    </DialogTitle>
-                    <IconButton
-                        aria-label="close"
-                        onClick={onHandleCouponModalClose}
-                        sx={{
-                            position: 'absolute',
-                            right: 8,
-                            top: 8,
-                            color: (theme) => theme.palette.grey[500],
-                        }}
-                    >
-                        <CloseIcon />
-                    </IconButton>
-                    <DialogContent dividers>
-                        <form className="search-wrapper cf" onSubmit={onCouponCodeSubmit}>
-                            <input name="couponCode" value={couponCode} onChange={(e) => dispatch(setCouponCode(e.target.value))}
-                                type="text" placeholder="Enter Coupon Code" required style={{ boxShadow: 'none' }} />
-                            <button type="submit">Apply</button>
-                        </form>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button autoFocus onClick={onHandleCouponModalClose}>
-                            Close
-                        </Button>
-                    </DialogActions>
-                </BootstrapDialog>
-            </React.Fragment> */}
-
-            {/* make payment */}
-            {/* <React.Fragment>
-                <BootstrapDialog
-                    onClose={handleClose}
-                    aria-labelledby="customized-dialog-title"
-                    open={open}
-                    size="lg"
-                >
-                    <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                        Payment Details
-                    </DialogTitle>
-                    <IconButton
-                        aria-label="close"
-                        onClick={handleClose}
-                        sx={{
-                            position: 'absolute',
-                            right: 8,
-                            top: 8,
-                            color: (theme) => theme.palette.grey[500],
-                        }}
-                    >
-                        <CloseIcon />
-                    </IconButton>
-                    <DialogContent dividers>
-                        <div className="" style={{ width: '300px' }}>
-                            <Stack direction="row" justifyContent="space-between" sx={{ marginBottom: '10px' }} spacing={2}>
-                                <h4 className='diaplay-amt'> <span>couponCode:</span></h4>
-                                <h4 className='diaplay-amt'>{discoundedData?.couponCode ? discoundedData?.couponCode : 'N/A'}</h4>
-                            </Stack>
-                            <hr style={{ marginBottom: '10px' }} className='subscription-hr' />
-                            <Stack direction="row" justifyContent="space-between" sx={{ marginBottom: '10px' }} spacing={2}>
-                                <h4 className='diaplay-amt'> <span>discountAmount:</span></h4>
-                                <h4 className='diaplay-amt'>{discoundedData?.discountAmount}</h4>
-                            </Stack>
-                            <hr style={{ marginBottom: '10px' }} className='subscription-hr' />
-                            <Stack direction="row" justifyContent="space-between" sx={{ marginBottom: '10px' }} spacing={2}>
-                                <h4 className='diaplay-amt'> <span>endDate:</span></h4>
-                                <h4 className='diaplay-amt'>{discoundedData?.endDate}</h4>
-                            </Stack>
-                            <hr style={{ marginBottom: '10px' }} className='subscription-hr' />
-                            <Stack direction="row" justifyContent="space-between" sx={{ marginBottom: '10px' }} spacing={2}>
-                                <h4 className='diaplay-amt'> <span>startDate:</span></h4>
-                                <h4 className='diaplay-amt'>{discoundedData?.startDate?.slice(0, 10)}</h4>
-                            </Stack>
-                            <hr style={{ marginBottom: '10px' }} className='subscription-hr' />
-                            <Stack direction="row" justifyContent="space-between" sx={{ marginBottom: '10px' }} spacing={2}>
-                                <h4 className='diaplay-amt'> <span>status:</span></h4>
-                                <h4 className='diaplay-amt'>{discoundedData?.status}</h4>
-                            </Stack>
-                            <hr style={{ marginBottom: '10px' }} className='subscription-hr' />
-                            <Stack direction="row" justifyContent="space-between" sx={{ marginBottom: '10px' }} spacing={2}>
-                                <h4 className='diaplay-amt'> <span>subAmount:</span></h4>
-                                <h4 className='diaplay-amt'>{discoundedData?.subAmount}</h4>
-                            </Stack>
-                            <hr style={{ marginBottom: '10px' }} className='subscription-hr' />
-                            <Stack direction="row" justifyContent="space-between" sx={{ marginBottom: '10px' }} spacing={2}>
-                                <h4 className='diaplay-amt'> <span>finalAmount:</span></h4>
-                                <h4 className='diaplay-amt'>{discoundedData?.finalAmount}</h4>
-                            </Stack>
-                        </div>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button autoFocus onClick={() => displayRazorpay()}>
-                            Make Payment
-                        </Button>
-                    </DialogActions>
-                </BootstrapDialog>
-            </React.Fragment> */}
-
-
         </>
     )
 }

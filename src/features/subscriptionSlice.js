@@ -37,11 +37,8 @@ export const fetchSubscriptionTypes = createAsyncThunk(
 export const calculateOrderTotal = createAsyncThunk(
   "homepage/calculateOrderTotal",
   async (data, thunkAPI) => {
-    console.log(data, "DATA");
-
     const { couponCode } = thunkAPI.getState().subscription;
-    const { subscriptionTypeId } = data;
-    const subscriptionDuration = "monthly";
+    const { subscriptionTypeId, subscriptionDuration } = data;
     const updatedData = {
       subscriptionTypeId,
       subscriptionDuration,
@@ -53,7 +50,7 @@ export const calculateOrderTotal = createAsyncThunk(
           authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
         },
       });
-      toast.success(`${response.data.status ? response.data.status : response.data.couponCode !== null && 'Coupon Code Applied'} `)
+      toast.success(response.data.status)
       return response.data;
     } catch (error) {
       console.log(error);
@@ -98,7 +95,7 @@ export const createRecurringTimePayment = createAsyncThunk(
   "homepage/createRecurringTimePayment",
   async (data, thunkAPI) => {
     // console.log(data, "data slice");
-    
+
     try {
       const response = await api.post(`/rz-create-subscription`, data, {
         headers: {
@@ -107,7 +104,7 @@ export const createRecurringTimePayment = createAsyncThunk(
       });
 
       // console.log(response, "response createRecurringTimePayment");
-      
+
 
       // Display success toast message if the response is successful
       // toast.success(

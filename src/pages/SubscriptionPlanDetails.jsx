@@ -21,12 +21,12 @@ const SubscriptionPlanDetails = () => {
   const [loading, setLoading] = useState(false);
   const [recurringPayments, setRecurringPayments] = useState(discoundedData?.is_one_recurring_subscription_already_present);
 
-  // console.log(subscribeData, "subscribeData details");
+  // console.log(subscribeData, "subscribeData subscribeData");
   // console.log(discoundedData, "discoundedData details");
   // console.log(selectedSubscription, "selectedSubscription details");
   // console.log(recurringPayments, "recurringPayments details");
 
-  console.log(discoundedData?.is_one_recurring_subscription_already_present, "discoundedData?.is_one_recurring_subscription_already_present");
+  // console.log(discoundedData?.is_one_recurring_subscription_already_present, "discoundedData?.is_one_recurring_subscription_already_present");
 
 
   // useEffect(() => {
@@ -58,15 +58,16 @@ const SubscriptionPlanDetails = () => {
 
 
   const onCouponCodeSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     await dispatch(setCouponCode(couponCode));
-    const response = await dispatch(calculateOrderTotal(subscribeData));
-    // console.log(response, "responsePP");
+    const subscriptionDuration = discoundedData?.subType.toLowerCase();
+    const newItem = {
+      ...subscribeData,
+      subscriptionDuration
+    }
+    const response = await dispatch(calculateOrderTotal(newItem));
     if (response.payload.status === "success") {
       await dispatch(setDiscountedData(response?.payload));
-      // dispatch(setCouponStatus("Coupon applied successfully!"));
-    } else {
-      // dispatch(setCouponStatus("Invalid coupon code. Please try again."));
     }
   }
 
@@ -87,11 +88,19 @@ const SubscriptionPlanDetails = () => {
 
     const { plans = [] } = subscribeData || {};
 
+    // Determine the correct plan index based on the subscription type
+    const planIndex = discoundedData?.subType?.toLowerCase() === 'monthly' ? 1 : 0;
+
+    // Construct recurringMonthlydata based on the selected plan
     const recurringMonthlydata = {
-      subscription_type_id: plans[1]?.subscriptionTypeId || null,
-      subscription_duration: plans[1]?.durations?.[0] || null,
-      plan_id: plans[1]?.id || null
+      subscription_type_id: plans[planIndex]?.subscriptionTypeId || null,
+      subscription_duration: plans[planIndex]?.durations?.[0] || null,
+      plan_id: plans[planIndex]?.id || null,
     };
+
+    // console.log(recurringMonthlydata, "recurringMonthlydata");
+
+    // return;
 
     // Declare result variable
     let result;
@@ -243,7 +252,7 @@ const SubscriptionPlanDetails = () => {
                   </div>
                   <div className="sub-body px-2 pt-2">
                     <div className="sub-price mb-3">
-                      <h3 className="text-center"> {discoundedData?.subAmount} / <sub className="sub-plan-month">month</sub></h3>
+                      <h3 className="text-center"> {discoundedData?.subAmount} / <sub className="sub-plan-month"> {discoundedData?.subType} </sub></h3>
                     </div>
                     {/* <p className="sub-plan-brand mb-3 mt-3">List as {subscribeData?.subscriptionType} Caterer</p> */}
 
@@ -332,10 +341,6 @@ const SubscriptionPlanDetails = () => {
 
         </div>
       </Container>
-
-
-
-
     </>
 
   )

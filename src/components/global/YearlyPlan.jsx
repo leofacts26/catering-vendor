@@ -1,20 +1,17 @@
+import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import EditIcon from '@mui/icons-material/Edit';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
-import { api, BASE_URL } from '../../api/apiConfig';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSubscriptionTypes } from '../../features/subscriptionSlice';
+import { calculateOrderTotal, fetchSubscriptionTypes, setDiscountedData, setSubscribeData } from '../../features/subscriptionSlice';
 import { useEffect } from 'react';
 import Stack from '@mui/material/Stack';
-
+import { useNavigate } from 'react-router-dom';
+import LoadingAnimation from '../LoadingAnimation';
 
 
 const YearlyPlan = () => {
-    const { vendor_id } = useSelector((state) => state?.user?.vendorId)
+    const navigate = useNavigate();
     const { subscriptionData, isLoading } = useSelector((state) => state.subscription);
     const dispatch = useDispatch();
 
@@ -22,91 +19,28 @@ const YearlyPlan = () => {
         dispatch(fetchSubscriptionTypes());
     }, []);
 
-    console.log(subscriptionData, "subscriptionData");
-
-
-
-    function loadScript(src) {
-        return new Promise((resolve) => {
-            const script = document.createElement("script");
-            script.src = src;
-            script.onload = () => {
-                resolve(true);
-            };
-            script.onerror = () => {
-                resolve(false);
-            };
-            document.body.appendChild(script);
-        });
+    // onHandleSubscribe 
+    const onHandleSubscribe = async (item) => {
+        await dispatch(setSubscribeData(item))
+        const subscriptionDuration = "yearly";
+        const newItem = {
+            ...item,
+            subscriptionDuration
+        }
+        const response = await dispatch(calculateOrderTotal(newItem));
+        if (response?.payload?.status === "success") {
+            await dispatch(setDiscountedData(response?.payload))
+            navigate('/dashboard/subscription-plan-details');
+        }
     }
 
-
-    async function displayRazorpay(item) {
-        const res = await loadScript(
-            "https://checkout.razorpay.com/v1/checkout.js"
-        );
-
-        if (!res) {
-            alert("Razorpay SDK failed to load. Are you online?");
-            return;
-        }
-
-        const result = await api.post(`/rz-create-one-time-payment`, {
-            vendorId: vendor_id,
-            subscriptionTypeId: Number(item?.subscriptionTypeId),
-            subscriptionDuration: 'monthly',
-            couponCode: 'MAR0324'
-        });
-
-        if (!result) {
-            alert("Server error. Are you online?");
-            return;
-        }
-
-        console.log(result?.data?.order, "result result");
-
-        const { amount, id, currency } = result?.data?.order;
-
-        const options = {
-            key: "rzp_test_2M5D9mQwHZp8iP",
-            amount: amount.toString(),
-            currency: currency,
-            name: "Caterings And Tiffins",
-            description: "Test Transaction",
-            // image: { logo },
-            order_id: id,
-            handler: async function (response) {
-                console.log(response, "response response");
-                const data = {
-                    orderCreationId: id,
-                    razorpayPaymentId: response.razorpay_payment_id,
-                    razorpayOrderId: response.razorpay_order_id,
-                    razorpaySignature: response.razorpay_signature,
-                };
-                console.log(data);
-                
-            },
-            prefill: {
-                name: "Caterings And Tiffins",
-                email: "cateringsandtiffin@example.com",
-                contact: "9879879879",
-            },
-            notes: {
-                address: "Caterings And Tiffins Corporate Office",
-            },
-            theme: {
-                color: "#61dafb",
-            },
-        };
-
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
+    if (isLoading) {
+        return <LoadingAnimation center />
     }
 
     return (
         <>
             <Grid container spacing={2}>
-
                 {subscriptionData?.length > 0 && subscriptionData?.map((item, index) => {
                     let color = '';
                     if (item?.subscriptionType === 'normal') {
@@ -116,7 +50,6 @@ const YearlyPlan = () => {
                     } else if (item?.subscriptionType === 'branded') {
                         color = 'branded-color'
                     }
-
                     return (
                         <Grid item xs={12} sm={6} md={6} lg={4} xl={4} className='mb-3' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }} key={index}>
                             <Stack className="subscription-plans-shadow" justifyContent="space-between">
@@ -126,7 +59,7 @@ const YearlyPlan = () => {
                                     </div>
                                     <div className="sub-body px-2 pt-2">
                                         <div className="sub-price">
-                                            <h3 className="text-center"> {`₹ ${item?.yearlyCharges}`} / <sub className="sub-plan-month">month</sub></h3>
+                                            <h3 className="text-center"> {`₹ ${item?.yearlyCharges}`} / <sub className="sub-plan-month">Yearly</sub></h3>
                                         </div>
                                         <p className="sub-plan-brand mb-3 mt-3">List as {item?.subscriptionType} Caterer</p>
                                         <p className="sub-plan-para">Benifits:</p>
@@ -137,8 +70,12 @@ const YearlyPlan = () => {
                                     </div>
                                 </div>
                                 <div className="">
+
+
                                     <Link to="javascript:void(0)" className="text-decoration-none mt-3">
-                                        <Button variant="contained" className={`sub-plan-btn mx-auto taxt-center ${color}`} onClick={() => displayRazorpay(item)}> Subscribe Now </Button>
+                                        <Button variant="contained" className={`sub-plan-btn mx-auto taxt-center ${color}`}
+                                            onClick={() => onHandleSubscribe(item)}
+                                        > Subscribe Now </Button>
                                     </Link>
                                     <br />
                                 </div>
@@ -146,92 +83,6 @@ const YearlyPlan = () => {
                         </Grid>
                     )
                 })}
-
-
-                {/* <Grid item xs={12} sm={6} md={6} lg={3} xl={3} className='mb-3' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }}>
-                    <div className="subscription-plans-shadow">
-                        <div className="sub-box-violet">
-                            <div className="sub-box-green-title">
-                                <h3 className="sub-box-name">Popular Caterer</h3>
-                            </div>
-                            <div className="sub-body px-2 pt-2">
-                                <div className="sub-price">
-                                    <h3 className="text-center"> ₹3000 / <sub className="sub-plan-month">month</sub></h3>
-                                </div>
-                                <p className="sub-plan-brand mb-3 mt-3">List as Popular Caterer</p>
-                                <p className="sub-plan-para">Benifits:</p>
-                                <p className="sub-plan-para">- Gets clean dashboard </p>
-                                <p className="sub-plan-para">- Track your incomes </p>
-                                <p className="sub-plan-para">- Gets clean order PDF </p>
-                                <p className="sub-plan-para">- Includes calender feature so you never missout any info reading dates </p>
-                                <p className="sub-plan-para">- Gets notify via email, SMS, app notification </p>
-                                <p className="sub-plan-para">- Phone/chat feature with customers </p>
-                                <p className="sub-plan-para">- Data analysis/improvement recommendation</p>
-                                <br />
-                                <Link to="javascript:void(0)" className="text-decoration-none mt-3">
-                                    <Button variant="contained" className="sub-plan-btn-green mx-auto taxt-center" onClick={displayRazorpayPopular}> Subscribe Now </Button>
-                                </Link>
-                                <br />
-                            </div>
-                        </div>
-                    </div>
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={3} xl={3} className='mb-3' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }}>
-                    <div className="subscription-plans-shadow">
-                        <div className="sub-box-violet">
-                            <div className="sub-box-red-title">
-                                <h3 className="sub-box-name">Recommended Caterer</h3>
-                            </div>
-                            <div className="sub-body px-2 pt-2">
-                                <div className="sub-price">
-                                    <h3 className="text-center"> ₹2000 / <sub className="sub-plan-month">month</sub></h3>
-                                </div>
-                                <p className="sub-plan-brand mb-3 mt-3">List as Recommended Caterer</p>
-                                <p className="sub-plan-para">Benifits:</p>
-                                <p className="sub-plan-para">- Gets clean dashboard </p>
-                                <p className="sub-plan-para">- Track your incomes </p>
-                                <p className="sub-plan-para">- Gets clean order PDF </p>
-                                <p className="sub-plan-para">- Includes calender feature so you never missout any info reading dates </p>
-                                <p className="sub-plan-para">- Gets notify via email, SMS, app notification </p>
-                                <p className="sub-plan-para">- Phone/chat feature with customers </p>
-                                <p className="sub-plan-para">- Data analysis/improvement recommendation</p>
-                                <br />
-                                <Link to="javascript:void(0)" className="text-decoration-none mt-3">
-                                    <Button variant="contained" className="sub-plan-btn-red mx-auto taxt-center"> Subscribe Now </Button>
-                                </Link>
-                                <br />
-                            </div>
-                        </div>
-                    </div>
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={3} xl={3} className='mb-3' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }}>
-                    <div className="subscription-plans-shadow">
-                        <div className="sub-box-violet">
-                            <div className="sub-box-yellow-title">
-                                <h3 className="sub-box-name">Normal Caterer</h3>
-                            </div>
-                            <div className="sub-body px-2 pt-2">
-                                <div className="sub-price">
-                                    <h3 className="text-center"> ₹1000 / <sub className="sub-plan-month">month</sub></h3>
-                                </div>
-                                <p className="sub-plan-brand mb-3 mt-3">List as Normal Caterer</p>
-                                <p className="sub-plan-para">Benifits:</p>
-                                <p className="sub-plan-para">- Gets clean dashboard </p>
-                                <p className="sub-plan-para">- Track your incomes </p>
-                                <p className="sub-plan-para">- Gets clean order PDF </p>
-                                <p className="sub-plan-para">- Includes calender feature so you never missout any info reading dates </p>
-                                <p className="sub-plan-para">- Gets notify via email, SMS, app notification </p>
-                                <p className="sub-plan-para">- Phone/chat feature with customers </p>
-                                <p className="sub-plan-para">- Data analysis/improvement recommendation</p>
-                                <br />
-                                <Link to="javascript:void(0)" className="text-decoration-none mt-3">
-                                    <Button variant="contained" className="sub-plan-btn-yellow mx-auto taxt-center"> Subscribe Now </Button>
-                                </Link>
-                                <br />
-                            </div>
-                        </div>
-                    </div>
-                </Grid> */}
             </Grid>
         </>
     )
