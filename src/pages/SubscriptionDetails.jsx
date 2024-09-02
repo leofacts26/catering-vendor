@@ -107,12 +107,11 @@ const SubscriptionDetails = () => {
 
       <Container maxWidth="lg">
         {activeSubscriptionList?.queuedSubscriptions?.length > 0 && <hr className="mb-4" />}
-        {activeSubscriptionList?.queuedSubscriptions?.length > 0 && <TopHeader title="Queud Subscriptions" description="" />}
+        {activeSubscriptionList?.queuedSubscriptions?.length > 0 && <h3 className='top-header-title mb-3'>Queud Subscriptions</h3>}
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-
             {
-              activeSubscriptionList?.queuedSubscriptions?.map((itemData) => {
+              activeSubscriptionList?.queuedSubscriptions?.length > 0 && activeSubscriptionList?.queuedSubscriptions?.map((itemData) => {
                 return (
                   <Grid item xs={12} md={6} lg={4}>
                     <div className="ct-box-details ct-box-padding">
@@ -219,27 +218,15 @@ const SubscriptionDetails = () => {
                             {itemData?.sub_amount ? itemData?.sub_amount : 'N/A'}
                           </h4>
                         </Stack>
-
-
-                        {/* <Link to="/dashboard/subscription-plan" className="text-decoration-none">
-                          <Button variant="contained" className="inquiries-btn mx-auto taxt-center"> Upgrade Subscription </Button>
-                        </Link> */}
                       </div>
                     </div>
                   </Grid>
                 )
               })
             }
-
-
-
-
-
           </Grid>
         </Box>
       </Container>
-
-
     </>
   )
 }

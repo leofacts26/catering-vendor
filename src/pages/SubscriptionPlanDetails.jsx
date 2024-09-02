@@ -163,7 +163,7 @@ const SubscriptionPlanDetails = () => {
             razorpaySignature: response.razorpay_signature,
           };
           await dispatch(setCouponCode(""));
-          navigate('/dashboard/subscription-details');
+          navigate('/dashboard/subscription');
           // Handle the post-payment logic for subscription
         },
         prefill: {
@@ -206,7 +206,7 @@ const SubscriptionPlanDetails = () => {
           };
           // console.log(data);
           await dispatch(setCouponCode(""));
-          navigate('/dashboard/subscription-details');
+          navigate('/dashboard/subscription');
         },
         prefill: {
           name: "Caterings And Tiffins",
