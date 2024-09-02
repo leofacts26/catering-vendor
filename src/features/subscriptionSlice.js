@@ -50,7 +50,7 @@ export const calculateOrderTotal = createAsyncThunk(
           authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
         },
       });
-      toast.success(response.data.status)
+      // toast.success(response.data.status)
       return response.data;
     } catch (error) {
       console.log(error);

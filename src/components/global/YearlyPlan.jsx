@@ -55,7 +55,7 @@ const YearlyPlan = () => {
                             <Stack className="subscription-plans-shadow" justifyContent="space-between">
                                 <div className="sub-box-violet">
                                     <div className={`sub-box-violet-title ${color}`}>
-                                        <h3 className="sub-box-name"> {item?.subscriptionType} Caterer</h3>
+                                        <h3 className="sub-box-name"> <span style={{ textTransform: 'capitalize' }}>{item?.subscriptionType}</span> Caterer</h3>
                                     </div>
                                     <div className="sub-body px-2 pt-2">
                                         <div className="sub-price">

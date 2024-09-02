@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { Checkbox } from "@mui/material";
 import { successToast } from "../utils";
+import moment from 'moment';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -151,6 +152,7 @@ const SubscriptionPlanDetails = () => {
         currency: "INR", // Assuming INR as currency
         name: "Caterings And Tiffins",
         description: "Subscription Payment",
+        image: "/img/catering-service-logo.png",
         // order_id: subscriptionId, // Using subscription ID for the order_id
         handler: async function (response) {
           console.log(response, "response response");
@@ -175,7 +177,8 @@ const SubscriptionPlanDetails = () => {
           short_url: short_url // Optional: Include short URL
         },
         options: {
-          label: "Pay Now"
+          label: "Pay Now",
+          image: "/img/catering-service-logo.png"
         },
         theme: {
           color: "#a81e1e",
@@ -190,6 +193,7 @@ const SubscriptionPlanDetails = () => {
         currency: currency,
         name: "Caterings And Tiffins",
         description: "Test Transaction",
+        image: "/img/catering-service-logo.png",
         // image: { logo },
         order_id: id,
         handler: async function (response) {
@@ -211,6 +215,10 @@ const SubscriptionPlanDetails = () => {
         },
         notes: {
           address: "Caterings And Tiffins Corporate Office",
+        },
+        options: {
+          label: "Pay Now",
+          image: "/img/catering-service-logo.png"
         },
         theme: {
           color: "#a81e1e",
@@ -239,97 +247,94 @@ const SubscriptionPlanDetails = () => {
       <Container maxWidth="lg">
         <div className="card-box-shadow px-5 py-4 mb-4">
           <p className="sub-plan-title text-center">SELECTED SUBSCRIPTION PLAN</p>
-          {/* <p className="branches-desc text-center">
-            Choose your subscription types
-          </p> */}
-
           <Grid container spacing={2} sx={{ display: 'flex', justifyContent: "center" }}>
-            <Grid item xs={12} sm={8} md={6} lg={5} xl={5} className='mb-3 mt-5' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }}>
+            <Grid item xs={12} sm={8} md={6} lg={6} xl={6} className='mb-3 mt-5' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }}>
               <Stack className="subscription-plans-shadow" sx={{ display: 'flex', justifyContent: "center" }}>
                 <div className="sub-box-violet">
                   <div className={`sub-box-violet-title popular-color`}>
-                    <h3 className="sub-box-name"> {discoundedData?.subPlan} Caterer</h3>
+                    <h3 className="sub-box-name"> <span style={{ textTransform: 'capitalize' }}>{discoundedData?.subPlan}</span> Caterer</h3>
                   </div>
                   <div className="sub-body px-2 pt-2">
-                    <div className="sub-price mb-3">
-                      <h3 className="text-center"> {discoundedData?.subAmount} / <sub className="sub-plan-month"> {discoundedData?.subType} </sub></h3>
-                    </div>
-                    {/* <p className="sub-plan-brand mb-3 mt-3">List as {subscribeData?.subscriptionType} Caterer</p> */}
-
                     <div className="mb-3 mt-3">
-                      <p className="sub-plan-para mb-3 mt-3">Coupon Details:</p>
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-3">
-                        <p>code:</p> <p> {discoundedData?.couponDetails?.code ? discoundedData?.couponDetails?.code : 'N/A'}</p>
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
+                        <p>Subscription Plan:</p> <p> {discoundedData?.subPlan ? discoundedData?.subPlan : 'N/A'} Caterer</p>
                       </Stack>
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-3">
-                        <p>Discount Percent:</p> <p> {discoundedData?.couponDetails?.discountPercent ? discoundedData?.couponDetails?.discountPercent : 'N/A'}</p>
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-1">
+                        <p>Subscription Type:</p> <p> {discoundedData?.subType ? discoundedData?.subType : 'N/A'} / One Time</p>
                       </Stack>
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-3">
-                        <p>Discount Price:</p> <p> {discoundedData?.couponDetails?.discountPrice ? discoundedData?.couponDetails?.discountPrice : 'N/A'}</p>
+
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-4">
+                        <p>Start Date:</p>
+                        <p>
+                          {discoundedData?.startDate ? moment(discoundedData.startDate).format('MMMM DD, YYYY') : 'N/A'}
+                        </p>
+                      </Stack>
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-2">
+                        <p>Expiry Date:</p>
+                        <p>
+                          {discoundedData?.expiryDate ? moment(discoundedData.expiryDate).format('MMMM DD, YYYY') : 'N/A'}
+                        </p>
                       </Stack>
 
                       <hr />
 
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-3">
-                        <p>Status:</p> <p> {discoundedData?.status ? discoundedData?.status : 'N/A'}</p>
+                      <form className="search-wrapper cf mt-3" onSubmit={onCouponCodeSubmit}>
+                        <input
+                          name="couponCode" value={couponCode} onChange={(e) => dispatch(setCouponCode(e.target.value))}
+                          type="text" placeholder="Enter Coupon Code" required style={{ boxShadow: 'none' }} />
+                        <button type="submit">Apply</button>
+                      </form>
+                      <p className={`coupon-small mb-4 ms-2 mt-2 ${discoundedData?.couponStatus === 'Applied' ? 'text-success' : 'text-danger'} `}>
+                        {discoundedData?.couponStatus ? `Coupon ${discoundedData?.couponStatus}` : null}</p>
+
+
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
+                        <p>Coupon Code:</p> <p> {discoundedData?.couponCode ? discoundedData?.couponCode : 'N/A'} </p>
                       </Stack>
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-3">
-                        <p>Coupon Code:</p> <p className="text-success"> {discoundedData?.couponCode ? discoundedData?.couponCode : 'N/A'}</p>
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-2">
+                        <p>Discount Percent:</p> <p> {discoundedData?.discountPercent ? discoundedData?.discountPercent : 'N/A'}</p>
                       </Stack>
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-3">
+
+                      <hr />
+
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
+                        <p>Sub Amount:</p> <p> {discoundedData?.subAmount ? discoundedData?.subAmount : 'N/A'} </p>
+                      </Stack>
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-2">
                         <p>Discount Amount:</p> <p> {discoundedData?.discountAmount ? discoundedData?.discountAmount : 'N/A'}</p>
                       </Stack>
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-3">
-                        <p>Expiry Date:</p> <p> {discoundedData?.expiryDate ? discoundedData?.expiryDate : 'N/A'}</p>
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-2">
+                        <p>Final Amount:</p>
+                        <Stack direction="row" alignItems="center">
+                          <CurrencyRupeeIcon className="text-success mt-1" style={{ fontSize: '16px' }} />
+                          <p>{discoundedData?.finalAmount ? discoundedData?.finalAmount : 'N/A'}</p>
+                        </Stack>
                       </Stack>
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-3">
-                        <p>StartDate:</p> <p> {discoundedData?.startDate ? discoundedData?.startDate.slice(0, 10) : 'N/A'}</p>
-                      </Stack>
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-3">
-                        <p>Sub Amount:</p> <p> {discoundedData?.subAmount ? discoundedData?.subAmount : 'N/A'}</p>
-                      </Stack>
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-3">
-                        <p>Payment Terms:</p> <p> {discoundedData?.paymentTerms ? discoundedData?.paymentTerms : 'N/A'}</p>
-                      </Stack>
+
                       <hr />
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-3">
-                        <p>Final Amount:</p> <p style={{ display: 'flex', alignItems: 'center' }}> {discoundedData?.finalAmount ? <>
-                          <CurrencyRupeeIcon className="text-success" style={{ fontSize: '16px' }} /> {discoundedData?.finalAmount}
-                        </> : 'N/A'}</p>
+
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
+                        <p>Payment Terms:</p>
+                        <Stack direction="column">
+                          <div className="coupon-flex">
+                            <span className='coupon-text'>
+                              {recurringPayments ? 'Monthly Subscription Enabled' : 'Monthly Subscription Not Enabled'}
+                            </span>
+                            <Checkbox
+                              disabled={discoundedData?.is_one_recurring_subscription_already_present}
+                              size="small" {...label}
+                              checked={recurringPayments}
+                              onChange={(e) => setRecurringPayments(e.target.checked)}
+                              className={recurringPayments ? 'checkbox-enabled' : 'checkbox-disabled'}
+                            />
+                          </div>
+                          <p> {discoundedData?.paymentTerms ? discoundedData?.paymentTerms : 'N/A'}</p>
+                        </Stack>
                       </Stack>
-                      {/* <hr /> */}
                     </div>
                   </div>
                 </div>
                 <div className="">
-                  <div className="coupon-flex">
-                    <span className='coupon-text'>
-                      {recurringPayments ? 'Already Subscription Activated' : 'Subscription Not Activated'}
-                    </span>
-                    <Checkbox
-                      disabled={discoundedData?.is_one_recurring_subscription_already_present}
-                      size="small" {...label}
-                      checked={recurringPayments}
-                      onChange={(e) => setRecurringPayments(e.target.checked)} />
-                  </div>
-
-                  <form className="search-wrapper cf" onSubmit={onCouponCodeSubmit}>
-                    <input
-                      name="couponCode" value={couponCode} onChange={(e) => dispatch(setCouponCode(e.target.value))}
-                      type="text" placeholder="Enter Coupon Code" required style={{ boxShadow: 'none' }} />
-                    <button type="submit">Apply</button>
-                  </form>
-                  <p className={`mb-4 ms-2 mt-2 ${discoundedData?.couponStatus === 'Applied' ? 'text-success' : 'text-danger'} `}>{discoundedData?.couponStatus ? `Coupon ${discoundedData?.couponStatus}` : null}</p>
-
-                  {/* <div className="coupon-flex">
-                    <span className='coupon-text'>
-                      Apply Coupon if any
-                    </span>
-                    <Checkbox size="small" {...label}
-                checked={checkedSubscriptionIds.includes(item.subscriptionTypeId)}
-                onChange={() => handleCheckboxChange(item.subscriptionTypeId, item)} />
-                  </div> */}
-
                   <Button disabled={loading} variant="contained" className={`sub-plan-btn mx-auto taxt-center `}
                     onClick={() => displayRazorpay()}
                   > {loading ? 'Loading...' : 'Make Payment'} </Button>

@@ -2033,7 +2033,7 @@ textarea:-webkit-autofill:active {
 .search-wrapper {
   width: 96%;
   margin: auto;
-  border-radius: 40px;
+  /* border-radius: 40px; */
   background: transparent;
   box-shadow: 0 4px 20px -2px #e9e9e9;
   display: flex;
@@ -2045,7 +2045,7 @@ textarea:-webkit-autofill:active {
 
 .search-wrapper input {
   padding-left: 20px;
-  width: 330px;
+  width: 78%;
   height: 40px;
   padding: 10px 5px;
   float: left;
@@ -2128,7 +2128,7 @@ textarea:-webkit-autofill:active {
   display: flex;
   justify-content: end;
   align-items: center;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
 }
 
 .coupon-text {
@@ -2161,4 +2161,16 @@ textarea:-webkit-autofill:active {
 }
 .text-danger{
   color: var(--accent2) !important;
+}
+
+.coupon-small{
+  font-size: 14px !important;
+}
+
+.checkbox-enabled {
+  color: green !important; /* Color for enabled state */
+}
+
+.checkbox-disabled {
+  color: rgba(0, 0, 0, 0.26) !important; /* Color for disabled state */
 }
