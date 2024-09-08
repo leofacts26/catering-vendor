@@ -22,6 +22,11 @@ const SubscriptionPlanDetails = () => {
   const [loading, setLoading] = useState(false);
   const [recurringPayments, setRecurringPayments] = useState(discoundedData?.is_one_recurring_subscription_already_present);
 
+
+  // console.log(discoundedData, "discoundedData discoundedData");
+  // console.log(recurringPayments, "recurringPayments");
+
+
   // console.log(subscribeData, "subscribeData subscribeData");
   // console.log(discoundedData, "discoundedData details");
   // console.log(selectedSubscription, "selectedSubscription details");
@@ -109,6 +114,8 @@ const SubscriptionPlanDetails = () => {
     // Determine whether to create a one-time payment or recurring payment
     if (!recurringPayments) {
       result = await dispatch(createRecurringTimePayment(recurringMonthlydata));
+    } else if (discoundedData?.is_one_recurring_subscription_already_present === false && recurringPayments) {
+      result = await dispatch(createRecurringTimePayment(recurringMonthlydata));
     } else {
       result = await dispatch(createOneTimePayment());
     }
@@ -133,7 +140,7 @@ const SubscriptionPlanDetails = () => {
 
     let options;
 
-    if (!recurringPayments) {
+    if (!recurringPayments || (discoundedData?.is_one_recurring_subscription_already_present === false && recurringPayments)) {
       // subscription payment case
       const {
         id: subscriptionId,
@@ -193,7 +200,6 @@ const SubscriptionPlanDetails = () => {
         currency: currency,
         name: "Caterings And Tiffins",
         description: "Test Transaction",
-        image: "/img/catering-service-logo.png",
         // image: { logo },
         order_id: id,
         handler: async function (response) {
@@ -215,10 +221,6 @@ const SubscriptionPlanDetails = () => {
         },
         notes: {
           address: "Caterings And Tiffins Corporate Office",
-        },
-        options: {
-          label: "Pay Now",
-          image: "/img/catering-service-logo.png"
         },
         theme: {
           color: "#a81e1e",
