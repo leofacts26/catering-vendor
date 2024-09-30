@@ -15,6 +15,9 @@ const YearlyPlan = () => {
     const { subscriptionData, isLoading } = useSelector((state) => state.subscription);
     const dispatch = useDispatch();
 
+    console.log(subscriptionData, "subscriptionDatasubscriptionData");
+
+
     useEffect(() => {
         dispatch(fetchSubscriptionTypes());
     }, []);
@@ -63,9 +66,10 @@ const YearlyPlan = () => {
                                         </div>
                                         <p className="sub-plan-brand mb-3 mt-3">List as {item?.subscriptionType} Caterer</p>
                                         <p className="sub-plan-para">Benifits:</p>
-                                        {item?.benefits.map((benefit, index) => (
-                                            <p className="sub-plan-para" key={index}>- {benefit}</p>
+                                        {item?.benefits && Object.entries(item.benefits).map(([key, benefit], index) => (
+                                            <p className="sub-plan-para" key={key}>- {benefit}</p>
                                         ))}
+
                                         <br />
                                     </div>
                                 </div>

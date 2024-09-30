@@ -15,6 +15,9 @@ const MonthlyPlan = () => {
     const { subscriptionData, isLoading } = useSelector((state) => state.subscription);
     const dispatch = useDispatch();
 
+    console.log(subscriptionData, "subscriptionDatasubscriptionDatasubscriptionData");
+
+
     useEffect(() => {
         dispatch(fetchSubscriptionTypes());
     }, []);
@@ -43,13 +46,16 @@ const MonthlyPlan = () => {
             <Grid container spacing={2}>
                 {subscriptionData?.length > 0 && subscriptionData?.map((item, index) => {
                     let color = '';
-                    if (item?.subscriptionType === 'normal') {
-                        color = 'normal-color'
-                    } else if (item?.subscriptionType === 'popular') {
-                        color = 'popular-color'
-                    } else if (item?.subscriptionType === 'branded') {
-                        color = 'branded-color'
+                    const subscriptionType = item?.subscriptionType?.toLowerCase();
+
+                    if (subscriptionType === 'normal') {
+                        color = 'normal-color';
+                    } else if (subscriptionType === 'popular') {
+                        color = 'popular-color';
+                    } else if (subscriptionType === 'branded') {
+                        color = 'branded-color';
                     }
+
                     return (
                         <Grid item xs={12} sm={6} md={6} lg={4} xl={4} className='mb-3' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }} key={index}>
                             <Stack className="subscription-plans-shadow" justifyContent="space-between">
@@ -63,9 +69,11 @@ const MonthlyPlan = () => {
                                         </div>
                                         <p className="sub-plan-brand mb-3 mt-3">List as {item?.subscriptionType} Caterer</p>
                                         <p className="sub-plan-para">Benifits:</p>
-                                        {item?.benefits.map((benefit, index) => (
-                                            <p className="sub-plan-para" key={index}>- {benefit}</p>
+                                        {item?.benefits && Object.entries(item.benefits).map(([key, benefit], index) => (
+                                            <p className="sub-plan-para" key={key}>- {benefit}</p>
                                         ))}
+
+
                                         <br />
                                     </div>
                                 </div>
