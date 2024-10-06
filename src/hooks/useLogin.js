@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setData, setVendorId, setAccessToken,setRefreshToken, setLoginUserData } from '../features/user/userSlice';
+import { setData, setVendorId, setAccessToken, setRefreshToken, setLoginUserData } from '../features/user/userSlice';
 import toast from 'react-hot-toast';
 import { api } from '../api/apiConfig';
 import { useNavigate } from 'react-router-dom';
+import { vendor_type } from '../constant';
 
 const useLogin = () => {
     const [loading, setLoading] = useState(false);
@@ -14,8 +15,12 @@ const useLogin = () => {
     // registerVendor 
     const loginVendor = async (loginData, setShowOtp) => {
         setLoading(true);
+        const loginDataWithVendorType = {
+            ...loginData,
+            vendor_type: vendor_type
+        };
         try {
-            const response = await api.post('/login-vendor-send-otp', loginData);
+            const response = await api.post('/login-vendor-send-otp', loginDataWithVendorType);
             // console.log(response.data.data, "response");
             dispatch(setVendorId(response.data.data))
             dispatch(setLoginUserData(loginData));
@@ -32,7 +37,8 @@ const useLogin = () => {
     const verifyOtp = async (otp, loginUserData, setOtp, setValue) => {
         const data = {
             otp_code: otp,
-            company_id: loginUserData?.company_id
+            company_id: loginUserData?.company_id,
+            vendor_type: vendor_type
         };
         setLoading(true);
         try {
@@ -55,7 +61,8 @@ const useLogin = () => {
         try {
             const data = {
                 company_id: loginUserData?.company_id,
-                password: loginUserData?.password
+                password: loginUserData?.password,
+                vendor_type: vendor_type
             }
             const response = await api.post('/login-vendor-resend-otp', data)
             toast.success(response?.data?.message);
