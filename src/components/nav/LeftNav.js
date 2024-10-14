@@ -49,14 +49,14 @@ const leftnav = [
 
 const LeftNav = () => {
   // const classes = useStyles();
-  const vendorBusinessProfile = useGetVendor();
+  const { vendorBusinessProfile } = useGetVendor();
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
 
-  const handleCloseDrawer = () =>{
+  const handleCloseDrawer = () => {
     setOpenDrawer(false)
   }
 

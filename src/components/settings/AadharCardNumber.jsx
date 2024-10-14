@@ -39,10 +39,10 @@ const CssTextField = styled(TextField)(({ theme }) => ({
 
 
 const initialState = {
-    gstnNumber: '',
+    aadhar_card_number: '',
 }
 
-const GstnNumber = () => {
+const AadharCardNumber = () => {
     const { settings, getVendorSettingsImages } = useFetchPhotoGallery()
     const { vendorBusinessProfile, vendorSettings, fetchVendorSettingsData } = useGetVendor();
     const { vendor_id } = useSelector((state) => state?.user?.vendorId)
@@ -56,15 +56,15 @@ const GstnNumber = () => {
     const dispatch = useDispatch()
 
     const schema = Yup.object().shape({
-        gstnNumber: Yup.string()
+        aadhar_card_number: Yup.string()
             .required('GSTN number is required.')
-            .matches(/^\d{15}$/, 'GSTN number must be exactly 15 digits long.')
+            .matches(/^\d{12}$/, 'GSTN number must be exactly 12 digits long.')
     });
 
     const handleSubmit = async (values, resetForm) => {
-        const { gstnNumber } = values;
+        const { aadhar_card_number } = values;
         const data = {
-            gstin_number: gstnNumber,
+            aadhar_card_number: aadhar_card_number,
             vendor_id: vendor_id,
             company_id: vendorBusinessProfile?.company_id,
             phone_number: vendorBusinessProfile?.phone_number
@@ -90,8 +90,8 @@ const GstnNumber = () => {
     }
 
     useEffect(() => {
-        if (vendorSettings && vendorSettings.gstin_number) {
-            setInitialValues({ ...initialValues, gstnNumber: vendorSettings.gstin_number });
+        if (vendorSettings && vendorSettings.aadhar_card_number) {
+            setInitialValues({ ...initialValues, aadhar_card_number: vendorSettings.aadhar_card_number });
         }
     }, [vendorSettings]);
 
@@ -104,10 +104,10 @@ const GstnNumber = () => {
                     aria-controls="panel1-content"
                     id="panel1-header"
                 >
-                    <p className="settings-faq-title" style={{ fontSize: '14px', fontWeight: '500' }}> GSTIN Number </p>
+                    <p className="settings-faq-title" style={{ fontSize: '14px', fontWeight: '500' }}> Aadhar Card Number </p>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <p className="settings-small mt-1">Enter your GSTIN number below</p>
+                    <p className="settings-small mt-1">Enter your Aadhar Card number below</p>
 
 
                     <Formik enableReinitialize={true} initialValues={initialValues} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
@@ -120,14 +120,14 @@ const GstnNumber = () => {
                                             variant="outlined"
                                             className='mt-2'
                                             type='text'
-                                            value={values.gstnNumber}
+                                            value={values.aadhar_card_number}
                                             onChange={handleChange}
-                                            name="gstnNumber"
+                                            name="aadhar_card_number"
                                             style={{ width: '100%' }}
                                             InputLabelProps={{
                                                 style: { color: '#777777', fontSize: '10px' },
                                             }}
-                                            inputProps={{ maxLength: 15 }}
+                                            inputProps={{ maxLength: 12 }}
                                             InputProps={{
                                                 style: {
                                                     borderRadius: '8px',
@@ -135,7 +135,7 @@ const GstnNumber = () => {
                                                 }
                                             }}
                                         />
-                                        {errors.gstnNumber && <small className='text-danger mt-2 ms-1'>{errors.gstnNumber}</small>}
+                                        {errors.aadhar_card_number && <small className='text-danger mt-2 ms-1'>{errors.aadhar_card_number}</small>}
                                     </div>
 
 
@@ -154,4 +154,4 @@ const GstnNumber = () => {
     )
 }
 
-export default GstnNumber
+export default AadharCardNumber

@@ -15,9 +15,50 @@ import ResetPasswordSettings from "../components/settings/ResetPasswordSettings"
 import FssaiPhoto from "../components/gallery/FssaiPhoto";
 import PanCard from "../components/gallery/PanCard";
 import AadharCard from "../components/gallery/AadharCard";
+import { useSelector } from "react-redux";
+import { api, BASE_URL } from "../api/apiConfig";
+import { setAccessToken } from "../features/user/userSlice";
+import { useEffect, useState } from "react";
+import AadharCardNumber from "../components/settings/AadharCardNumber";
+import PanCardNumber from "../components/settings/PanCardNumber";
+import FssaiCardNumber from "../components/settings/FssaiCardNumber";
+import GstinPhoto from "../components/gallery/GstinPhoto";
 
 const Settings = () => {
-  const vendorBusinessProfile = useGetVendor();
+  const { vendorBusinessProfile, vendorSettings } = useGetVendor();
+  const { vendor_id } = useSelector((state) => state?.user?.vendorId)
+  // console.log(vendor_id, "vendor_idvendor_idvendor_id");
+  const [vendorSettingsList, setVendorSettingsList] = useState(null)
+  const { accessToken } = useSelector((state) => state.user)
+
+  console.log(vendorSettings, "vendorSettings vendorSettings vendorSettings");
+
+
+  // const fetchVendorSettingsData = async () => {
+
+  //   const data = {
+  //     vendor_id: vendor_id,
+  //     company_id: vendorBusinessProfile?.company_id,
+  //     phone_number: vendorBusinessProfile?.phone_number
+  //   }
+
+  //   try {
+  //     const response = await api.post(`${BASE_URL}/vendor-update-enc`, data, {
+  //       headers: {
+  //         Authorization: `Bearer ${accessToken}`,
+  //       }
+  //     })
+  //     setVendorSettingsList(response?.data?.data)
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   if (vendorBusinessProfile?.company_id && vendorBusinessProfile?.phone_number && vendor_id) {
+  //     fetchVendorSettingsData()
+  //   }
+  // }, [vendorBusinessProfile?.company_id, vendorBusinessProfile?.phone_number, vendor_id])
 
   return (
     <>
@@ -59,17 +100,24 @@ const Settings = () => {
 
                   <p className="company-change-password mt-3 mb-3">Documents</p>
 
-                  
+
                   <AadharCard />
-                  
+
+                  <AadharCardNumber />
+
 
                   <PanCard />
 
+                  <PanCardNumber />
+
+                  <GstinPhoto />
                   <GstnNumber />
 
-                  
+
 
                   <FssaiPhoto />
+
+                  <FssaiCardNumber />
 
                   <Divider
                     className='mt-3'

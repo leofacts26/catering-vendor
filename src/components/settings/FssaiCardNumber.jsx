@@ -39,10 +39,10 @@ const CssTextField = styled(TextField)(({ theme }) => ({
 
 
 const initialState = {
-    gstnNumber: '',
+    fssai_number: '',
 }
 
-const GstnNumber = () => {
+const FssaiCardNumber = () => {
     const { settings, getVendorSettingsImages } = useFetchPhotoGallery()
     const { vendorBusinessProfile, vendorSettings, fetchVendorSettingsData } = useGetVendor();
     const { vendor_id } = useSelector((state) => state?.user?.vendorId)
@@ -56,15 +56,16 @@ const GstnNumber = () => {
     const dispatch = useDispatch()
 
     const schema = Yup.object().shape({
-        gstnNumber: Yup.string()
-            .required('GSTN number is required.')
-            .matches(/^\d{15}$/, 'GSTN number must be exactly 15 digits long.')
+        fssai_number: Yup.string()
+            .matches(/^[A-Z0-9]*$/, 'FSSAI number must contain only uppercase letters and numbers')
+            .min(14, 'FSSAI must be at least 14 characters long')
+            .max(14, 'FSSAI must not exceed 14 characters')
     });
 
     const handleSubmit = async (values, resetForm) => {
-        const { gstnNumber } = values;
+        const { fssai_number } = values;
         const data = {
-            gstin_number: gstnNumber,
+            fssai_number: fssai_number,
             vendor_id: vendor_id,
             company_id: vendorBusinessProfile?.company_id,
             phone_number: vendorBusinessProfile?.phone_number
@@ -90,8 +91,8 @@ const GstnNumber = () => {
     }
 
     useEffect(() => {
-        if (vendorSettings && vendorSettings.gstin_number) {
-            setInitialValues({ ...initialValues, gstnNumber: vendorSettings.gstin_number });
+        if (vendorSettings && vendorSettings.fssai_number) {
+            setInitialValues({ ...initialValues, fssai_number: vendorSettings.fssai_number });
         }
     }, [vendorSettings]);
 
@@ -104,10 +105,10 @@ const GstnNumber = () => {
                     aria-controls="panel1-content"
                     id="panel1-header"
                 >
-                    <p className="settings-faq-title" style={{ fontSize: '14px', fontWeight: '500' }}> GSTIN Number </p>
+                    <p className="settings-faq-title" style={{ fontSize: '14px', fontWeight: '500' }}> FSSAI Number </p>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <p className="settings-small mt-1">Enter your GSTIN number below</p>
+                    <p className="settings-small mt-1">Enter your FSSAI number below</p>
 
 
                     <Formik enableReinitialize={true} initialValues={initialValues} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
@@ -120,14 +121,14 @@ const GstnNumber = () => {
                                             variant="outlined"
                                             className='mt-2'
                                             type='text'
-                                            value={values.gstnNumber}
+                                            value={values.fssai_number}
                                             onChange={handleChange}
-                                            name="gstnNumber"
+                                            name="fssai_number"
                                             style={{ width: '100%' }}
                                             InputLabelProps={{
                                                 style: { color: '#777777', fontSize: '10px' },
                                             }}
-                                            inputProps={{ maxLength: 15 }}
+                                            inputProps={{ maxLength: 14 }}
                                             InputProps={{
                                                 style: {
                                                     borderRadius: '8px',
@@ -135,7 +136,7 @@ const GstnNumber = () => {
                                                 }
                                             }}
                                         />
-                                        {errors.gstnNumber && <small className='text-danger mt-2 ms-1'>{errors.gstnNumber}</small>}
+                                        {errors.fssai_number && <small className='text-danger mt-2 ms-1'>{errors.fssai_number}</small>}
                                     </div>
 
 
@@ -154,4 +155,4 @@ const GstnNumber = () => {
     )
 }
 
-export default GstnNumber
+export default FssaiCardNumber

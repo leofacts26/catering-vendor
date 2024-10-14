@@ -8,6 +8,7 @@ import AadharCardFront from './AadharCardFront';
 import AadharCardBack from './AadharCardBack';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import AadharCardNumber from '../settings/AadharCardNumber';
 
 
 const AadharCard = () => {
@@ -46,6 +47,8 @@ const AadharCard = () => {
                         </Stack>
                     </AccordionDetails>
                 </Accordion>
+
+               
             </div>
 
 

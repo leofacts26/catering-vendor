@@ -1328,6 +1328,157 @@ const useFetchPhotoGallery = (handleBoxClose) => {
     }
 
 
+    // FSSAI START
+    // Main Banner Photo
+    const onUploadGstinBanner = async (event) => {
+        const formData = new FormData();
+        formData.append('id', '');
+        formData.append('image', event.target.files[0]);
+        formData.append('action_type', 'insert')
+
+        dispatch(setIsLoading(true))
+        try {
+            toast.loading('Uploading Image...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encg`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleBoxClose()
+        }
+    }
+
+    const onReUploadGstinBanner = async (event) => {
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-encg'][0]?.id && settings['vendor-encg'][0]?.id));
+        formData.append('image', event.target.files[0]);
+        formData.append('action_type', 'replace')
+
+        dispatch(setIsLoading(true))
+        try {
+            toast.loading('Uploading Image...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encg`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleBoxClose()
+        }
+    }
+
+    const onUploadGstinLogo = async (event) => {
+        dispatch(setIsLoading(true))
+
+        const { file, url } = await getCroppedImg(
+            photoURL,
+            croppedAreaPixels,
+            rotation
+        );
+
+        const formData = new FormData();
+        formData.append('id', '');
+        formData.append('image', file);
+        formData.append('action_type', 'insert')
+
+        try {
+            toast.loading('Uploading Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encg`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleClose();
+            handleBrandClose()
+        }
+    }
+
+    const onReUploadGstinLogo = async (event) => {
+        dispatch(setIsLoading(true))
+        const { file, url } = await getCroppedImg(
+            photoURL,
+            croppedAreaPixels,
+            rotation
+        );
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-encg'][0]?.id && settings['vendor-encg'][0]?.id));
+        formData.append('image', file);
+        formData.append('action_type', 'replace')
+
+        try {
+            toast.loading('Re Uploading Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encg`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error))
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleClose();
+            handleBrandClose()
+        }
+    }
+
+    const onHandleRemoveGstinLogo = async () => {
+        const formData = new FormData();
+        formData.append('id', parseInt(settings['vendor-encg'][0]?.id && settings['vendor-encg'][0]?.id));
+        formData.append('action_type', 'remove')
+
+        dispatch(setIsLoading(true))
+        try {
+            toast.loading('Removing Banner logo...');
+            const response = await api.post(`${BASE_URL}/upload-vendor-encg`, formData, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            getVendorSettingsImages();
+            toast.success(successToast(response));
+        } catch (error) {
+            console.log(error);
+            toast.error(datavalidationerror(error));
+        } finally {
+            dispatch(setIsLoading(false))
+            toast.dismiss();
+            handleBrandClose()
+        }
+    }
+
+
+
     // FSSAI START 
     // Main Banner Photo
     const onUploadFssaiBanner = async (event) => {
@@ -1549,6 +1700,13 @@ const useFetchPhotoGallery = (handleBoxClose) => {
         onUploadPanLogo,
         onReUploadPanLogo,
         onHandleRemovePanLogo,
+
+        // GSTIN Card
+        onUploadGstinBanner,
+        onReUploadGstinBanner,
+        onUploadGstinLogo,
+        onReUploadGstinLogo,
+        onHandleRemoveGstinLogo,
 
         // Fssai Licence
         onUploadFssaiBanner,
