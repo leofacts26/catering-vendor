@@ -23,23 +23,6 @@ const SubscriptionPlanDetails = () => {
   const [recurringPayments, setRecurringPayments] = useState(discoundedData?.is_one_recurring_subscription_already_present);
 
 
-  // console.log(discoundedData, "discoundedData discoundedData");
-  // console.log(recurringPayments, "recurringPayments");
-
-
-  // console.log(subscribeData, "subscribeData subscribeData");
-  // console.log(discoundedData, "discoundedData details");
-  // console.log(selectedSubscription, "selectedSubscription details");
-  // console.log(recurringPayments, "recurringPayments details");
-
-  // console.log(discoundedData?.is_one_recurring_subscription_already_present, "discoundedData?.is_one_recurring_subscription_already_present");
-
-
-  // useEffect(() => {
-  //   setRecurringPayments(discoundedData?.is_one_recurring_subscription_already_present)
-  // }, [discoundedData?.is_one_recurring_subscription_already_present])
-
-
   useEffect(() => {
     if (discoundedData === null) {
       navigate('/dashboard/subscription-plan');
@@ -61,8 +44,6 @@ const SubscriptionPlanDetails = () => {
     });
   }
 
-
-
   const onCouponCodeSubmit = async (e) => {
     e.preventDefault()
     await dispatch(setCouponCode(couponCode));
@@ -77,6 +58,7 @@ const SubscriptionPlanDetails = () => {
     }
   }
 
+  console.log(recurringPayments, "recurringPayments Top");
 
 
   // displayRazorpay 
@@ -94,54 +76,35 @@ const SubscriptionPlanDetails = () => {
 
     const { plans = [] } = subscribeData || {};
 
-    // Determine the correct plan index based on the subscription type
     const planIndex = discoundedData?.subType?.toLowerCase() === 'monthly' ? 1 : 0;
 
-    // Construct recurringMonthlydata based on the selected plan
     const recurringMonthlydata = {
       subscription_type_id: plans[planIndex]?.subscriptionTypeId || null,
       subscription_duration: plans[planIndex]?.durations?.[0] || null,
       plan_id: plans[planIndex]?.id || null,
     };
 
-    // console.log(recurringMonthlydata, "recurringMonthlydata");
-
-    // return;
-
-    // Declare result variable
     let result;
 
-    // Determine whether to create a one-time payment or recurring payment
-    if (!recurringPayments) {
-      result = await dispatch(createRecurringTimePayment(recurringMonthlydata));
-    } else if (discoundedData?.is_one_recurring_subscription_already_present === false && recurringPayments) {
+    // Updated logic for one-time or recurring payment
+    if (recurringPayments && discoundedData?.is_one_recurring_subscription_already_present === false) {
+      // Call recurring payment only if no existing recurring subscription
       result = await dispatch(createRecurringTimePayment(recurringMonthlydata));
     } else {
+      // Fallback to one-time payment
       result = await dispatch(createOneTimePayment());
     }
 
-    console.log(result, "result Top");
 
-
-    // Error handling for API response
     if (!result || result.payload.error || result.payload.status === "failure") {
       toast.error("Server error: " + (result.payload?.error?.message || result.payload.message || "Unknown error occurred."));
       setLoading(false);
       return;
     }
 
-    // if (!result || result.payload.error) {
-    //   alert("Server error. Are you online?");
-    //   setLoading(false);
-    //   return;
-    // }
-
-
-
     let options;
 
     if (!recurringPayments || (discoundedData?.is_one_recurring_subscription_already_present === false && recurringPayments)) {
-      // subscription payment case
       const {
         id: subscriptionId,
         plan_id,
@@ -155,12 +118,11 @@ const SubscriptionPlanDetails = () => {
       options = {
         key: "rzp_test_2M5D9mQwHZp8iP",
         subscription_id: subscriptionId,
-        amount: '1000', // Set a predefined amount or calculate based on the plan
-        currency: "INR", // Assuming INR as currency
+        amount: '1000',
+        currency: "INR",
         name: "Caterings And Tiffins",
         description: "Subscription Payment",
         image: "/img/catering-service-logo.png",
-        // order_id: subscriptionId, // Using subscription ID for the order_id
         handler: async function (response) {
           console.log(response, "response response");
           const data = {
@@ -171,7 +133,6 @@ const SubscriptionPlanDetails = () => {
           };
           await dispatch(setCouponCode(""));
           navigate('/dashboard/subscription');
-          // Handle the post-payment logic for subscription
         },
         prefill: {
           name: "Caterings And Tiffins",
@@ -180,8 +141,8 @@ const SubscriptionPlanDetails = () => {
         },
         notes: {
           address: "Caterings And Tiffins Corporate Office",
-          subscriptionId: subscriptionId, // Additional notes
-          short_url: short_url // Optional: Include short URL
+          subscriptionId: subscriptionId,
+          short_url: short_url
         },
         options: {
           label: "Pay Now",
@@ -192,7 +153,6 @@ const SubscriptionPlanDetails = () => {
         },
       };
     } else {
-      // One-time payment case
       const { amount, id, currency } = result?.payload?.data?.order;
       options = {
         key: "rzp_test_2M5D9mQwHZp8iP",
@@ -200,7 +160,6 @@ const SubscriptionPlanDetails = () => {
         currency: currency,
         name: "Caterings And Tiffins",
         description: "Test Transaction",
-        // image: { logo },
         order_id: id,
         handler: async function (response) {
           console.log(response, "response response");
@@ -210,7 +169,6 @@ const SubscriptionPlanDetails = () => {
             razorpayOrderId: response.razorpay_order_id,
             razorpaySignature: response.razorpay_signature,
           };
-          // console.log(data);
           await dispatch(setCouponCode(""));
           navigate('/dashboard/subscription');
         },
@@ -229,12 +187,10 @@ const SubscriptionPlanDetails = () => {
 
     }
 
-
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
 
     setLoading(false);
-    // handleClose()
   }
 
 
