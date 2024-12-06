@@ -36,8 +36,8 @@ const CssTextField = styled(TextField)(({ theme }) => ({
 }));
 
 const initialState = {
-    company_id: '358868',
-    password: 'Virat@2026'
+    company_id: '',
+    password: ''
 
     // company_id: '372313',
     // password: 'Y6ZhP0EU'

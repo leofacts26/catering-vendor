@@ -66,7 +66,7 @@ const formatPhoneNumber = (phoneNumber) => {
 };
 
 const formatLandlineNumber = (landlineNumber) => {
-    if (!landlineNumber) return ''; 
+    if (!landlineNumber) return '';
     const areaCode = landlineNumber.substring(0, 3);
     const firstPart = landlineNumber.substring(3, 6);
     const secondPart = landlineNumber.substring(6);
@@ -95,9 +95,11 @@ const ProfileSteps = () => {
             .min(10, 'Minimum 10 characters required')
             .max(10, 'Maximum 10 characters allowed'),
         landline_number: Yup.string()
-            .matches(/^[0-9]{10}$/, 'Landline number must contain exactly 10 digits')
-            .min(10, 'Minimum 10 characters required')
-            .max(10, 'Maximum 10 characters allowed')
+            .required('Landline number is required.')
+            .matches(
+                /^[0-9]{7,15}$/,
+                'Landline number must be between 7 and 15 digits and contain only numbers.'
+            ),
     });
 
 
@@ -267,13 +269,12 @@ const ProfileSteps = () => {
                                                             onChange={handleChange}
                                                             name="landline_number"
                                                             variant="outlined"
-                                                            label="Add Landline Number (Optional)"
+                                                            label="Add landline number / Alternative Business number"
                                                             className='mt-3'
                                                             style={{ width: '100%' }}
                                                             InputLabelProps={{
                                                                 style: { color: '#777777', fontSize: '12px' },
                                                             }}
-                                                            inputProps={{ maxLength: inputNumberLimit }}
                                                             InputProps={{
                                                                 style: {
                                                                     borderRadius: '8px',
@@ -310,7 +311,7 @@ const ProfileSteps = () => {
 
 
                                                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                                          
+
                                                             <Box sx={{ flex: '1 1 auto' }} />
 
                                                             <Button type='submit' disabled={!isValid || isLoading} className='ct-box-btn-profile-step'>
