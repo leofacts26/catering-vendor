@@ -74,7 +74,7 @@ const LeftNav = () => {
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar sx={{ bgcolor: '#C33332' }}>{vendorBusinessProfile?.point_of_contact_name?.slice(0, 1)}</Avatar>
             <div>
-              <h2 className="m-0 text-white nav-username">{vendorBusinessProfile?.point_of_contact_name}</h2>
+              <h2 className="mb-1 text-white nav-username truncate-text">{vendorBusinessProfile?.point_of_contact_name}</h2>
               <p className="m-0 text-white nav-gmail">{vendorBusinessProfile?.phone_number}</p>
             </div>
           </Stack>
@@ -88,7 +88,7 @@ const LeftNav = () => {
         {leftnav.map((item, index) => {
           if (item.title) {
             return <Stack key={index} direction="row" sx={{ width: '100%' }} className="ps-3 pb-2">
-              <p className="ln-sub-title">{item.title}</p>
+              <p className="ln-sub-title mb-1">{item.title}</p>
             </Stack>
           } else {
             return (

@@ -947,7 +947,7 @@ code {
 }
 
 .nav-bottom {
-  margin-top: 30px;
+  margin-top: 15px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -2173,4 +2173,12 @@ textarea:-webkit-autofill:active {
 
 .checkbox-disabled {
   color: rgba(0, 0, 0, 0.26) !important; /* Color for disabled state */
+}
+
+.truncate-text {
+  display: inline-block;   
+  max-width: 17ch;         
+  white-space: nowrap;    
+  overflow: hidden;        
+  text-overflow: ellipsis; 
 }
