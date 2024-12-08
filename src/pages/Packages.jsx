@@ -208,7 +208,7 @@ const Packages = () => {
                         <Grid container spacing={2} className='mt-0'>
                             <Grid item xs={12} lg={6}>
                                 <h3 className='package-capacity mt-0'>Choose your food type Below</h3>
-                                <p className='max-min-capacity-para text-center mb-3'>If you provide both Veg and Non-Veg, please check both checkboxes.</p>
+                                <p className='max-min-capacity-para text-center mb-3'>If you provide both Veg and Non-Veg, please select both</p>
 
                                 {foodTypes.slice(0, 2).map((food, index) => (
                                     <Stack key={food.id} direction="row" alignItems="center" justifyContent="center" spacing={2} className={food.selected ? 'mb-5 green-switch' : 'mb-5'}>
@@ -249,7 +249,7 @@ const Packages = () => {
                                         variant="outlined"
                                         placeholder="Enter Minimum Capacity - Eg: 100plates"
                                         className='text-center mx-auto'
-                                        style={{ width: '100%' }}
+                                        style={{ width: '50%' }}
                                         InputLabelProps={{
                                             style: { color: '#777777', fontSize: '10px' },
                                         }}
@@ -299,7 +299,7 @@ const Packages = () => {
                         <Grid container spacing={2} className='mt-2'>
                             <Grid item xs={12} lg={6}>
                                 <h3 className='package-capacity mt-3'>Choose your Service type Below</h3>
-                                <p className='max-min-capacity-para text-center'>If you provide both table and buffet service, please check both</p>
+                                <p className='max-min-capacity-para text-center'>If you provide both Delivery and Takeaway, please select both</p>
                                 {serviceTypes?.slice(0, 2).map((service, index) => {
                                     // console.log(`/img/icons/${service.service_type_name.toLowerCase()}.png`, "service RRR");
                                     return (
@@ -320,7 +320,7 @@ const Packages = () => {
 
                             <Grid item xs={12} lg={6}>
                                 <h3 className='package-capacity mt-3'>Choose your Serving type Below</h3>
-                                <p className='max-min-capacity-para text-center'>If you provide both table and buffet service, please check both</p>
+                                <p className='max-min-capacity-para text-center'>If you provide both table and buffet service, please select both </p>
                                 {
                                     servingTypes.map((servingType, index) => {
                                         // console.log(`/img/icons/${servingType.serving_type_name.toLowerCase().replace(/\s+/g, '-')}.png`, "servingType servingType");
