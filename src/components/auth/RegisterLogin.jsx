@@ -144,7 +144,7 @@ const RegisterLogin = () => {
             .required('Phone number is required.')
             .matches(/^[0-9]+$/, 'Phone number must contain only digits')
             .min(10, 'Phone number must be at least 10 digits')
-            .max(10, 'Phone number must not exceed 15 digits'),
+            .max(15, 'Phone number must not exceed 15 digits'),
     });
 
     // onHandleRegisterSubmit 

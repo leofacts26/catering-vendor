@@ -145,6 +145,9 @@ const BusinesssProfile = () => {
     point_of_contact_name: Yup.string().required('Contact person name is required.'),
     business_phone_number: Yup.string()
       .required('Business phone number is required')
+      .matches(/^[0-9]+$/, 'Phone number must contain only digits')
+      .min(10, 'Phone number must be at least 10 digits')
+      .max(15, 'Phone number must not exceed 15 digits'),
   });
 
   useEffect(() => {
@@ -155,7 +158,7 @@ const BusinesssProfile = () => {
       setEndTime(data.end_time ? dayjs(data.end_time, 'HH:mm:ss') : null);
     }
   }, [data])
-  console.log(data, "startTime, endTime" );
+  console.log(data, "startTime, endTime");
 
   const handleSubmit = async (values, resetForm) => {
     console.log(values, "values");
@@ -397,7 +400,7 @@ const BusinesssProfile = () => {
 
                 <Grid item xs={6}>
                   <div className="mt-0">
-                    <p className="business-profile-name">Contact person Name</p>
+                    <p className="business-profile-name">Name</p>
                     <CssTextField
                       value={values.point_of_contact_name}
                       onChange={handleChange}
@@ -432,13 +435,13 @@ const BusinesssProfile = () => {
                     <Stack direction="row" justifyContent="start" alignItems="center" spacing={2}>
                       <Box>
                         <FormControl>
-                          <InputLabel id="demo-simple-select-label">Monday</InputLabel>
+                          {/* <InputLabel id="demo-simple-select-label">Monday</InputLabel> */}
                           <Select
                             style={{ width: '150px' }}
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={startDate}
-                            label="startDate"
+                            // label="startDate"
                             onChange={handleStartChange}
                           >
                             <MenuItem value="Monday">Monday</MenuItem>
@@ -455,7 +458,7 @@ const BusinesssProfile = () => {
                       <Box sx={{ width: '150px' }}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <TimePicker
-                            label="Select Time"
+                            // label="Select Time"
                             value={startTime ? dayjs(startTime, 'hh:mm:ss A') : null}
                             onChange={(newValue) => {
                               handleStartTimeChange(newValue, setStartTime);
@@ -471,13 +474,13 @@ const BusinesssProfile = () => {
 
                       <Box>
                         <FormControl>
-                          <InputLabel id="demo-simple-select-label1">Monday</InputLabel>
+                          {/* <InputLabel id="demo-simple-select-label1">Monday</InputLabel> */}
                           <Select
                             style={{ width: '150px' }}
                             labelId="demo-simple-select-label1"
                             id="demo-simple-select1"
                             value={endDate}
-                            label="endDate"
+                            // label="endDate"
                             onChange={handleEndChange}
                           >
                             <MenuItem value="Monday">Monday</MenuItem>
@@ -494,7 +497,7 @@ const BusinesssProfile = () => {
                       <Box sx={{ width: '150px' }}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <TimePicker
-                            label="Select Time"
+                            // label="Select Time"
                             value={endTime ? dayjs(endTime, 'hh:mm:ss A') : null}
                             onChange={(newValue) => {
                               handleEndTimeChange(newValue, setEndTime);
@@ -525,7 +528,7 @@ const BusinesssProfile = () => {
                       onChange={handleChange}
                       name="total_staffs_approx"
                       variant="outlined"
-                      placeholder="Eg. 10 - 15"
+                      placeholder="E.g.. 15"
                       className='mt-0'
                       style={{ width: '100%' }}
                       InputLabelProps={{
@@ -584,7 +587,6 @@ const BusinesssProfile = () => {
                   )}
 
 
-
                 </Grid>
               </Grid>
 
@@ -592,7 +594,7 @@ const BusinesssProfile = () => {
 
               <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }} className={`${!selectedLocation && 'mt-5'}`}>
                 <Grid item xs={8} >
-                  <div className="mt-5">
+                  <div className={selectedLocation ? 'mt-4' : 'mt-0'}>
                     <p className="business-profile-name">About</p>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                       <textarea value={values.about_description}
@@ -609,7 +611,7 @@ const BusinesssProfile = () => {
 
               <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
                 <Grid item xs={8} >
-                  <div className="mt-3">
+                  <div className="mt-5">
                     <p className="business-profile-name">Working Since</p>
                     {/* <select name="working_since" id="working_since" onChange={handleChange} value={values.working_since} className="select-box">
                     <option value="">Select Year</option> 
@@ -622,6 +624,7 @@ const BusinesssProfile = () => {
                       onChange={handleChange}
                       placeholder="Enter Year"
                       name="working_since"
+                      type="number"
                       variant="outlined"
                       className='mt-0'
                       style={{ width: '100%' }}
@@ -691,7 +694,6 @@ const BusinesssProfile = () => {
                       InputLabelProps={{
                         style: { color: '#777777', fontSize: '10px' },
                       }}
-                      inputProps={{ maxLength: 10 }}
                       InputProps={{
                         style: {
                           borderRadius: '8px',
