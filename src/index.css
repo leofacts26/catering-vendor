@@ -573,7 +573,7 @@ code {
 .ct-box {
   box-shadow: var(--card-box-shadow);
   border-radius: var(--radiusOne);
-  margin-top: -50px;
+  margin-top: -75px;
   background-color: var(--primarybg);
   padding-top: 20px;
   padding-bottom: 50px;
@@ -1793,6 +1793,16 @@ code {
   font-weight: 500 !important;
   min-width: 15px !important;
   margin-left: 30px !important;
+}
+
+.cuisines-list-upload-btn {
+  background-color: #ffffff !important;
+  border-radius: var(--radiusOne) !important;
+  font-size: 12px !important;
+  text-transform: capitalize !important;
+  color: var(--secondary) !important;
+  font-weight: 500 !important;
+  min-width: 15px !important;
 }
 
 

@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import DatePickerSearch from "../components/global/DatePickerSearch";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -152,7 +153,17 @@ const Inquiries = () => {
                 <DatePicker
                   value={selectedDate && dayjs(selectedDate)}
                   onChange={date => setSelectedDate(date)}
-                  sx={{ width: 260, height: 20 }}
+                  format="DD MM YYYY"
+                  slots={{
+                    openPickerIcon: () => <CalendarMonthIcon style={{ color: '#c33332' }} />,
+                  }}
+                  sx={{
+                    width: 260,
+                    height: 20,
+                    '.MuiInputAdornment-root': {
+                      color: 'c33332',
+                    },
+                  }}
                   slotProps={{
                     field: { clearable: true, onClear: () => setCleared(true) },
                   }}

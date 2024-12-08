@@ -101,7 +101,7 @@ const Settings = () => {
                   <p className="company-change-password mt-3 mb-3">Documents</p>
 
 
-                  <AadharCard />
+                  {/* <AadharCard />
 
                   <AadharCardNumber />
 
@@ -111,7 +111,7 @@ const Settings = () => {
                   <PanCardNumber />
 
                   <GstinPhoto />
-                  <GstnNumber />
+                  <GstnNumber /> */}
 
 
 

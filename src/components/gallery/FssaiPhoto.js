@@ -348,7 +348,7 @@ const FssaiPhoto = () => {
                                     onChange={handleChange}
                                 />
                                 <label htmlFor="mainbannerlogo">
-                                    <Button variant="contained" component="span" className="cuisines-list-white-btn" disabled={isLoading}>
+                                    <Button variant="contained" component="span" className="cuisines-list-upload-btn" disabled={isLoading}>
                                         {settings['vendor-encf']?.length && settings['vendor-encf']?.length > 0 ? 'Re Upload Crop Image' : 'Upload Crop Image'}
                                     </Button>
                                 </label>
