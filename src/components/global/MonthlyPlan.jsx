@@ -57,7 +57,7 @@ const MonthlyPlan = () => {
                     }
 
                     return (
-                        <Grid item xs={12} sm={6} md={6} lg={4} xl={4} className='mb-3' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }} key={index}>
+                        <Grid item xs={12} sm={6} md={6} lg={4} xl={4} className='mb-3' style={{ display: 'flex', justifyContent: 'center', padding: '0px 15px' }} key={index}>
                             <Stack className="subscription-plans-shadow" justifyContent="space-between">
                                 <div className="sub-box-violet">
                                     <div className={`sub-box-violet-title ${color}`}>
