@@ -7,10 +7,15 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubscriptionTypes } from "../features/subscriptionSlice";
 import MonthlyPlan from "../components/global/MonthlyPlan";
+import CustomTabs from "../components/CustomTabs";
 
 const SubscriptionPlan = () => {
 
-  const [active, setActive] = useState(false)
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
 
   return (
     <>
@@ -31,11 +36,15 @@ const SubscriptionPlan = () => {
             spacing={2}
             className="mt-3 mb-4"
           >
-            <h2 className="sub-plan-yearly">Monthly</h2>
-            <Switch defaultChecked={active} onClick={()=> setActive(!active)} />
-            <h2 className="sub-plan-yearly">Yearly</h2>
+            {/* <h2 className="sub-plan-yearly">Monthly</h2> */}
+            {/* <Switch defaultChecked={active} onClick={()=> setActive(!active)} /> */}
+            <CustomTabs activeTab={activeTab} setActiveTab={setActiveTab} handleTabChange={handleTabChange} />
+            {/* <h2 className="sub-plan-yearly">Yearly</h2> */}
           </Stack>
-         {active ? <YearlyPlan /> : <MonthlyPlan /> } 
+
+          {activeTab === 0 && <MonthlyPlan />}
+          {activeTab === 1 && <YearlyPlan />}
+
         </div>
       </Container>
     </>
