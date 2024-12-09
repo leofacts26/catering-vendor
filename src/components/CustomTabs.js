@@ -5,7 +5,7 @@ const CustomTabs = ({ activeTab, setActiveTab, handleTabChange }) => {
 
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%", marginBottom: '15px' }}>
       <Tabs
         value={activeTab}
         onChange={handleTabChange}

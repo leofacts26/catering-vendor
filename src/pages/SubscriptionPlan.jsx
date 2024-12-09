@@ -42,8 +42,12 @@ const SubscriptionPlan = () => {
             {/* <h2 className="sub-plan-yearly">Yearly</h2> */}
           </Stack>
 
+<br />
+
+          <div className="mt-4">
           {activeTab === 0 && <MonthlyPlan />}
           {activeTab === 1 && <YearlyPlan />}
+          </div>
 
         </div>
       </Container>
