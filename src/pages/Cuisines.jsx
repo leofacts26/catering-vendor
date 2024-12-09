@@ -187,7 +187,11 @@ const Cuisines = () => {
                 <div className='card-box-shadow px-5 py-4 mb-4'>
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                         <p className='cuisines-title'>Cuisines You cater</p>
-                        <Button variant="contained" className="inquiries-btn" onClick={handleClickOpen}> + Add more Cuisines </Button>
+                        <Button variant="contained" className="add-inquiries-btn" onClick={handleClickOpen}>
+                            {cuisinesList?.some(item => item.children.some(childItem => childItem.selected === "1"))
+                                ? '+ Update Cuisines'
+                                : '+ Add Cuisines'}
+                        </Button>
                     </Stack>
                     <Divider
                         className='mt-4'
@@ -254,44 +258,44 @@ const Cuisines = () => {
                         <Grid container spacing={2}>
                             {cuisinesList?.map((item) => (
                                 item.children.length > 0 && (
-                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6} key={item.id}>
-                                    <Autocomplete
-                                        multiple
-                                        id="checkboxes-tags-demo"
-                                        options={['All', ...item.children.map(child => child.name)]}
-                                        disableCloseOnSelect
-                                        getOptionLabel={(option) => option}
-                                        renderOption={(props, option, { selected }) => (
-                                            <li {...props} style={{ fontSize: '10px' }} onClick={(event) => handleCheckboxToggle(event, option, item)}>
-                                                <Checkbox
-                                                    style={{ marginRight: 8, fontSize: '10px' }}
-                                                    checked={
-                                                        option === 'All'
-                                                            ? item.children.every(child => child.selected === "1")
-                                                            : item.children.some(child => child.name === option && child.selected === "1")
-                                                    }
-                                                />
-                                                {option}
-                                            </li>
-                                        )}
-                                        renderTags={(value, getTagProps) =>
-                                            value.map((option, index) => (
-                                                <li key={index} {...getTagProps({ index })} style={{ fontSize: '10px' }}>
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6} key={item.id}>
+                                        <Autocomplete
+                                            multiple
+                                            id="checkboxes-tags-demo"
+                                            options={['All', ...item.children.map(child => child.name)]}
+                                            disableCloseOnSelect
+                                            getOptionLabel={(option) => option}
+                                            renderOption={(props, option, { selected }) => (
+                                                <li {...props} style={{ fontSize: '10px' }} onClick={(event) => handleCheckboxToggle(event, option, item)}>
+                                                    <Checkbox
+                                                        style={{ marginRight: 8, fontSize: '10px' }}
+                                                        checked={
+                                                            option === 'All'
+                                                                ? item.children.every(child => child.selected === "1")
+                                                                : item.children.some(child => child.name === option && child.selected === "1")
+                                                        }
+                                                    />
                                                     {option}
                                                 </li>
-                                            ))
-                                        }
-                                        style={{ width: '100%' }}
-                                        renderInput={(params) => (
-                                            <CssTextFieldMultiSelect
-                                                label={item?.name}
-                                                {...params}
-                                            />
-                                        )}
-                                        onChange={(event, value) => handleAutocompleteChange(event, value, item)}
-                                        value={item.children.filter(child => child.selected === "1").map(child => child.name)}
-                                    />
-                                </Grid>
+                                            )}
+                                            renderTags={(value, getTagProps) =>
+                                                value.map((option, index) => (
+                                                    <li key={index} {...getTagProps({ index })} style={{ fontSize: '10px' }}>
+                                                        {option}
+                                                    </li>
+                                                ))
+                                            }
+                                            style={{ width: '100%' }}
+                                            renderInput={(params) => (
+                                                <CssTextFieldMultiSelect
+                                                    label={item?.name}
+                                                    {...params}
+                                                />
+                                            )}
+                                            onChange={(event, value) => handleAutocompleteChange(event, value, item)}
+                                            value={item.children.filter(child => child.selected === "1").map(child => child.name)}
+                                        />
+                                    </Grid>
                                 )
                             ))}
                         </Grid>

@@ -100,8 +100,8 @@ const Occasions = () => {
                 <div className='card-box-shadow px-5 py-4 mb-4'>
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                         <p className='cuisines-title'>Occasions You cater</p>
-                        <Button variant="contained" className="inquiries-btn" onClick={handleClickOpen}>
-                            + Add Occasions
+                        <Button variant="contained" className="add-inquiries-btn" onClick={handleClickOpen}>
+                            {occasionsList?.filter((item) => item?.selected === "1").length > 0 ? '+ Update Occasions' : '+ Add Occasions'}
                         </Button>
                     </Stack>
                     <Divider
@@ -181,9 +181,13 @@ const Occasions = () => {
                         ))}
 
                     </DialogContent>
-                    <DialogActions style={{  display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', position: 'absolute', bottom: 0 }}>
+                    <DialogActions style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', position: 'absolute', bottom: 0 }}>
                         <Button variant="contained" className="inquiries-btn" type="submit" onClick={handleClickOpen}>
-                            {isLoading ? 'Loading...' : '+ Add Occasions'}  </Button>
+                            {isLoading
+                                ? 'Loading...'
+                                : (occasionsList?.filter((item) => item?.selected === "1").length > 0
+                                    ? '+ Update Occasions'
+                                    : '+ Add Occasions')}                             </Button>
                     </DialogActions>
                 </form>
             </BootstrapDialog>

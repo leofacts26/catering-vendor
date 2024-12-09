@@ -1,17 +1,25 @@
 import Stack from '@mui/material/Stack';
 import { Divider } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
+import StarIcon from '@mui/icons-material/Star';
+
 
 const ReviewCards = ({ review }) => {
     return (
         <>
             <Stack direction="row" justifyContent="space-between" spacing={1}>
                 <Stack direction="row" spacing={1} style={{ width: '75%' }}>
-                    {/* <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-1.jpg" alt="" className="img-fluid ic-img" /> */}
                     <Avatar sx={{ bgcolor: '#C33332' }}>{review?.username?.slice(0, 1)}</Avatar>
                     <div className="">
-                        <h5 className='ic-title'> {review?.username} </h5>
-                        <p className='ic-desc'> {review?.review_text} </p>
+                        <Stack direction="row" alignItems="center">
+                            <h5 className='ic-title me-2'> {review?.username}
+                            </h5>
+                            <StarIcon fontSize="small" sx={{ color: '#459412', marginRight: '3px'  }} />
+                            <span style={{ color: '#57636c' }}>
+                                {parseFloat(review?.rating).toFixed(1)}
+                            </span>
+                        </Stack>
+                        <p className='ic-desc mt-2'> {review?.review_text} </p>
                     </div>
                 </Stack>
                 <p className='ic-small-text'>{review?.review_date?.slice(0, 10)}</p>

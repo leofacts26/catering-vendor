@@ -1165,6 +1165,12 @@ code {
   font-size: 12px !important;
   text-transform: capitalize !important;
 }
+.add-inquiries-btn {
+  background-color: var(--accent3) !important;
+  border-radius: var(--radiusOne) !important;
+  font-size: 12px !important;
+  text-transform: capitalize !important;
+}
 
 .inquiries-red-btn {
   background-color: var(--accent3) !important;
