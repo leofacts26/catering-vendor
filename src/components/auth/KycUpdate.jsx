@@ -50,19 +50,18 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
 
     // validationSchema 
     const validationSchema = Yup.object().shape({
-        aadhar_card_number: Yup.string()
-            .required('Aadhar card number is required')
-            .matches(/^\d*$/, 'Invalid Number')
-            .matches(/^\d{12}$/, 'Aadhar card number must be exactly 12 digits'),
-        gstin_number: Yup.string()
-            // .required('GSTIN number is required')
-            .matches(/^[A-Z0-9]*$/, 'GSTIN number must contain only uppercase letters and numbers')
-            .min(15, 'GSTIN number must be at least 15 characters long')
-            .max(15, 'GSTIN number must not exceed 15 characters'),
-        pan_number: Yup.string()
-        .required('PAN number is required')
-        .matches(/^[A-Z]{5}[0-9]{4}[A-Z]$/, 'PAN number must be in the format AAAAA9999A and in uppercase')
-        .length(10, 'PAN number must be exactly 10 characters long'),
+        // aadhar_card_number: Yup.string()
+        //     .required('Aadhar card number is required')
+        //     .matches(/^\d*$/, 'Invalid Number')
+        //     .matches(/^\d{12}$/, 'Aadhar card number must be exactly 12 digits'),
+        // gstin_number: Yup.string()
+        //     .matches(/^[A-Z0-9]*$/, 'GSTIN number must contain only uppercase letters and numbers')
+        //     .min(15, 'GSTIN number must be at least 15 characters long')
+        //     .max(15, 'GSTIN number must not exceed 15 characters'),
+        // pan_number: Yup.string()
+        // .required('PAN number is required')
+        // .matches(/^[A-Z]{5}[0-9]{4}[A-Z]$/, 'PAN number must be in the format AAAAA9999A and in uppercase')
+        // .length(10, 'PAN number must be exactly 10 characters long'),
         fssai_document_filename: Yup.string()
             .matches(/^[A-Z0-9]*$/, 'FSSAI number must contain only uppercase letters and numbers')
             .min(14, 'FSSAI must be at least 14 characters long')
@@ -74,11 +73,13 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
     const handleSubmit = async (values) => {
         try {
             setLoading(true);
-            const { aadhar_card_number, pan_number, gstin_number, fssai_document_filename } = values;
+            const { 
+                // aadhar_card_number, pan_number, gstin_number, 
+                fssai_document_filename } = values;
             const data = {
-                aadhar_card_number,
-                pan_number,
-                gstin_number,
+               // aadhar_card_number,
+               // pan_number,
+               // gstin_number,
                 fssai_document_filename
             };
             const response = await api.post('/register-vendor-kyc-update', data, {
@@ -109,7 +110,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
             <Formik initialValues={initialKycState} validationSchema={validationSchema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
                 {({ values, errors, handleChange, handleSubmit, isValid }) => (
                     <form onSubmit={handleSubmit} className='mx-3'>
-                        <h4 className='ct-box-profile-title mt-1'>Please Enter Your Aadhar Card Number *</h4>
+                        {/* <h4 className='ct-box-profile-title mt-1'>Please Enter Your Aadhar Card Number *</h4>
                         <CssTextFieldTwo
                             value={values.aadhar_card_number}
                             name="aadhar_card_number"
@@ -170,7 +171,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
                                 },
                             }}
                         />
-                        {errors.gstin_number && <small className='text-danger mt-2 ms-0'>{errors.gstin_number}</small>}
+                        {errors.gstin_number && <small className='text-danger mt-2 ms-0'>{errors.gstin_number}</small>} */}
 
                         <h4 className='ct-box-profile-title mt-1'>Please Enter Your FSSAI Licence Number</h4>
                         <CssTextFieldTwo
