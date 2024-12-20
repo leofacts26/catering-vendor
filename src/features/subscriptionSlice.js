@@ -12,6 +12,7 @@ const initialState = {
   discoundedData: null,
   subscribeData: null,
   activeSubscriptionList: null,
+  calculaterOrderData: {}
   // couponStatus: null,
 };
 
@@ -205,6 +206,18 @@ export const subscriptionSlice = createSlice({
         state.activeSubscriptionList = payload;
       })
       .addCase(fetchActiveSubscription.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(datavalidationerror(payload));
+      })
+      // calculateOrderTotal 
+      .addCase(calculateOrderTotal.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(calculateOrderTotal.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.calculaterOrderData = payload;
+      })
+      .addCase(calculateOrderTotal.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(datavalidationerror(payload));
       })

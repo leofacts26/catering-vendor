@@ -18,7 +18,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const SubscriptionPlanDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { subscribeData, discoundedData, couponCode, selectedSubscription } = useSelector((state) => state.subscription);
+  const { subscribeData, discoundedData, couponCode, selectedSubscription, calculaterOrderData } = useSelector((state) => state.subscription);
   const [loading, setLoading] = useState(false);
   const [recurringPayments, setRecurringPayments] = useState(discoundedData?.is_one_recurring_subscription_already_present);
 
@@ -209,7 +209,7 @@ const SubscriptionPlanDetails = () => {
             <Grid item xs={12} sm={8} md={6} lg={6} xl={6} className='mb-3 mt-5' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }}>
               <Stack className="subscription-plans-shadow" sx={{ display: 'flex', justifyContent: "center" }}>
                 <div className="sub-box-violet">
-                  <div className={`sub-box-violet-title popular-color`}>
+                  <div className={`sub-box-violet-title`} style={{backgroundColor: `${calculaterOrderData.display_color}`}}>
                     <h3 className="sub-box-name"> <span style={{ textTransform: 'capitalize' }}>{discoundedData?.subPlan}</span> Caterer</h3>
                   </div>
                   <div className="sub-body px-2 pt-2">
