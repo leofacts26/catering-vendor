@@ -110,7 +110,8 @@ const MonthlyPlan = () => {
                                             <Link to="javascript:void(0)" className="text-decoration-none mt-3">
                                                 <Button
                                                     variant="contained"
-                                                    className={`sub-plan-btn mx-auto taxt-center ${color}`}
+                                                    className={`sub-plan-btn mx-auto taxt-center`}
+                                                    style={{ backgroundColor: `${item.subscriptionTypeDisplayColor}` }}
                                                     onClick={() => onHandleSubscribe(item)}
                                                 >
                                                     Subscribe Now

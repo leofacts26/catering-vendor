@@ -1521,7 +1521,7 @@ code {
 }
 
 .sub-plan-btn {
-  background-color: var(--branded);
+  /* background-color: var(--branded); */
   border-radius: var(--radiusTwo) !important;
   font-size: 12px !important;
   text-transform: capitalize !important;
