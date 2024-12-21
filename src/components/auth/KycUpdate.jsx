@@ -73,13 +73,13 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
     const handleSubmit = async (values) => {
         try {
             setLoading(true);
-            const { 
+            const {
                 // aadhar_card_number, pan_number, gstin_number, 
                 fssai_document_filename } = values;
             const data = {
-               // aadhar_card_number,
-               // pan_number,
-               // gstin_number,
+                // aadhar_card_number,
+                // pan_number,
+                // gstin_number,
                 fssai_document_filename
             };
             const response = await api.post('/register-vendor-kyc-update', data, {
@@ -102,6 +102,10 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
         }
     };
 
+
+    const handleBack = () => {
+        navigate('/')
+    }
 
 
 
@@ -173,7 +177,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
                         />
                         {errors.gstin_number && <small className='text-danger mt-2 ms-0'>{errors.gstin_number}</small>} */}
 
-                        <h4 className='ct-box-profile-title mt-1'>Please Enter Your FSSAI Licence Number</h4>
+                        <h4 className='ct-box-profile-title mt-4'>Please Enter Your FSSAI Licence Number</h4>
                         <CssTextFieldTwo
                             value={values.fssai_document_filename}
                             name="fssai_document_filename"
@@ -194,15 +198,14 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
                         />
                         {errors.fssai_document_filename && <small className='text-danger mt-2 ms-0'>{errors.fssai_document_filename}</small>}
 
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                            {/* <Button
+                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 3 }}>
+                            <Button
                                 color="inherit"
-                                disabled={activeStep === 0}
                                 onClick={handleBack}
-                                sx={{ mr: 1 }}
+                                sx={{ mr: 1, color: '#57636c' }}
                             >
-                                Back
-                            </Button> */}
+                                Skip
+                            </Button>
                             <Box sx={{ flex: '1 1 auto' }} />
 
                             <Button type='submit' className='ct-box-btn-profile-step' disabled={loading}>

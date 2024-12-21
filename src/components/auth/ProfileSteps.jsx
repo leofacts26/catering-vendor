@@ -48,7 +48,7 @@ const steps = ['Step 1', 'Step 2'];
 
 const initialProfileState = {
     vendor_service_name: '',
-    point_of_contact_name: '',
+    // point_of_contact_name: '',
     business_phone_number: '',
     landline_number: '',
     whatsapp_business_phone_number: ''
@@ -85,8 +85,8 @@ const ProfileSteps = () => {
 
     // validationSchema 
     const validationSchema = Yup.object().shape({
-        vendor_service_name: Yup.string().required('Your name is required'),
-        point_of_contact_name: Yup.string().required('Catering service name is required'),
+        vendor_service_name: Yup.string().required('Catering service name is required'),
+        // point_of_contact_name: Yup.string().required('Catering service name is required'),
         business_phone_number: Yup.string()
             .required('Business phone number is required')
             .matches(/^[0-9]{10}$/, 'Business phone number must contain exactly 10 digits'),
@@ -94,12 +94,12 @@ const ProfileSteps = () => {
             .matches(/^[0-9]{10}$/, 'Whatsapp Business number must contain exactly 10 digits')
             .min(10, 'Minimum 10 characters required')
             .max(10, 'Maximum 10 characters allowed'),
-        landline_number: Yup.string()
-            .required('Landline number is required.')
-            .matches(
-                /^[0-9]{7,15}$/,
-                'Landline number must be between 7 and 15 digits and contain only numbers.'
-            ),
+        // landline_number: Yup.string()
+        //     .required('Landline number is required.')
+        //     .matches(
+        //         /^[0-9]{7,15}$/,
+        //         'Landline number must be between 7 and 15 digits and contain only numbers.'
+        //     ),
     });
 
 
@@ -109,7 +109,9 @@ const ProfileSteps = () => {
     const handleSubmit = async (values, { resetForm }) => {
         dispatch(setIsLoading(true))
         try {
-            const { vendor_service_name, point_of_contact_name, business_phone_number, landline_number, whatsapp_business_phone_number } = values;
+            const { vendor_service_name, 
+               // point_of_contact_name,
+                 business_phone_number, landline_number, whatsapp_business_phone_number } = values;
 
             const formattedPhoneNumber = formatPhoneNumber(business_phone_number);
             const formattedlandline_number = formatLandlineNumber(landline_number);
@@ -117,7 +119,7 @@ const ProfileSteps = () => {
 
             const data = {
                 vendor_service_name,
-                point_of_contact_name,
+               // point_of_contact_name,
                 business_phone_number: formattedPhoneNumber,
                 landline_number: formattedlandline_number,
                 whatsapp_business_phone_number: formattedwhatsapp_business_phone_number
@@ -202,7 +204,7 @@ const ProfileSteps = () => {
                                                             onChange={handleChange}
                                                             name="vendor_service_name"
                                                             variant="outlined"
-                                                            label="Enter Your Name"
+                                                            label="Enter Catering Service Name / Display Name"
                                                             className='mt-3'
                                                             style={{ width: '100%' }}
                                                             InputLabelProps={{
@@ -218,7 +220,7 @@ const ProfileSteps = () => {
                                                         {errors.vendor_service_name && <small className='text-danger mt-2 ms-1'>{errors.vendor_service_name}</small>}
 
 
-                                                        <CssTextField
+                                                        {/* <CssTextField
                                                             value={values.point_of_contact_name}
                                                             onChange={handleChange}
                                                             name="point_of_contact_name"
@@ -236,7 +238,7 @@ const ProfileSteps = () => {
                                                                 },
                                                             }}
                                                         />
-                                                        {errors.point_of_contact_name && <small className='text-danger mt-2 ms-1'>{errors.point_of_contact_name}</small>}
+                                                        {errors.point_of_contact_name && <small className='text-danger mt-2 ms-1'>{errors.point_of_contact_name}</small>} */}
 
 
 
@@ -282,7 +284,7 @@ const ProfileSteps = () => {
                                                                 },
                                                             }}
                                                         />
-                                                        {errors.landline_number && <small className='text-danger mt-2 ms-1'>{errors.landline_number}</small>}
+                                                        {/* {errors.landline_number && <small className='text-danger mt-2 ms-1'>{errors.landline_number}</small>} */}
 
 
 
