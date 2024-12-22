@@ -199,12 +199,15 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
                         {errors.fssai_document_filename && <small className='text-danger mt-2 ms-0'>{errors.fssai_document_filename}</small>}
 
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 3 }}>
-                            <Button
+                            {/* <Button
                                 color="inherit"
                                 onClick={handleBack}
                                 sx={{ mr: 1, color: '#57636c' }}
                             >
                                 Skip
+                            </Button> */}
+                            <Button className='ct-box-btn-profile-skip-step' onClick={handleBack}>
+                               Skip
                             </Button>
                             <Box sx={{ flex: '1 1 auto' }} />
 

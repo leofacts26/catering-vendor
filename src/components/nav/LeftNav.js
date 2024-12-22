@@ -27,7 +27,7 @@ import useGetVendor from "../../hooks/useGetVendor";
 
 const leftnav = [
   { "title": "Manage Your Account" },
-  { "id": "1", "name": "Dashboard", "icon": <StackedBarChartRoundedIcon className="ln-icon" />, "url": "/" },
+  // { "id": "1", "name": "Dashboard", "icon": <StackedBarChartRoundedIcon className="ln-icon" />, "url": "/" },
   { "id": "2", "name": "inquiries", "icon": <EditNoteIcon className="ln-icon" />, "url": "/dashboard/inquiries" },
   { "id": "3", "name": "reviews", "icon": <AnnouncementIcon className="ln-icon" />, "url": "/dashboard/reviews" },
 
@@ -39,7 +39,7 @@ const leftnav = [
   { "title": "Profiles" },
   { "id": "7", "name": "business Profile", "icon": <PersonIcon className="ln-icon" />, "url": "/dashboard/businesss-profile" },
   { "id": "8", "name": "Photo gallery", "icon": <PhotoLibraryRoundedIcon className="ln-icon" />, "url": "/dashboard/photo-gallery" },
-  { "id": "9", "name": "branches", "icon": <BusinessRoundedIcon className="ln-icon" />, "url": "/dashboard/branches" },
+  // { "id": "9", "name": "branches", "icon": <BusinessRoundedIcon className="ln-icon" />, "url": "/dashboard/branches" },
 
   { "title": "Manage App" },
   { "id": "10", "name": "Subscription", "icon": <SubscriptionsIcon className="ln-icon" />, "url": "/dashboard/subscription" },

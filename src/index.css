@@ -850,6 +850,18 @@ code {
   color: var(--primarybg) !important;
   margin-right: 10px !important;
 }
+.ct-box-btn-profile-skip-step {
+  background-color: var(--secondary) !important;
+  font-size: 12px !important;
+  font-family: var(--fontPrimary) !important;
+  font-weight: 500 !important;
+  border-radius: 99px !important;
+  width: fit-content !important;
+  margin: 0px auto !important;
+  margin-bottom: 10px !important;
+  color: var(--primarybg) !important;
+  margin-right: 10px !important;
+}
 
 /* five profile update end  */
 
