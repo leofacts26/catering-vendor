@@ -55,9 +55,10 @@ function App() {
             <Route path='/dashboard/branches' element={<Branches />} />
 
             <Route path='/dashboard/subscription' element={<Subscription />} />
-            {/* <Route path='/dashboard/subscription-details' element={<SubscriptionDetails />} /> */}
             <Route path='/dashboard/subscription-plan' element={<SubscriptionPlan />} />
             <Route path='/dashboard/subscription-plan-details' element={<SubscriptionPlanDetails />} />
+            {/* <Route path='/dashboard/subscription-details' element={<SubscriptionDetails />} /> */}
+
             <Route path='/dashboard/settings' element={<Settings />} />
             <Route path='/dashboard/about-us' element={<AboutUs />} />
             <Route path='/dashboard/faq' element={<Faq />} />

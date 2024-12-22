@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { Checkbox } from "@mui/material";
-import { successToast } from "../utils";
 import moment from 'moment';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -21,6 +20,11 @@ const SubscriptionPlanDetails = () => {
   const { subscribeData, discoundedData, couponCode, selectedSubscription, calculaterOrderData } = useSelector((state) => state.subscription);
   const [loading, setLoading] = useState(false);
   const [recurringPayments, setRecurringPayments] = useState(discoundedData?.is_one_recurring_subscription_already_present);
+
+  // console.log(subscribeData, "subscribeData");
+  // console.log(discoundedData, "discoundedData");
+  // console.log(recurringPayments, "recurringPayments");
+  
 
 
   useEffect(() => {
@@ -58,9 +62,6 @@ const SubscriptionPlanDetails = () => {
     }
   }
 
-  console.log(recurringPayments, "recurringPayments Top");
-
-
   // displayRazorpay 
   async function displayRazorpay() {
     setLoading(true);
@@ -88,11 +89,11 @@ const SubscriptionPlanDetails = () => {
 
     // Updated logic for one-time or recurring payment
     if (recurringPayments && discoundedData?.is_one_recurring_subscription_already_present === false) {
-      // Call recurring payment only if no existing recurring subscription
       result = await dispatch(createRecurringTimePayment(recurringMonthlydata));
+      // console.log("Recurring Payment APi Calling");
     } else {
-      // Fallback to one-time payment
       result = await dispatch(createOneTimePayment());
+      // console.log("ONE Time Payment APi Calling");
     }
 
 
@@ -102,9 +103,12 @@ const SubscriptionPlanDetails = () => {
       return;
     }
 
+    // console.log(result, "result");
+
     let options;
 
-    if (!recurringPayments || (discoundedData?.is_one_recurring_subscription_already_present === false && recurringPayments)) {
+    if (discoundedData?.is_one_recurring_subscription_already_present === false && recurringPayments) {
+      // console.log("Subscription Payment in if Condition",);
       const {
         id: subscriptionId,
         plan_id,
@@ -115,16 +119,17 @@ const SubscriptionPlanDetails = () => {
         end_at
       } = result.payload;
 
+      
       options = {
         key: "rzp_test_2M5D9mQwHZp8iP",
         subscription_id: subscriptionId,
-        amount: '1000',
+        amount: discoundedData.finalAmount,
         currency: "INR",
         name: "Caterings And Tiffins",
         description: "Subscription Payment",
         image: "/img/catering-service-logo.png",
         handler: async function (response) {
-          console.log(response, "response response");
+          // console.log(response, "recurring response");
           const data = {
             subscriptionId,
             razorpayPaymentId: response.razorpay_payment_id,
@@ -153,16 +158,18 @@ const SubscriptionPlanDetails = () => {
         },
       };
     } else {
+      // console.log("onetime Payment in if Condition",);
+      // console.log("result onetime Payment in if Condition",);
       const { amount, id, currency } = result?.payload?.data?.order;
       options = {
         key: "rzp_test_2M5D9mQwHZp8iP",
         amount: amount.toString(),
         currency: currency,
         name: "Caterings And Tiffins",
-        description: "Test Transaction",
+        description: "One Time Payment",
         order_id: id,
         handler: async function (response) {
-          console.log(response, "response response");
+          // console.log(response, "One time response");
           const data = {
             orderCreationId: id,
             razorpayPaymentId: response.razorpay_payment_id,
@@ -184,8 +191,9 @@ const SubscriptionPlanDetails = () => {
           color: "#a81e1e",
         },
       };
-
     }
+
+    // console.log(options, "options"); 
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();

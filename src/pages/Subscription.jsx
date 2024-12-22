@@ -15,23 +15,19 @@ import Box from '@mui/material/Box';
 
 const Subscription = () => {
   const { activeSubscriptionList } = useSelector((state) => state.subscription)
+  
   const dispatch = useDispatch();
-
-  // const {activeSubscription} = activeSubscriptionList;
-  // console.log(activeSubscriptionList?.activeSubscription, "activeSubscription activeSubscription");
-
-
+  
   useEffect(() => {
     dispatch(fetchActiveSubscription())
   }, [])
-
-  // console.log(activeSubscriptionList?.activeSubscription, "activeSubscriptionList activeSubscriptionList");
 
   const startFormattedDate = moment(activeSubscriptionList?.activeSubscription?.start_date).format("MMM DD, YYYY");
   const starendFormattedDate = moment(activeSubscriptionList?.activeSubscription?.end_date).format("MMM DD, YYYY");
 
   return (
     <>
+    
       <TopHeader title="Manage Your Subscription" description="Manage your subscription below" />
 
       <Container maxWidth="lg">
@@ -107,8 +103,6 @@ const Subscription = () => {
           </Grid>
         </div>
       </Container>
-
-
 
       <Container maxWidth="lg">
         {activeSubscriptionList?.queuedSubscriptions?.length > 0 && <hr className="mb-4" />}
@@ -233,8 +227,6 @@ const Subscription = () => {
         </Box>
       </Container>
 
-
-
       <Container maxWidth="lg">
         {activeSubscriptionList?.pendingSubscriptions?.length > 0 && <hr className="mb-4" />}
         {activeSubscriptionList?.pendingSubscriptions?.length > 0 && <h3 className='top-header-title mb-3'>Pending Subscriptions</h3>}
@@ -357,7 +349,6 @@ const Subscription = () => {
           </Grid>
         </Box>
       </Container>
-
 
     </>
   )

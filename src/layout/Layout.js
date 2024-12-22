@@ -23,7 +23,7 @@ const Layout = () => {
     if (accessToken) {
       const decodedToken = jwtDecode(accessToken);
       const currentTime = Date.now() / 1000;
-      console.log(decodedToken.exp < currentTime, "decodedToken.exp < currentTime");
+      // console.log(decodedToken.exp < currentTime, "decodedToken.exp < currentTime");
       if (decodedToken.exp < currentTime) {
         navigate("/create-account");
       }

@@ -1,11 +1,8 @@
 import TopHeader from "../components/global/TopHeader";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
-import Switch from "@mui/material/Switch";
 import YearlyPlan from "../components/global/YearlyPlan";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSubscriptionTypes } from "../features/subscriptionSlice";
 import MonthlyPlan from "../components/global/MonthlyPlan";
 import CustomTabs from "../components/CustomTabs";
 
@@ -42,11 +39,11 @@ const SubscriptionPlan = () => {
             {/* <h2 className="sub-plan-yearly">Yearly</h2> */}
           </Stack>
 
-<br />
+          <br />
 
           <div className="mt-4">
-          {activeTab === 0 && <MonthlyPlan />}
-          {activeTab === 1 && <YearlyPlan />}
+            {activeTab === 0 && <MonthlyPlan />}
+            {activeTab === 1 && <YearlyPlan />}
           </div>
 
         </div>
