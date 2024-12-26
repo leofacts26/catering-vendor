@@ -30,8 +30,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import UploadIcon from '@mui/icons-material/Upload';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -161,17 +161,17 @@ const FssaiPhoto = () => {
                             )
                         }
 
-                        <p className="settings-small mt-1 mb-2">Upload FSSAI License</p>
+                        {/* <p className="settings-small mt-1 mb-2">Upload FSSAI License</p> */}
 
                         <Stack direction="row" justifyContent="center">
                             <Button variant="contained" component="span" className="cuisines-list-white-btn" onClick={handleClickBoxOpen}>
-                                Upload
+                             <UploadIcon />   Upload
                             </Button>
 
                             <Button onClick={handleBrandClickOpen} variant="contained" component="span" className="cuisines-list-white-btn"
                                 disabled={isLoading || !(settings['vendor-encf']?.length && settings['vendor-encf']?.length > 0)}
                             >
-                                Delete
+                              <DeleteIcon style={{fontSize: '18px'}} />  Delete
                             </Button>
                         </Stack>
 
