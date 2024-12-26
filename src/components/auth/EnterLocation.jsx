@@ -74,7 +74,11 @@ const EnterLocation = () => {
                     city: getAddressComponent(addressComponents, 'locality'),
                     state: getAddressComponent(addressComponents, 'administrative_area_level_1'),
                     country: getAddressComponent(addressComponents, 'country'),
-                    formatted_address: response.data.results[0].formatted_address,
+                    // formatted_address: response.data.results[0].formatted_address,
+                    formatted_address: [
+                        getAddressComponent(addressComponents, 'administrative_area_level_3'),
+                        response.data.results[0].formatted_address
+                    ].filter(Boolean).join(", "),
                     place_id: response.data.results[0].place_id,
                 };
                 handleSubmit(addressData);

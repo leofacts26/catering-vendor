@@ -178,7 +178,11 @@ const EnterLocationManually = () => {
                     city: getAddressComponent(addressComponents, 'locality'),
                     state: getAddressComponent(addressComponents, 'administrative_area_level_1'),
                     country: getAddressComponent(addressComponents, 'country'),
-                    formatted_address: response.data.results[0].formatted_address,
+                    formatted_address: [
+                        getAddressComponent(addressComponents, 'administrative_area_level_3'),
+                        response.data.results[0].formatted_address
+                    ].filter(Boolean).join(", "),
+                    // formatted_address: response.data.results[0].formatted_address,
                     place_id: response.data.results[0].place_id,
                 };
                 handleCurrentLocationSubmit(addressData);
@@ -248,7 +252,7 @@ const EnterLocationManually = () => {
             country: locationValues?.country?.long_name || "",
             formatted_address: locationValues?.formatted_address || "",
             place_id: locationValues?.place_id || ''
-        }
+        } 
         setLoading(true)
         try {
             const response = await api.post(`${BASE_URL}/update-vendor-location`, data, {
