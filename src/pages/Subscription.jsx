@@ -16,6 +16,7 @@ import Box from '@mui/material/Box';
 const Subscription = () => {
   const { activeSubscriptionList } = useSelector((state) => state.subscription)
   
+  
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -57,7 +58,7 @@ const Subscription = () => {
 
                   <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
                     <p className="subscription-type">Subscription Plan:</p>
-                    <Button variant="contained" className="subscribe-btn">
+                    <Button variant="contained" className="subscribe-btn" style={{ backgroundColor: activeSubscriptionList?.activeSubscription?.display_color || '#57636c' }}>
                       {activeSubscriptionList?.activeSubscription?.subscription_name ? activeSubscriptionList?.activeSubscription?.subscription_name : 'N/A'} </Button>
                   </Stack>
 

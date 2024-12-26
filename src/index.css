@@ -1430,7 +1430,7 @@ code {
 }
 
 .subscribe-btn {
-  background-color: var(--branded) !important;
+  /* background-color: var(--branded) !important; */
   border-radius: var(--radiusTwo) !important;
   font-size: 12px !important;
   text-transform: capitalize !important;
