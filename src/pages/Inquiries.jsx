@@ -153,7 +153,7 @@ const Inquiries = () => {
                 <DatePicker
                   value={selectedDate && dayjs(selectedDate)}
                   onChange={date => setSelectedDate(date)}
-                  format="DD MM YYYY"
+                  format="DD/MM/YYYY"
                   slots={{
                     openPickerIcon: () => <CalendarMonthIcon style={{ color: '#c33332' }} />,
                   }}

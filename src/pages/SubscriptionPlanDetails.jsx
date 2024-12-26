@@ -214,9 +214,9 @@ const SubscriptionPlanDetails = () => {
         <div className="card-box-shadow px-5 py-4 mb-4">
           <p className="sub-plan-title text-center">SELECTED SUBSCRIPTION PLAN</p>
           <Grid container spacing={2} sx={{ display: 'flex', justifyContent: "center" }}>
-            <Grid item xs={12} sm={8} md={6} lg={6} xl={6} className='mb-3 mt-5' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }}>
+            <Grid item xs={12} sm={8} md={5} lg={5} xl={5} className='mb-3 mt-5' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }}>
               <Stack className="subscription-plans-shadow" sx={{ display: 'flex', justifyContent: "center" }}>
-                <div className="sub-box-violet">
+                <div className="sub-box-violet sub-plan-det-card">
                   <div className={`sub-box-violet-title`} style={{backgroundColor: `${calculaterOrderData.display_color}`}}>
                     <h3 className="sub-box-name"> <span style={{ textTransform: 'capitalize' }}>{discoundedData?.subPlan}</span> Caterer</h3>
                   </div>
@@ -250,8 +250,11 @@ const SubscriptionPlanDetails = () => {
                           type="text" placeholder="Enter Coupon Code" required style={{ boxShadow: 'none' }} />
                         <button type="submit">Apply</button>
                       </form>
-                      <p className={`coupon-small mb-4 ms-2 mt-2 ${discoundedData?.couponStatus === 'Applied' ? 'text-success' : 'text-danger'} `}>
-                        {discoundedData?.couponStatus ? `Coupon ${discoundedData?.couponStatus}` : null}</p>
+                      
+                      <Stack  direction="row" justifyContent="end">
+                      <p className={`coupon-small mb-4 ms-2 mt-2 me-2 ${discoundedData?.couponStatus === 'Applied' ? 'text-success' : 'text-gray'} `}>
+                      {discoundedData?.couponStatus ? `Coupon ${discoundedData?.couponStatus}` : null}</p>
+                      </Stack>
 
 
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
@@ -294,7 +297,7 @@ const SubscriptionPlanDetails = () => {
                               className={recurringPayments ? 'checkbox-enabled' : 'checkbox-disabled'}
                             />
                           </div>
-                          <p> {discoundedData?.paymentTerms ? discoundedData?.paymentTerms : 'N/A'}</p>
+                          <p className="due-date"> {discoundedData?.paymentTerms ? discoundedData?.paymentTerms : 'N/A'}</p>
                         </Stack>
                       </Stack>
                     </div>

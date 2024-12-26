@@ -6,7 +6,7 @@ import ProfileSteps from './components/auth/ProfileSteps';
 import RegisterLogin from './components/auth/RegisterLogin';
 import EnterLocation from './components/auth/EnterLocation';
 import Layout from './layout/Layout';
-import DashboardComponent from './pages/DashboardComponent';
+// import DashboardComponent from './pages/DashboardComponent';
 import Inquiries from './pages/Inquiries';
 import Reviews from './pages/Reviews';
 import Cuisines from './pages/Cuisines';
@@ -25,7 +25,7 @@ import RaiseTicket from './pages/RaiseTicket';
 import { Toaster } from 'react-hot-toast';
 import PhotoGalleryTest from "./pages/PhotoGalleryTest";
 import SubscriptionPlanDetails from "./pages/SubscriptionPlanDetails";
-import SubscriptionDetails from "./pages/SubscriptionDetails";
+// import SubscriptionDetails from "./pages/SubscriptionDetails";
 
 function App() {
   return (

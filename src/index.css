@@ -2196,7 +2196,7 @@ textarea:-webkit-autofill:active {
 }
 
 .coupon-small {
-  font-size: 14px !important;
+  font-size: 10px !important;
 }
 
 .checkbox-enabled {
@@ -2244,4 +2244,15 @@ textarea:-webkit-autofill:active {
   border-color: #ff6347;
   background-color: #ffffff  !important;
   box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.due-date{
+  font-size: 10px !important;
+  color: #57636c !important;
+}
+
+.text-gray{
+  color: #57636c
 }
