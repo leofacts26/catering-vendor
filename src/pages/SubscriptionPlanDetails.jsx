@@ -294,7 +294,7 @@ const SubscriptionPlanDetails = () => {
                               size="small" {...label}
                               checked={recurringPayments}
                               onChange={(e) => setRecurringPayments(e.target.checked)}
-                              className={recurringPayments ? 'checkbox-enabled' : 'checkbox-disabled'}
+                              className={!discoundedData?.is_one_recurring_subscription_already_present ? 'checkbox-disabled' : 'checkbox-enabled'}
                             />
                           </div>
                           <p className="due-date"> {discoundedData?.paymentTerms ? discoundedData?.paymentTerms : 'N/A'}</p>
