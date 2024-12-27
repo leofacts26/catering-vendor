@@ -33,14 +33,9 @@ const SubscriptionPlan = () => {
             spacing={2}
             className="mt-3 mb-4"
           >
-            {/* <h2 className="sub-plan-yearly">Monthly</h2> */}
-            {/* <Switch defaultChecked={active} onClick={()=> setActive(!active)} /> */}
             <CustomTabs activeTab={activeTab} setActiveTab={setActiveTab} handleTabChange={handleTabChange} />
-            {/* <h2 className="sub-plan-yearly">Yearly</h2> */}
           </Stack>
-
           <br />
-
           <div className="mt-4">
             {activeTab === 0 && <MonthlyPlan />}
             {activeTab === 1 && <YearlyPlan />}

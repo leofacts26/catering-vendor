@@ -228,7 +228,7 @@ const SubscriptionPlanDetails = () => {
         <div className="card-box-shadow px-5 py-4 mb-4">
           <p className="sub-plan-title text-center">SELECTED SUBSCRIPTION PLAN</p>
           <Grid container spacing={2} sx={{ display: 'flex', justifyContent: "center" }}>
-            <Grid item xs={12} sm={8} md={5} lg={5} xl={5} className='mb-3 mt-5' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }}>
+            <Grid item xs={12} sm={8} md={6} lg={4} xl={4} className='mb-3 mt-5' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }}>
               <Stack className="subscription-plans-shadow" sx={{ display: 'flex', justifyContent: "center" }}>
                 <div className="sub-box-violet sub-plan-det-card">
                   <div className={`sub-box-violet-title`} style={{ backgroundColor: `${calculaterOrderData.display_color}` }}>
@@ -237,22 +237,22 @@ const SubscriptionPlanDetails = () => {
                   <div className="sub-body px-2 pt-2">
                     <div className="mb-3 mt-3">
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
-                        <p>Subscription Plan:</p> <p> {discoundedData?.subPlan ? discoundedData?.subPlan : 'N/A'} Caterer</p>
+                        <p className="sub-text">Subscription Plan:</p> <p className="sub-text"> {discoundedData?.subPlan ? discoundedData?.subPlan : 'N/A'} Caterer</p>
                       </Stack>
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-1">
-                        <p>Subscription Type:</p> <p> {discoundedData?.subType ? discoundedData?.subType : 'N/A'} / 
-                        {recurringPayments ? 'Subscription' : 'One Time'} </p>
+                        <p className="sub-text">Subscription Type:</p> <p className="sub-text"> {discoundedData?.subType ? discoundedData?.subType : 'N/A'} /
+                          {recurringPayments ? 'Subscription' : 'One Time'} </p>
                       </Stack>
 
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-4">
-                        <p>Start Date:</p>
-                        <p>
+                        <p className="sub-text">Start Date:</p>
+                        <p className="sub-text">
                           {discoundedData?.startDate ? moment(discoundedData.startDate).format('MMMM DD, YYYY') : 'N/A'}
                         </p>
                       </Stack>
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-2">
-                        <p>Expiry Date:</p>
-                        <p>
+                        <p className="sub-text">Expiry Date:</p>
+                        <p className="sub-text">
                           {discoundedData?.expiryDate ? moment(discoundedData.expiryDate).format('MMMM DD, YYYY') : 'N/A'}
                         </p>
                       </Stack>
@@ -267,38 +267,45 @@ const SubscriptionPlanDetails = () => {
                       </form>
 
                       <Stack direction="row" justifyContent="end">
-                        <p className={`coupon-small mb-4 ms-2 mt-2 me-2 ${discoundedData?.couponStatus === 'Applied' ? 'text-success' : 'text-gray'} `}>
-                          {discoundedData?.couponStatus ? `Coupon ${discoundedData?.couponStatus}` : null}</p>
+                        <p
+                          className={`coupon-small mb-4 ms-2 mt-2 me-2 ${discoundedData?.couponStatus === 'Applied'
+                              ? 'text-success' // Green for "Applied"
+                              : discoundedData?.couponStatus === 'Invalid or Expired' || discoundedData?.couponStatus === 'Expired'
+                                ? 'text-danger' // Red for "Invalid" or "Expired"
+                                : 'text-gray' // Grey for "Not Applied"
+                            }`}
+                        >
+                          {discoundedData?.couponStatus ? `Coupon ${discoundedData?.couponStatus}` : null}
+                        </p>
                       </Stack>
-
 
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
-                        <p>Coupon Code:</p> <p> {discoundedData?.couponCode ? discoundedData?.couponCode : 'N/A'} </p>
+                        <p className="sub-text">Coupon Code:</p> <p className="sub-text"> {discoundedData?.couponCode ? discoundedData?.couponCode : 'N/A'} </p>
                       </Stack>
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-2">
-                        <p>Discount Percent:</p> <p> {discoundedData?.discountPercent ? discoundedData?.discountPercent : 'N/A'}</p>
+                        <p className="sub-text">Discount Percent:</p> <p className="sub-text"> {discoundedData?.discountPercent ? discoundedData?.discountPercent : 'N/A'}</p>
                       </Stack>
 
                       <hr />
 
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
-                        <p>Sub Amount:</p> <p> {discoundedData?.subAmount ? discoundedData?.subAmount : 'N/A'} </p>
+                        <p className="sub-text">Sub Amount:</p> <p className="sub-text"> {discoundedData?.subAmount ? discoundedData?.subAmount : 'N/A'} </p>
                       </Stack>
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-2">
-                        <p>Discount Amount:</p> <p> {discoundedData?.discountAmount ? discoundedData?.discountAmount : 'N/A'}</p>
+                        <p className="sub-text">Discount Amount:</p> <p className="sub-text"> {discoundedData?.discountAmount ? discoundedData?.discountAmount : 'N/A'}</p>
                       </Stack>
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-2">
-                        <p>Final Amount:</p>
+                        <p className="sub-text">Final Amount:</p>
                         <Stack direction="row" alignItems="center">
-                          <CurrencyRupeeIcon className="text-success mt-1" style={{ fontSize: '16px' }} />
-                          <p>{discoundedData?.finalAmount ? discoundedData?.finalAmount : 'N/A'}</p>
+                          <CurrencyRupeeIcon className="text-success mt-1" style={{ fontSize: '14px' }} />
+                          <p className="sub-text">{discoundedData?.finalAmount ? discoundedData?.finalAmount : 'N/A'}</p>
                         </Stack>
                       </Stack>
 
                       <hr />
 
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
-                        <p>Payment Terms:</p>
+                        <p className="sub-text">Payment Terms:</p>
                         <Stack direction="column">
                           <div className="coupon-flex">
                             <span className='coupon-text'>

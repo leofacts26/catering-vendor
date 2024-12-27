@@ -23,7 +23,7 @@ const CustomTabs = ({ activeTab, setActiveTab, handleTabChange }) => {
       >
         {/* <div className="" style={{backgroundColor: 'rgb(0 0 0 / 4%)'}}> */}
           <Tab
-            label="montly"
+            label="monthly"
             className={activeTab === 0 ? "custom-tab active-tab" : "custom-tab"}
             onClick={() => setActiveTab(0)}
           />

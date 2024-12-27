@@ -2163,7 +2163,7 @@ textarea:-webkit-autofill:active {
 }
 
 .coupon-text {
-  font-size: 14px;
+  font-size: 12px;
   font-family: var(--fontPrimary);
   font-weight: 400;
   margin-bottom: 5px;
@@ -2232,6 +2232,7 @@ textarea:-webkit-autofill:active {
   max-width: 601px !important;
   min-width: 190px !important;
   text-align: center;
+  border-radius: 99px !important;
 }
 
 .custom-tab:hover {
@@ -2255,4 +2256,8 @@ textarea:-webkit-autofill:active {
 
 .text-gray{
   color: #57636c
+}
+
+.sub-text{
+  font-size: 14px !important;
 }
