@@ -19,12 +19,17 @@ const SubscriptionPlanDetails = () => {
   const dispatch = useDispatch();
   const { subscribeData, discoundedData, couponCode, selectedSubscription, calculaterOrderData } = useSelector((state) => state.subscription);
   const [loading, setLoading] = useState(false);
-  const [recurringPayments, setRecurringPayments] = useState(discoundedData?.is_one_recurring_subscription_already_present);
+  const [recurringPayments, setRecurringPayments] = useState(true);
 
   // console.log(subscribeData, "subscribeData");
   // console.log(discoundedData, "discoundedData");
   // console.log(recurringPayments, "recurringPayments");
-  
+
+  useEffect(() => {
+    if (discoundedData?.is_one_recurring_subscription_already_present === true) {
+      setRecurringPayments(discoundedData?.is_one_recurring_subscription_already_present)
+    }
+  }, [discoundedData?.is_one_recurring_subscription_already_present])
 
 
   useEffect(() => {
@@ -65,6 +70,15 @@ const SubscriptionPlanDetails = () => {
   // displayRazorpay 
   async function displayRazorpay() {
     setLoading(true);
+
+    if (discoundedData?.is_one_recurring_subscription_already_present === false && discoundedData?.is_recurring_subscription_pending_for_authentication) {
+      toast.error("Subscription Payment is Pending, After Success you can proceed with OneTime Payment")
+      setLoading(false)
+      navigate('/dashboard/subscription')
+      return;
+    }
+
+
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
@@ -119,7 +133,7 @@ const SubscriptionPlanDetails = () => {
         end_at
       } = result.payload;
 
-      
+
       options = {
         key: "rzp_test_2M5D9mQwHZp8iP",
         subscription_id: subscriptionId,
@@ -217,7 +231,7 @@ const SubscriptionPlanDetails = () => {
             <Grid item xs={12} sm={8} md={5} lg={5} xl={5} className='mb-3 mt-5' style={{ display: 'flex', justifyContent: 'center', padding: '0px 5px' }}>
               <Stack className="subscription-plans-shadow" sx={{ display: 'flex', justifyContent: "center" }}>
                 <div className="sub-box-violet sub-plan-det-card">
-                  <div className={`sub-box-violet-title`} style={{backgroundColor: `${calculaterOrderData.display_color}`}}>
+                  <div className={`sub-box-violet-title`} style={{ backgroundColor: `${calculaterOrderData.display_color}` }}>
                     <h3 className="sub-box-name"> <span style={{ textTransform: 'capitalize' }}>{discoundedData?.subPlan}</span> Caterer</h3>
                   </div>
                   <div className="sub-body px-2 pt-2">
@@ -226,7 +240,8 @@ const SubscriptionPlanDetails = () => {
                         <p>Subscription Plan:</p> <p> {discoundedData?.subPlan ? discoundedData?.subPlan : 'N/A'} Caterer</p>
                       </Stack>
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-1">
-                        <p>Subscription Type:</p> <p> {discoundedData?.subType ? discoundedData?.subType : 'N/A'} / One Time</p>
+                        <p>Subscription Type:</p> <p> {discoundedData?.subType ? discoundedData?.subType : 'N/A'} / 
+                        {recurringPayments ? 'Subscription' : 'One Time'} </p>
                       </Stack>
 
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-4">
@@ -250,10 +265,10 @@ const SubscriptionPlanDetails = () => {
                           type="text" placeholder="Enter Coupon Code" required style={{ boxShadow: 'none' }} />
                         <button type="submit">Apply</button>
                       </form>
-                      
-                      <Stack  direction="row" justifyContent="end">
-                      <p className={`coupon-small mb-4 ms-2 mt-2 me-2 ${discoundedData?.couponStatus === 'Applied' ? 'text-success' : 'text-gray'} `}>
-                      {discoundedData?.couponStatus ? `Coupon ${discoundedData?.couponStatus}` : null}</p>
+
+                      <Stack direction="row" justifyContent="end">
+                        <p className={`coupon-small mb-4 ms-2 mt-2 me-2 ${discoundedData?.couponStatus === 'Applied' ? 'text-success' : 'text-gray'} `}>
+                          {discoundedData?.couponStatus ? `Coupon ${discoundedData?.couponStatus}` : null}</p>
                       </Stack>
 
 
@@ -294,12 +309,13 @@ const SubscriptionPlanDetails = () => {
                               size="small" {...label}
                               checked={recurringPayments}
                               onChange={(e) => setRecurringPayments(e.target.checked)}
-                              className={!discoundedData?.is_one_recurring_subscription_already_present ? 'checkbox-disabled' : 'checkbox-enabled'}
+                              className={recurringPayments ? 'checkbox-enabled' : 'checkbox-disabled'}
                             />
                           </div>
                           <p className="due-date"> {discoundedData?.paymentTerms ? discoundedData?.paymentTerms : 'N/A'}</p>
                         </Stack>
                       </Stack>
+
                     </div>
                   </div>
                 </div>
