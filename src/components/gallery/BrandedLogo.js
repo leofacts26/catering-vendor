@@ -11,6 +11,7 @@ import {
     DialogActions,
     DialogContent,
     Slider,
+    Tooltip,
     Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -172,18 +173,18 @@ const BrandedLogo = () => {
                             </Button>
                         </label> */}
 
-                       <div>
-                       <Button variant="contained" component="span" className="cuisines-list-white-btn me-4" onClick={handleClickBoxOpen}  startIcon={<UploadIcon />}>
-                            Upload
-                        </Button>
+                        <div>
+                            <Button variant="contained" component="span" className="cuisines-list-white-btn me-4" onClick={handleClickBoxOpen} startIcon={<UploadIcon />}>
+                                Upload
+                            </Button>
 
 
-                        <Button onClick={handleBrandClickOpen} variant="contained" component="span" className="cuisines-list-white-btn"  startIcon={<DeleteIcon />}
-                            disabled={isLoading || !(gallery['vendor-brand-logo']?.length && gallery['vendor-brand-logo']?.length > 0)} 
-                        >
-                            Delete
-                        </Button>
-                       </div>
+                            <Button onClick={handleBrandClickOpen} variant="contained" component="span" className="cuisines-list-white-btn" startIcon={<DeleteIcon />}
+                                disabled={isLoading || !(gallery['vendor-brand-logo']?.length && gallery['vendor-brand-logo']?.length > 0)}
+                            >
+                                Delete
+                            </Button>
+                        </div>
 
                     </Stack>
                 </div>
@@ -320,9 +321,12 @@ const BrandedLogo = () => {
                                             onChange={onReUploadBoxBrand}
                                         />
                                         <label htmlFor="onReUploadBoxBrand">
-
-                                            <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
-                                                <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" /> Re Upload Image </Button>
+                                            <Tooltip title="Only PNG, JPG images allowed">
+                                                <span>
+                                                    <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
+                                                        <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" /> Re Upload Image </Button>
+                                                </span>
+                                            </Tooltip>
                                         </label>
                                     </>
                                 ) : (
@@ -336,8 +340,12 @@ const BrandedLogo = () => {
                                             onChange={onUploadBoxBrand}
                                         />
                                         <label htmlFor="onUploadBoxBrand">
-                                            <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
-                                                <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" />  Upload Image </Button>
+                                            <Tooltip title="Only PNG, JPG images allowed">
+                                                <span>
+                                                    <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
+                                                        <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" />  Upload Image </Button>
+                                                </span>
+                                            </Tooltip>
                                         </label>
                                     </>
                                 )}
@@ -355,9 +363,13 @@ const BrandedLogo = () => {
                                     onChange={handleChange}
                                 />
                                 <label htmlFor="mainbannerlogo">
-                                    <Button variant="contained" component="span" className="cuisines-list-upload-btn" disabled={isLoading}>
-                                        {gallery['vendor-brand-logo']?.length && gallery['vendor-brand-logo']?.length > 0 ? 'Re Upload Crop Image' : 'Upload Crop Image'}
-                                    </Button>
+                                    <Tooltip title="Only PNG, JPG images allowed">
+                                        <span>
+                                            <Button variant="contained" component="span" className="cuisines-list-upload-btn" disabled={isLoading}>
+                                                {gallery['vendor-brand-logo']?.length && gallery['vendor-brand-logo']?.length > 0 ? 'Re Upload Crop Image' : 'Upload Crop Image'}
+                                            </Button>
+                                        </span>
+                                    </Tooltip>
                                 </label>
                             </div>
                         </Stack>

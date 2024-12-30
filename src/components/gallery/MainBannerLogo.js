@@ -11,6 +11,7 @@ import {
     DialogActions,
     DialogContent,
     Slider,
+    Tooltip,
     Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -160,15 +161,15 @@ const MainBannerLogo = () => {
                         </>
 
                         <div>
-                        <Button variant="contained" component="span" className="cuisines-list-white-btn me-4" onClick={handleClickBoxOpen} startIcon={<UploadIcon />}>
-                            Upload
-                        </Button>
+                            <Button variant="contained" component="span" className="cuisines-list-white-btn me-4" onClick={handleClickBoxOpen} startIcon={<UploadIcon />}>
+                                Upload
+                            </Button>
 
-                        <Button onClick={handleBrandClickOpen} variant="contained" component="span" className="cuisines-list-white-btn" startIcon={<DeleteIcon />}
-                            disabled={isLoading || !(gallery['vendor-banner']?.length && gallery['vendor-banner']?.length > 0)}
-                        >
-                            Delete
-                        </Button>
+                            <Button onClick={handleBrandClickOpen} variant="contained" component="span" className="cuisines-list-white-btn" startIcon={<DeleteIcon />}
+                                disabled={isLoading || !(gallery['vendor-banner']?.length && gallery['vendor-banner']?.length > 0)}
+                            >
+                                Delete
+                            </Button>
                         </div>
 
                     </Stack>
@@ -305,9 +306,12 @@ const MainBannerLogo = () => {
                                             onChange={onReUploadBoxBanner}
                                         />
                                         <label htmlFor="onReUploadBoxBanner">
-
-                                            <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
-                                                <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" /> Re Upload Image </Button>
+                                            <Tooltip title="Only PNG, JPG images allowed">
+                                                <span>
+                                                    <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
+                                                        <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" /> Re Upload Image </Button>
+                                                </span>
+                                            </Tooltip>
                                         </label>
                                     </>
                                 ) : (
@@ -321,8 +325,12 @@ const MainBannerLogo = () => {
                                             onChange={onUploadBoxBanner}
                                         />
                                         <label htmlFor="onUploadBoxBanner">
-                                            <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
-                                                <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" />  Upload Image </Button>
+                                            <Tooltip title="Only PNG, JPG images allowed">
+                                                <span>
+                                                    <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
+                                                        <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" />  Upload Image </Button>
+                                                </span>
+                                            </Tooltip>
                                         </label>
                                     </>
                                 )}
@@ -340,9 +348,13 @@ const MainBannerLogo = () => {
                                     onChange={handleChange}
                                 />
                                 <label htmlFor="mainbannerlogo">
-                                    <Button variant="contained" component="span" className="cuisines-list-upload-btn" disabled={isLoading}>
-                                        {gallery['vendor-banner']?.length && gallery['vendor-banner']?.length > 0 ? 'Re Upload Crop Image' : 'Upload Crop Image'}
-                                    </Button>
+                                    <Tooltip title="Only PNG, JPG images allowed">
+                                        <span>
+                                            <Button variant="contained" component="span" className="cuisines-list-upload-btn" disabled={isLoading}>
+                                                {gallery['vendor-banner']?.length && gallery['vendor-banner']?.length > 0 ? 'Re Upload Crop Image' : 'Upload Crop Image'}
+                                            </Button>
+                                        </span>
+                                    </Tooltip>
                                 </label>
                             </div>
                         </Stack>
