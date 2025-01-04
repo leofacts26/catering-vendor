@@ -111,6 +111,8 @@ const useFetchPhotoGallery = (handleBoxClose) => {
     }
 
     const onReUploadBoxBrand = async (event) => {
+        console.log(event, "event");
+        
         const formData = new FormData();
         formData.append('id', parseInt(gallery['vendor-brand-logo'][0]?.id && gallery['vendor-brand-logo'][0]?.id));
         formData.append('image', event.target.files[0]);

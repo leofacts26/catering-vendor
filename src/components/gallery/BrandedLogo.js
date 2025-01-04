@@ -313,7 +313,7 @@ const BrandedLogo = () => {
                                 {gallery['vendor-brand-logo']?.length && gallery['vendor-brand-logo']?.length > 0 ? (
                                     <>
                                         <input
-                                            accept="image/*"
+                                            accept="image/jpeg, image/png, image/webp"
                                             id="onReUploadBoxBrand"
                                             multiple
                                             type="file"
@@ -321,7 +321,7 @@ const BrandedLogo = () => {
                                             onChange={onReUploadBoxBrand}
                                         />
                                         <label htmlFor="onReUploadBoxBrand">
-                                            <Tooltip title="Only PNG, JPG images allowed">
+                                            <Tooltip title="Only PNG, JPG, Webp images allowed">
                                                 <span>
                                                     <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
                                                         <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" /> Re Upload Image </Button>
@@ -332,7 +332,7 @@ const BrandedLogo = () => {
                                 ) : (
                                     <>
                                         <input
-                                            accept="image/*"
+                                            accept="image/jpeg, image/png, image/webp"
                                             id="onUploadBoxBrand"
                                             multiple
                                             type="file"
@@ -340,7 +340,7 @@ const BrandedLogo = () => {
                                             onChange={onUploadBoxBrand}
                                         />
                                         <label htmlFor="onUploadBoxBrand">
-                                            <Tooltip title="Only PNG, JPG images allowed">
+                                            <Tooltip title="Only PNG, JPG, Webp images allowed">
                                                 <span>
                                                     <Button variant="contained" component="span" className="upload-btn" disabled={isLoading}>
                                                         <CloudUploadIcon style={{ fontSize: '14px' }} className="me-2" />  Upload Image </Button>
@@ -355,7 +355,7 @@ const BrandedLogo = () => {
 
                             <div>
                                 <input
-                                    accept="image/*"
+                                    accept="image/jpeg, image/png, image/webp"
                                     id="mainbannerlogo"
                                     multiple
                                     type="file"
@@ -363,7 +363,7 @@ const BrandedLogo = () => {
                                     onChange={handleChange}
                                 />
                                 <label htmlFor="mainbannerlogo">
-                                    <Tooltip title="Only PNG, JPG images allowed">
+                                    <Tooltip title="Only PNG, JPG, Webp images allowed">
                                         <span>
                                             <Button variant="contained" component="span" className="cuisines-list-upload-btn" disabled={isLoading}>
                                                 {gallery['vendor-brand-logo']?.length && gallery['vendor-brand-logo']?.length > 0 ? 'Re Upload Crop Image' : 'Upload Crop Image'}

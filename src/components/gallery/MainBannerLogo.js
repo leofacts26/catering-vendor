@@ -298,7 +298,7 @@ const MainBannerLogo = () => {
                                 {gallery['vendor-banner']?.length && gallery['vendor-banner']?.length > 0 ? (
                                     <>
                                         <input
-                                            accept="image/*"
+                                            accept="image/jpeg, image/png, image/webp"
                                             id="onReUploadBoxBanner"
                                             multiple
                                             type="file"
@@ -317,7 +317,7 @@ const MainBannerLogo = () => {
                                 ) : (
                                     <>
                                         <input
-                                            accept="image/*"
+                                            accept="image/jpeg, image/png, image/webp"
                                             id="onUploadBoxBanner"
                                             multiple
                                             type="file"
@@ -340,7 +340,7 @@ const MainBannerLogo = () => {
 
                             <div>
                                 <input
-                                    accept="image/*"
+                                    accept="image/jpeg, image/png, image/webp"
                                     id="mainbannerlogo"
                                     multiple
                                     type="file"

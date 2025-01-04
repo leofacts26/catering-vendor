@@ -91,7 +91,7 @@ const PhotoGallery = () => {
                           <Stack direction="row" justifyContent="space-between" className="py-2 px-2">
                             <>
                               <input
-                                accept="image/*"
+                               accept="image/jpeg, image/png, image/webp"
                                 id="onReUploadPackageMenu"
                                 multiple
                                 type="file"
@@ -131,7 +131,7 @@ const PhotoGallery = () => {
 
               <>
                 <input
-                  accept="image/*"
+                 accept="image/jpeg, image/png, image/webp"
                   id="onUploadBannerPackageMenu"
                   multiple
                   type="file"
@@ -173,7 +173,7 @@ const PhotoGallery = () => {
                           <Stack direction="row" justifyContent="space-between" className="py-2 px-2">
                             <>
                               <input
-                                accept="image/*"
+                               accept="image/jpeg, image/png, image/webp"
                                 id="onReUploadEditService"
                                 multiple
                                 type="file"
@@ -209,7 +209,7 @@ const PhotoGallery = () => {
               }
               <>
                 <input
-                  accept="image/*"
+                 accept="image/jpeg, image/png, image/webp"
                   id="onUploadService"
                   multiple
                   type="file"
@@ -251,7 +251,7 @@ const PhotoGallery = () => {
                           <Stack direction="row" justifyContent="space-between" className="py-2 px-2">
                             <>
                               <input
-                                accept="image/*"
+                               accept="image/jpeg, image/png, image/webp"
                                 id="onReUploadEditOtherPhotos"
                                 multiple
                                 type="file"
@@ -287,7 +287,7 @@ const PhotoGallery = () => {
               }
               <>
                 <input
-                  accept="image/*"
+                 accept="image/jpeg, image/png, image/webp"
                   id="onUploadOtherPhotos"
                   multiple
                   type="file"
