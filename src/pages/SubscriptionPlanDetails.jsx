@@ -259,25 +259,30 @@ const SubscriptionPlanDetails = () => {
 
                       <hr />
 
-                      <form className="search-wrapper cf mt-3" onSubmit={onCouponCodeSubmit}>
-                        <input
-                          name="couponCode" value={couponCode} onChange={(e) => dispatch(setCouponCode(e.target.value))}
-                          type="text" placeholder="Enter Coupon Code" required style={{ boxShadow: 'none' }} />
-                        <button type="submit">Apply</button>
-                      </form>
 
-                      <Stack direction="row" justifyContent="end">
-                        <p
-                          className={`coupon-small mb-4 ms-2 mt-2 me-2 ${discoundedData?.couponStatus === 'Applied'
-                              ? 'text-success' // Green for "Applied"
+                      {recurringPayments === false && <>
+                        <form className="search-wrapper cf mt-3" onSubmit={onCouponCodeSubmit}>
+                          <input
+                            name="couponCode" value={couponCode} onChange={(e) => dispatch(setCouponCode(e.target.value))}
+                            type="text" placeholder="Enter Coupon Code" required style={{ boxShadow: 'none' }} />
+                          <button type="submit">Apply</button>
+                        </form>
+
+                        <Stack direction="row" justifyContent="end">
+                          <p
+                            className={`coupon-small mb-4 ms-2 mt-2 me-2 ${discoundedData?.couponStatus === 'Applied'
+                              ? 'text-success'
                               : discoundedData?.couponStatus === 'Invalid or Expired' || discoundedData?.couponStatus === 'Expired'
-                                ? 'text-danger' // Red for "Invalid" or "Expired"
-                                : 'text-gray' // Grey for "Not Applied"
-                            }`}
-                        >
-                          {discoundedData?.couponStatus ? `Coupon ${discoundedData?.couponStatus}` : null}
-                        </p>
-                      </Stack>
+                                ? 'text-danger'
+                                : 'text-gray'
+                              }`}
+                          >
+                            {discoundedData?.couponStatus ? `Coupon ${discoundedData?.couponStatus}` : null}
+                          </p>
+                        </Stack>
+                      </>}
+
+
 
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
                         <p className="sub-text">Coupon Code:</p> <p className="sub-text"> {discoundedData?.couponCode ? discoundedData?.couponCode : 'N/A'} </p>
