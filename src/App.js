@@ -43,7 +43,7 @@ function App() {
 
             <Route index element={<Inquiries />} />
             {/* <Route index element={<DashboardComponent />} /> */}
-            <Route path='/dashboard/inquiries' element={<Inquiries />} />
+            {/* <Route path='/dashboard/inquiries' element={<Inquiries />} /> */}
             <Route path='/dashboard/reviews' element={<Reviews />} />
 
             <Route path='/dashboard/cuisines' element={<Cuisines />} />
