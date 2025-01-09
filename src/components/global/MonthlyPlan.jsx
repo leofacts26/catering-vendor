@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { calculateOrderTotal, fetchSubscriptionTypes, setDiscountedData, setSubscribeData } from '../../features/subscriptionSlice';
+import { calculateOrderTotal, fetchActiveSubscription, fetchSubscriptionTypes, setDiscountedData, setSubscribeData } from '../../features/subscriptionSlice';
 import { useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
@@ -14,9 +14,11 @@ const MonthlyPlan = () => {
     const navigate = useNavigate();
     const { subscriptionData, isLoading, mode } = useSelector((state) => state.subscription);
     const dispatch = useDispatch();
+    const { activeSubscriptionList } = useSelector((state) => state.subscription)
 
-    // console.log(subscriptionData, "subscriptionDatasubscriptionDatasubscriptionData");
-
+    useEffect(() => {
+        dispatch(fetchActiveSubscription())
+    }, [])
 
     useEffect(() => {
         dispatch(fetchSubscriptionTypes(mode));
@@ -120,7 +122,7 @@ const MonthlyPlan = () => {
                                                     style={{ backgroundColor: `${item.subscriptionTypeDisplayColor}` }}
                                                     onClick={() => onHandleSubscribe(item)}
                                                 >
-                                                    Subscribe Now
+                                                    {activeSubscriptionList?.activeSubscription ? "Upgrade Subscription" : "Subscribe Now"}
                                                 </Button>
                                             </Link>
                                             <br />

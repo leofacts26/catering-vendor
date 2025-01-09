@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 
 const Subscription = () => {
   const { activeSubscriptionList, cancelSubData } = useSelector((state) => state.subscription)
-  console.log(cancelSubData, "cancelSubData");
+  // console.log(cancelSubData, "cancelSubData");
 
 
   const dispatch = useDispatch();
@@ -60,7 +60,7 @@ const Subscription = () => {
         }
       }
 
-     await  dispatch(fetchActiveSubscription())
+      await dispatch(fetchActiveSubscription())
     } catch (error) {
       console.error("Error cancelling subscription:", error);
 
@@ -149,14 +149,45 @@ const Subscription = () => {
                   </Link> */}
 
 
-                  {activeSubscriptionList?.activeSubscription === null ? <Link to={activeSubscriptionList?.pendingSubscriptions?.length !== 0 ? 'javascript:void(0)' : '/dashboard/subscription-plan'} className="text-decoration-none">
-                    <Button variant="contained" className="inquiries-btn mx-auto taxt-center" disabled={activeSubscriptionList?.pendingSubscriptions?.length !== 0}>
-                      Create Subscription
+                  {activeSubscriptionList?.activeSubscription === null ? (
+                    <Link
+                      to={
+                        activeSubscriptionList?.pendingSubscriptions?.length !== 0
+                          ? 'javascript:void(0)'
+                          : '/dashboard/subscription-plan'
+                      }
+                      className="text-decoration-none"
+                    >
+                      <Button
+                        variant="contained"
+                        className="inquiries-btn mx-auto text-center"
+                        disabled={activeSubscriptionList?.pendingSubscriptions?.length !== 0}
+                      >
+                        Create Subscription
+                      </Button>
+                    </Link>
+                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern === "one_time_monthly" ? (
+                    <Link
+                      to='/dashboard/subscription-plan'
+                      className="text-decoration-none"
+                    >
+                      <Button
+                        variant="contained"
+                        className="inquiries-btn mx-auto text-center"
+                      >
+                        Upgrade Subscription
+                      </Button>
+                    </Link>
+                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern === "subscription-monthly" ? (
+                    <Button
+                      variant="contained"
+                      className="inquiries-btn mx-auto text-center"
+                      onClick={() => onHandleCancelSubscription(activeSubscriptionList?.activeSubscription?.razorpay_subscription_id)}
+                    >
+                      Cancel Subscription
                     </Button>
-                  </Link> : <Button variant="contained" className="inquiries-btn mx-auto taxt-center"
-                    onClick={() => onHandleCancelSubscription(activeSubscriptionList?.activeSubscription?.razorpay_subscription_id)}>
-                    Cancel Subscription
-                  </Button>}
+                  ) : null}
+
 
 
 
