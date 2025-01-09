@@ -12,15 +12,15 @@ import LoadingAnimation from '../LoadingAnimation';
 
 const YearlyPlan = () => {
     const navigate = useNavigate();
-    const { subscriptionData, isLoading } = useSelector((state) => state.subscription);
+    const { subscriptionData, isLoading, mode } = useSelector((state) => state.subscription);
     const dispatch = useDispatch();
 
-    console.log(subscriptionData, "subscriptionDatasubscriptionData");
+    // console.log(subscriptionData, "subscriptionDatasubscriptionData");
 
 
     useEffect(() => {
-        dispatch(fetchSubscriptionTypes());
-    }, []);
+        dispatch(fetchSubscriptionTypes(mode));
+    }, [mode]);
 
     // onHandleSubscribe 
     const onHandleSubscribe = async (item) => {
@@ -50,7 +50,7 @@ const YearlyPlan = () => {
                         .map((item, index) => {
                             let color = '';
                             const subscriptionType = item?.subscriptionType?.toLowerCase();
-    
+
                             if (subscriptionType === 'normal') {
                                 color = 'normal-color';
                             } else if (subscriptionType === 'popular') {
@@ -58,7 +58,7 @@ const YearlyPlan = () => {
                             } else if (subscriptionType === 'branded') {
                                 color = 'branded-color';
                             }
-    
+
                             return (
                                 <Grid
                                     item
@@ -127,7 +127,7 @@ const YearlyPlan = () => {
             )}
         </>
     );
-    
+
 }
 
 export default YearlyPlan

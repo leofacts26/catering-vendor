@@ -13,16 +13,17 @@ const initialState = {
   subscribeData: null,
   activeSubscriptionList: null,
   calculaterOrderData: {},
-  cancelSubData: {}
+  cancelSubData: {},
+  mode: 'live'
   // couponStatus: null,
 };
 
 export const fetchSubscriptionTypes = createAsyncThunk(
   "homepage/fetchSubscriptionTypes",
-  async (user, thunkAPI) => {
+  async (mode, thunkAPI) => {
     try {
       const response = await api.get(
-        `${BASE_URL}/rz-get-razorpay-plans?vendor_type=Caterer`,
+        `${BASE_URL}/rz-get-razorpay-plans?vendor_type=Caterer&mode=${mode}`,
         {
           headers: {
             authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
@@ -191,6 +192,9 @@ export const subscriptionSlice = createSlice({
     setSubscribeData: (state, action) => {
       state.subscribeData = action.payload;
     },
+    setMode: (state, action) => {
+      state.mode = action.payload;
+    },
     // setCouponStatus: (state, action) => {
     //   state.couponStatus = action.payload;
     // },
@@ -269,5 +273,5 @@ export const subscriptionSlice = createSlice({
   },
 });
 
-export const { setCouponCode, setSelectedSubscription, setDiscountedData, setSubscribeData } = subscriptionSlice.actions;
+export const { setMode, setCouponCode, setSelectedSubscription, setDiscountedData, setSubscribeData } = subscriptionSlice.actions;
 export default subscriptionSlice.reducer;

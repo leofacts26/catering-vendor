@@ -12,20 +12,20 @@ import LoadingAnimation from '../LoadingAnimation';
 
 const MonthlyPlan = () => {
     const navigate = useNavigate();
-    const { subscriptionData, isLoading } = useSelector((state) => state.subscription);
+    const { subscriptionData, isLoading, mode } = useSelector((state) => state.subscription);
     const dispatch = useDispatch();
 
     // console.log(subscriptionData, "subscriptionDatasubscriptionDatasubscriptionData");
 
 
     useEffect(() => {
-        dispatch(fetchSubscriptionTypes());
-    }, []);
+        dispatch(fetchSubscriptionTypes(mode));
+    }, [mode]);
 
     // onHandleSubscribe 
     const onHandleSubscribe = async (item) => {
         // console.log(item, "item112");
-        
+
         await dispatch(setSubscribeData(item))
         const subscriptionDuration = "monthly";
         const newItem = {
@@ -39,20 +39,26 @@ const MonthlyPlan = () => {
         }
     }
 
+
     if (isLoading) {
         return <LoadingAnimation center />
     }
 
+    // Safeguard against undefined or empty subscription data
+    const hasValidPlans = subscriptionData?.filter(item => item.plans?.length > 0).length > 0;
+
+
     return (
         <>
-            {subscriptionData?.filter(item => item.plans?.length > 0).length > 0 ? (
+
+            {hasValidPlans ? (
                 <Grid container spacing={2}>
                     {subscriptionData
                         .filter(item => item.plans?.length > 0) // Filter out items with empty plans
                         .map((item, index) => {
                             let color = '';
                             const subscriptionType = item?.subscriptionType?.toLowerCase();
-    
+
                             if (subscriptionType === 'normal') {
                                 color = 'normal-color';
                             } else if (subscriptionType === 'popular') {
@@ -60,7 +66,7 @@ const MonthlyPlan = () => {
                             } else if (subscriptionType === 'branded') {
                                 color = 'branded-color';
                             }
-    
+
                             return (
                                 <Grid
                                     item
@@ -127,9 +133,11 @@ const MonthlyPlan = () => {
             ) : (
                 <p>No subscription plans available at the moment.</p>
             )}
+
+
         </>
     );
-    
+
 }
 
 export default MonthlyPlan

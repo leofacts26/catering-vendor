@@ -2,17 +2,34 @@ import TopHeader from "../components/global/TopHeader";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import YearlyPlan from "../components/global/YearlyPlan";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MonthlyPlan from "../components/global/MonthlyPlan";
 import CustomTabs from "../components/CustomTabs";
+import { fetchSubscriptionTypes, setMode } from "../features/subscriptionSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+
+
 
 const SubscriptionPlan = () => {
+  const { mode } = useSelector((state) => state.subscription);
+  const dispatch = useDispatch()
 
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
   };
+
+  const handleModeChange = (e) => {
+    dispatch(setMode(e.target.value));
+  };
+
+
+  useEffect(() => {
+    dispatch(fetchSubscriptionTypes(mode));
+  }, [mode]);
+
 
   return (
     <>
@@ -26,6 +43,22 @@ const SubscriptionPlan = () => {
           <p className="branches-desc text-center">
             Choose your subscription types
           </p>
+
+          <FormControl variant="outlined" style={{ minWidth: 200 }}>
+            <InputLabel id="mode-label">Select Mode</InputLabel>
+            <Select
+              labelId="mode-label"
+              id="mode"
+              value={mode}
+              onChange={handleModeChange}
+              label="Select Mode"
+            >
+              <MenuItem value="live">Live</MenuItem>
+              <MenuItem value="test">Test</MenuItem>
+            </Select>
+          </FormControl>
+
+
           <Stack
             direction="row"
             justifyContent="center"
