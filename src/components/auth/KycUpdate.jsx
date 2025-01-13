@@ -34,7 +34,7 @@ const initialKycState = {
     aadhar_card_number: '',
     pan_number: '',
     gstin_number: '',
-    fssai_document_filename: ''
+    fssai_number: ''
 }
 
 
@@ -62,7 +62,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
         // .required('PAN number is required')
         // .matches(/^[A-Z]{5}[0-9]{4}[A-Z]$/, 'PAN number must be in the format AAAAA9999A and in uppercase')
         // .length(10, 'PAN number must be exactly 10 characters long'),
-        fssai_document_filename: Yup.string()
+        fssai_number: Yup.string()
             .matches(/^[A-Z0-9]*$/, 'FSSAI number must contain only uppercase letters and numbers')
             .min(14, 'FSSAI must be at least 14 characters long')
             .max(14, 'FSSAI must not exceed 14 characters')
@@ -75,12 +75,12 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
             setLoading(true);
             const {
                 // aadhar_card_number, pan_number, gstin_number, 
-                fssai_document_filename } = values;
+                fssai_number } = values;
             const data = {
                 // aadhar_card_number,
                 // pan_number,
                 // gstin_number,
-                fssai_document_filename
+                fssai_number
             };
             const response = await api.post('/register-vendor-kyc-update', data, {
                 headers: {
@@ -179,8 +179,8 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
 
                         <h4 className='ct-box-profile-title mt-4'>Please Enter Your FSSAI Licence Number</h4>
                         <CssTextFieldTwo
-                            value={values.fssai_document_filename}
-                            name="fssai_document_filename"
+                            value={values.fssai_number}
+                            name="fssai_number"
                             onChange={handleChange}
                             variant="outlined"
                             className='mt-2'
@@ -196,7 +196,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
                                 },
                             }}
                         />
-                        {errors.fssai_document_filename && <small className='text-danger mt-2 ms-0'>{errors.fssai_document_filename}</small>}
+                        {errors.fssai_number && <small className='text-danger mt-2 ms-0'>{errors.fssai_number}</small>}
 
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 3 }}>
                             {/* <Button
