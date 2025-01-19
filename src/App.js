@@ -32,7 +32,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/landing" element={<Landing />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/create-account" element={<RegisterLogin />} />
           <Route path="/enter-location" element={<EnterLocation />} />
           <Route path="/enter-location-manually" element={<EnterLocationManually />} />
