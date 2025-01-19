@@ -281,7 +281,7 @@ const EnterLocationManually = () => {
                         <form onSubmit={handleSubmit} autocomplete="off">
                             <div className="ct-box ct-box-padding">
                                 <div className="px-4">
-                                    <h4 className='ct-box-loc-title'>Enter your area or address</h4>
+                                    <h4 className='ct-box-loc-title'>Enter your area or City</h4>
 
                                     <CssTextField
                                         autocomplete="false"
@@ -296,7 +296,7 @@ const EnterLocationManually = () => {
                                         loading={isPlacePredictionsLoading}
                                         id="outlined-number"
                                         variant="outlined"
-                                        label="Try A2B, Mg road, Bangalore, etc."
+                                        label="Try Koramangala, Bengaluru etc. *"
                                         className='mt-3 mb-2'
                                         style={{ width: '100%' }}
                                         InputLabelProps={{

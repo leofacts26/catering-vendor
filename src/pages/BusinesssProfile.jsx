@@ -116,6 +116,7 @@ const BusinesssProfile = () => {
       working_since: data?.working_since || "",
       about_description: data?.about_description,
       total_staffs_approx: data?.total_staffs_approx,
+      street_address: data?.street_address,
       business_email: data?.business_email,
       business_phone_number: data?.business_phone_number?.slice(4, 14),
       landline_number: data?.landline_number,
@@ -520,7 +521,6 @@ const BusinesssProfile = () => {
 
               <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
                 <Grid item xs={8} >
-
                   <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
                     <p className="business-profile-name">Total No. of Staffs Approx</p>
                     <CssTextField
@@ -541,9 +541,60 @@ const BusinesssProfile = () => {
                         }
                       }}
                     />
-                    {/* {errors.total_staffs_approx && <small className='text-danger mt-2 ms-1'>{errors.total_staffs_approx}</small>} */}
                   </div>
+                </Grid>
+              </Grid>
 
+              <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Grid item xs={8} >
+                  <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
+                    <p className="business-profile-name">Pincode</p>
+                    <CssTextField
+                      value={values.pincode}
+                      onChange={handleChange}
+                      name="pincode"
+                      variant="outlined"
+                      placeholder="E.g.. 15"
+                      className='mt-0'
+                      style={{ width: '100%' }}
+                      InputLabelProps={{
+                        style: { color: '#777777', fontSize: '10px' },
+                      }}
+                      InputProps={{
+                        style: {
+                          borderRadius: '8px',
+                          backgroundColor: '#FFFFFF',
+                        }
+                      }}
+                    />
+                  </div>
+                </Grid>
+              </Grid>
+
+
+              <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Grid item xs={8} >
+                  <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
+                    <p className="business-profile-name">Street Address</p>
+                    <CssTextField
+                      value={values.street_address}
+                      onChange={handleChange}
+                      name="street_address"
+                      variant="outlined"
+                      placeholder="E.g.. 15"
+                      className='mt-0'
+                      style={{ width: '100%' }}
+                      InputLabelProps={{
+                        style: { color: '#777777', fontSize: '10px' },
+                      }}
+                      InputProps={{
+                        style: {
+                          borderRadius: '8px',
+                          backgroundColor: '#FFFFFF',
+                        }
+                      }}
+                    />
+                  </div>
                 </Grid>
               </Grid>
 
@@ -551,7 +602,7 @@ const BusinesssProfile = () => {
               <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
                 <Grid item xs={8} >
                   <div className="mt-5">
-                    <p className="business-profile-name">Address</p>
+                    <p className="business-profile-name">Select your Area</p>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                       <textarea
                         autocomplete="false"

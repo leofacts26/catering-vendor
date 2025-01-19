@@ -271,7 +271,7 @@ const ProfileSteps = () => {
                                                             onChange={handleChange}
                                                             name="landline_number"
                                                             variant="outlined"
-                                                            label="Add landline number / Alternative Business number"
+                                                            label="Add Landline/Alternative number (Optional)"
                                                             className='mt-3'
                                                             style={{ width: '100%' }}
                                                             InputLabelProps={{
