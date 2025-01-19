@@ -39,32 +39,32 @@ function App() {
           <Route path="/profile-steps" element={<ProfileSteps />} />
           <Route path="*" element={<NoPage />} />
 
-          <Route path="/" element={<Layout />}>
+          <Route path="/dashboard" element={<Layout />}>
 
             <Route index element={<Inquiries />} />
             {/* <Route index element={<DashboardComponent />} /> */}
             {/* <Route path='/dashboard/inquiries' element={<Inquiries />} /> */}
-            <Route path='/dashboard/reviews' element={<Reviews />} />
+            <Route path='reviews' element={<Reviews />} />
 
-            <Route path='/dashboard/cuisines' element={<Cuisines />} />
-            <Route path='/dashboard/occasions' element={<Occasions />} />
-            <Route path='/dashboard/packages' element={<Packages />} />
+            <Route path='cuisines' element={<Cuisines />} />
+            <Route path='occasions' element={<Occasions />} />
+            <Route path='packages' element={<Packages />} />
 
-            <Route path='/dashboard/businesss-profile' element={<BusinesssProfile />} />
-            <Route path='/dashboard/photo-gallery' element={<PhotoGallery />} />
-            <Route path='/dashboard/photo-gallery-test' element={<PhotoGalleryTest />} />
-            <Route path='/dashboard/branches' element={<Branches />} />
+            <Route path='businesss-profile' element={<BusinesssProfile />} />
+            <Route path='photo-gallery' element={<PhotoGallery />} />
+            <Route path='photo-gallery-test' element={<PhotoGalleryTest />} />
+            <Route path='branches' element={<Branches />} />
 
-            <Route path='/dashboard/subscription' element={<Subscription />} />
-            <Route path='/dashboard/subscription-plan' element={<SubscriptionPlan />} />
-            <Route path='/dashboard/subscription-plan-details' element={<SubscriptionPlanDetails />} />
+            <Route path='subscription' element={<Subscription />} />
+            <Route path='subscription-plan' element={<SubscriptionPlan />} />
+            <Route path='subscription-plan-details' element={<SubscriptionPlanDetails />} />
             {/* <Route path='/dashboard/subscription-details' element={<SubscriptionDetails />} /> */}
 
-            <Route path='/dashboard/settings' element={<Settings />} />
-            <Route path='/dashboard/about-us' element={<AboutUs />} />
-            <Route path='/dashboard/faq' element={<Faq />} />
-            <Route path='/dashboard/notification' element={<Notification />} />
-            <Route path='/dashboard/raise-ticket' element={<RaiseTicket />} />
+            <Route path='settings' element={<Settings />} />
+            <Route path='about-us' element={<AboutUs />} />
+            <Route path='faq' element={<Faq />} />
+            <Route path='notification' element={<Notification />} />
+            <Route path='raise-ticket' element={<RaiseTicket />} />
 
           </Route>
         </Routes>

@@ -104,7 +104,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
 
 
     const handleBack = () => {
-        navigate('/')
+        navigate('/dashboard')
     }
 
 
