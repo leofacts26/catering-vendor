@@ -545,31 +545,7 @@ const BusinesssProfile = () => {
                 </Grid>
               </Grid>
 
-              <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
-                <Grid item xs={8} >
-                  <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
-                    <p className="business-profile-name">Pincode</p>
-                    <CssTextField
-                      value={values.pincode}
-                      onChange={handleChange}
-                      name="pincode"
-                      variant="outlined"
-                      placeholder="E.g.. 15"
-                      className='mt-0'
-                      style={{ width: '100%' }}
-                      InputLabelProps={{
-                        style: { color: '#777777', fontSize: '10px' },
-                      }}
-                      InputProps={{
-                        style: {
-                          borderRadius: '8px',
-                          backgroundColor: '#FFFFFF',
-                        }
-                      }}
-                    />
-                  </div>
-                </Grid>
-              </Grid>
+
 
 
               <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
@@ -597,6 +573,8 @@ const BusinesssProfile = () => {
                   </div>
                 </Grid>
               </Grid>
+
+
 
 
               <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
@@ -638,6 +616,33 @@ const BusinesssProfile = () => {
                   )}
 
 
+                </Grid>
+              </Grid>
+
+
+              <Grid className="mb-4" container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Grid item xs={8} >
+                  <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
+                    <p className="business-profile-name">Pincode</p>
+                    <CssTextField
+                      value={values.pincode}
+                      onChange={handleChange}
+                      name="pincode"
+                      variant="outlined"
+                      placeholder="E.g.. 15"
+                      className='mt-0'
+                      style={{ width: '100%' }}
+                      InputLabelProps={{
+                        style: { color: '#777777', fontSize: '10px' },
+                      }}
+                      InputProps={{
+                        style: {
+                          borderRadius: '8px',
+                          backgroundColor: '#FFFFFF',
+                        }
+                      }}
+                    />
+                  </div>
                 </Grid>
               </Grid>
 

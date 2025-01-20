@@ -58,7 +58,7 @@ const Inquiries = () => {
   const formattedDate = selectedDate ? dayjs(selectedDate).format('YYYY-MM-DD') : '';
 
 
-  console.log(formattedDate, "formattedDate formattedDate");
+  // console.log(formattedDate, "formattedDate formattedDate");
 
   const [cleared, setCleared] = useState(false);
 
