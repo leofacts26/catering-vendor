@@ -165,14 +165,21 @@ const FssaiPhoto = () => {
 
                         <Stack direction="row" justifyContent="center">
                             <Button variant="contained" component="span" className="cuisines-list-white-btn" onClick={handleClickBoxOpen}>
-                             <UploadIcon />   Upload
+                                <UploadIcon />   Upload
                             </Button>
 
-                            <Button onClick={handleBrandClickOpen} variant="contained" component="span" className="cuisines-list-white-btn"
-                                disabled={isLoading || !(settings['vendor-encf']?.length && settings['vendor-encf']?.length > 0)}
-                            >
-                              <DeleteIcon style={{fontSize: '18px'}} />  Delete
-                            </Button>
+                            {!(settings['vendor-encf']?.length && settings['vendor-encf']?.length > 0) ? null : (
+                                <Button
+                                    onClick={handleBrandClickOpen}
+                                    variant="contained"
+                                    component="span"
+                                    className="cuisines-list-white-btn"
+                                    disabled={isLoading}
+                                >
+                                    <DeleteIcon style={{ fontSize: '18px' }} /> Delete
+                                </Button>
+                            )}
+
                         </Stack>
 
                     </AccordionDetails>
