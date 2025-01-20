@@ -34,7 +34,7 @@ const DeleteModal = ({ DeleteModalopen, handleDeleteModalClose, onHandleRemoveMo
                 open={DeleteModalopen}
             >
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                   <h2>User Confirmation Needed</h2>
+                    <h4 className='text-center'>User Confirmation Needed</h4>
                 </DialogTitle>
                 {/* <IconButton
                     aria-label="close"
@@ -49,10 +49,11 @@ const DeleteModal = ({ DeleteModalopen, handleDeleteModalClose, onHandleRemoveMo
                     <CloseIcon />
                 </IconButton> */}
                 <DialogContent dividers>
-                    <h3 className='delete-gallery-image mt-2'> Are You Sure You Want To Delete This Image? </h3>
+                    <h5 className='delete-gallery-image mt-2'> Are You Sure You Want To Delete This Image? </h5>
                 </DialogContent>
                 <DialogActions>
                     <Box
+                        className="my-3"
                         sx={{
                             display: 'flex',
                             gap: 2,
