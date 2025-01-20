@@ -83,6 +83,7 @@ const BrandedLogo = () => {
         setPhotoURL(URL.createObjectURL(file));
     }
 
+    console.log(gallery, "gallery");
 
     // onHandleSubmit 
     const onHandleSubmit = async (event) => {
@@ -179,11 +180,19 @@ const BrandedLogo = () => {
                             </Button>
 
 
-                            <Button onClick={handleBrandClickOpen} variant="contained" component="span" className="cuisines-list-white-btn" startIcon={<DeleteIcon />}
-                                disabled={isLoading || !(gallery['vendor-brand-logo']?.length && gallery['vendor-brand-logo']?.length > 0)}
-                            >
-                                Delete
-                            </Button>
+                            {!(gallery['vendor-brand-logo']?.length && gallery['vendor-brand-logo']?.length > 0) ? null : (
+                                <Button
+                                    onClick={handleBrandClickOpen}
+                                    variant="contained"
+                                    component="span"
+                                    className="cuisines-list-white-btn"
+                                    startIcon={<DeleteIcon />}
+                                    disabled={isLoading}
+                                >
+                                    Delete
+                                </Button>
+                            )}
+
                         </div>
 
                     </Stack>
