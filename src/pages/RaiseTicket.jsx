@@ -35,8 +35,8 @@ const IssueCard = ({ ticket }) => {
         >
             <CardContent>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-                    <Typography variant="h6" fontWeight="bold">
-                        {ticket.vendor_service_name} {/* Display service name */}
+                    <Typography variant="h6" >
+                        {ticket.issue} {/* Display service name */}
                     </Typography>
                     <Chip
                         label={ticket.status === "Active" ? "Open" : "Resolved"}
@@ -50,7 +50,7 @@ const IssueCard = ({ ticket }) => {
                     />
                 </Stack>
                 <Typography variant="body2" color="textSecondary" mb={2}>
-                    {ticket.issue} {/* Display the issue */}
+                    {ticket.comments} 
                 </Typography>
                 <Typography variant="caption" color="textSecondary">
                     {new Date(ticket.raised_on).toLocaleString()} {/* Format the date */}
