@@ -54,10 +54,11 @@ const Inquiries = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("")
   const [error, setError] = useState(null)
-  const [selectedDate, setSelectedDate] = useState('2024-04-02');
-  const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
+  const [selectedDate, setSelectedDate] = useState(null);
+  const formattedDate = selectedDate ? dayjs(selectedDate).format('YYYY-MM-DD') : '';
 
-  // console.log(formattedDate, "formattedDate formattedDate");
+
+  console.log(formattedDate, "formattedDate formattedDate");
 
   const [cleared, setCleared] = useState(false);
 
@@ -79,7 +80,7 @@ const Inquiries = () => {
   const fetchInquiries = async () => {
     setLoading(true)
     try {
-      const response = await api.get(`${BASE_URL}/get-vendor-enquiries?search_term=${search}&enquiry_date=${formattedDate}&limit=${Page_Limit}&current_page=${page}&order_by=newest_first`, {
+      const response = await api.get(`${BASE_URL}/get-vendor-enquiries?search_term=${search}&enquiry_date=${formattedDate || ''}&limit=${Page_Limit}&current_page=${page}&order_by=newest_first`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         }
@@ -151,7 +152,7 @@ const Inquiries = () => {
             <div className="inquiries-name">
               <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DatePicker
-                  value={selectedDate && dayjs(selectedDate)}
+                  value={selectedDate ? dayjs(selectedDate) : null}
                   onChange={date => setSelectedDate(date)}
                   format="DD/MM/YYYY"
                   slots={{
