@@ -163,7 +163,7 @@ const Subscription = () => {
                         className="inquiries-btn mx-auto text-center"
                         disabled={activeSubscriptionList?.pendingSubscriptions?.length !== 0}
                       >
-                        Create Subscription
+                        Get Subscription
                       </Button>
                     </Link>
                   ) : activeSubscriptionList?.activeSubscription?.subscription_pattern === "one_time_monthly" ? (
@@ -198,7 +198,7 @@ const Subscription = () => {
 
           <div>
             {activeSubscriptionList?.queuedSubscriptions?.length > 0 && <hr className="mb-4" />}
-            {activeSubscriptionList?.queuedSubscriptions?.length > 0 && <h3 className='top-header-title mb-3'>Queud Subscriptions</h3>}
+            {activeSubscriptionList?.queuedSubscriptions?.length > 0 && <h3 className='top-header-title mb-3'>Queued Subscriptions</h3>}
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 {

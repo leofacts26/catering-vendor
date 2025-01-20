@@ -102,7 +102,7 @@ const MonthlyPlan = () => {
                                                     </h3>
                                                 </div>
                                                 <p className="sub-plan-brand mb-3 mt-3">
-                                                    List as {item?.subscriptionType} Caterer
+                                                    List as {item?.subscriptionTypeDisplayName} Caterer
                                                 </p>
                                                 <p className="sub-plan-para">Benefits:</p>
                                                 {item?.benefits &&
