@@ -126,11 +126,15 @@ const Occasions = () => {
                                         ))
                                     ) : (
                                         <Grid item xs={12}>
-                                            <h2 className='text-center'>No Occasions Found</h2>
+                                            <div className="error-box">
+                                                <h2 className='text-center'>No Occasions Found</h2>
+                                            </div>
                                         </Grid>
                                     )
                                 ) : (
-                                    <h2>No Occasions Found</h2>
+                                    <div className="error-box">
+                                        <h2>No Occasions Found</h2>
+                                    </div>
                                 )}
                             </Grid>
                         </Box>

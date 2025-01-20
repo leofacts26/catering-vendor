@@ -177,7 +177,9 @@ const Inquiries = () => {
           <>
             {
               error !== null ? (
-                <h2 className='text-center'>{error}</h2>
+                <div className="error-box">
+                  <h2 className='text-center my-5'>{error}</h2>
+                </div>
               ) : (
                 <>
                   {
@@ -189,7 +191,9 @@ const Inquiries = () => {
                           <InquiryCard item={item} key={index} />
                         ))
                       ) : (
-                        <h2 className='text-center'>No Inquiries Found</h2>
+                        <div className="error-box">
+                          <h2 className='text-center my-5'>No Inquiries Found</h2>
+                        </div>
                       )
                     )}
                 </>

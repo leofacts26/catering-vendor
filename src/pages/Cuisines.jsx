@@ -223,7 +223,9 @@ const Cuisines = () => {
                                 </Box>
                             ))}
                             {!cuisinesList.some(item => item.children.some(childItem => childItem.selected === "1")) && (
-                                <h2 className='text-center'>No Cuisines Found</h2>
+                                <div className="error-box">
+                                    <h2 className='text-center'>No Cuisines Found</h2>
+                                </div>
                             )}
                         </Stack>
                     )}

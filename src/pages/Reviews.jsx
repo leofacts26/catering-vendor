@@ -90,7 +90,9 @@ const Reviews = () => {
                                 ))
                             ) : (
                                 <>
-                                    <h2 className='text-center'>No Reviews Found</h2><br />
+                                    <div className="error-box">
+                                        <h2 className='text-center'>No Reviews Found</h2><br />
+                                    </div>
                                 </>
                             )
                         )}

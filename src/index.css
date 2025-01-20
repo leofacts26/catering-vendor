@@ -2263,3 +2263,10 @@ textarea:-webkit-autofill:active {
 .sub-text{
   font-size: 14px !important;
 }
+
+.error-box{
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
