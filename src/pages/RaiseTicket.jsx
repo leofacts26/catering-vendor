@@ -122,6 +122,7 @@ const RaiseTicket = () => {
             toast.success(successToast(response))
             resetForm(initialState);
             dispatch(setIsLoading(false))
+            getVendorSupportTickets()
         } catch (error) {
             console.log(error);
             toast.error(datavalidationerror(error))
