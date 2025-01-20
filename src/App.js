@@ -42,6 +42,7 @@ function App() {
           <Route path="/dashboard" element={<Layout />}>
 
             <Route index element={<Inquiries />} />
+            <Route path="/dashboard/inquiries" element={<Inquiries />} />
             {/* <Route index element={<DashboardComponent />} /> */}
             {/* <Route path='/dashboard/inquiries' element={<Inquiries />} /> */}
             <Route path='reviews' element={<Reviews />} />
