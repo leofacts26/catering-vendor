@@ -149,6 +149,10 @@ const BusinesssProfile = () => {
       .matches(/^[0-9]+$/, 'Phone number must contain only digits')
       .min(10, 'Phone number must be at least 10 digits')
       .max(15, 'Phone number must not exceed 15 digits'),
+      whatsapp_business_phone_number: Yup.string()
+      .matches(/^[0-9]+$/, 'Phone number must contain only digits')
+      .min(10, 'Phone number must be at least 10 digits')
+      .max(10, 'Phone number must not exceed 15 digits'),
   });
 
   useEffect(() => {
@@ -803,6 +807,7 @@ const BusinesssProfile = () => {
                         }
                       }}
                     />
+                    {errors.whatsapp_business_phone_number && <small className='text-danger mt-2 ms-1'>{errors.whatsapp_business_phone_number}</small>}
                   </div>
                 </Grid>
               </Grid>
