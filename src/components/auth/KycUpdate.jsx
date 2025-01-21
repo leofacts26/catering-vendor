@@ -91,7 +91,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
             toast.success(response?.data?.message);
             setLoading(false);
             if (response?.data) {
-                navigate("/");
+                navigate("/dashboard/inquiries");
             }
             toast.success('Login Details have been sent to the registered Phone number');
         } catch (error) {
@@ -104,7 +104,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
 
 
     const handleBack = () => {
-        navigate('/dashboard/inquiries')
+            navigate('/dashboard/inquiries')
     }
 
 
