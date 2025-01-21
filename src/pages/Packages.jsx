@@ -240,8 +240,8 @@ const Packages = () => {
 
                             <Grid item xs={12} lg={6}>
                                 <Stack direction="row" justifyContent="center" flexDirection="column">
-                                <h3 className='package-capacity mt-0'>Starting Price / Plate</h3>
-                                <p className='max-min-capacity-para-green text-center mt-2 mb-2'>Enter Starting price / Plate</p>
+                                <h3 className='package-capacity mt-0'>Starting Price / Month</h3>
+                                <p className='max-min-capacity-para-green text-center mt-2 mb-2'>Enter Starting price / Month</p>
                                     <CssTextFieldSmall
                                         value={startPrice}
                                         onChange={(e) => setStartPrice(e.target.value)}

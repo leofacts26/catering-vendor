@@ -561,7 +561,7 @@ const BusinesssProfile = () => {
                       onChange={handleChange}
                       name="street_address"
                       variant="outlined"
-                      placeholder="E.g.. 15"
+                      placeholder="Enter Street Address"
                       className='mt-0'
                       style={{ width: '100%' }}
                       InputLabelProps={{
@@ -633,7 +633,7 @@ const BusinesssProfile = () => {
                       onChange={handleChange}
                       name="pincode"
                       variant="outlined"
-                      placeholder="E.g.. 15"
+                      placeholder="Enter Pincode"
                       className='mt-0'
                       style={{ width: '100%' }}
                       InputLabelProps={{
