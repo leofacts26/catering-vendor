@@ -104,6 +104,8 @@ const EnterLocationManually = () => {
 
 
     const savePlaceDetailsToState = (places) => {
+        console.log(places, "places places");
+        
         const { formatted_address, name } = places;
         const { address_components } = places;
 
@@ -157,6 +159,7 @@ const EnterLocationManually = () => {
             const results = response.data.results;
             let maxAddressComponentsLength = -1;
             let selectedAddress = null;
+            console.log(response, "response response");
 
             results.forEach(result => {
                 const addressComponentsLength = result.address_components.length;
@@ -242,7 +245,8 @@ const EnterLocationManually = () => {
         e.preventDefault()
         const data = {
             street_name: locationValues?.street_name?.long_name || "",
-            area: locationValues?.area?.long_name || "",
+            // area: locationValues?.area?.long_name || "",
+            area: locationValues?.address,
             pincode: locationValues?.pincode || "",
             latitude: locationValues?.latitude || "",
             longitude: locationValues?.longitude || "",
@@ -252,7 +256,7 @@ const EnterLocationManually = () => {
             country: locationValues?.country?.long_name || "",
             formatted_address: locationValues?.formatted_address || "",
             place_id: locationValues?.place_id || ''
-        } 
+        }
         setLoading(true)
         try {
             const response = await api.post(`${BASE_URL}/update-vendor-location`, data, {
