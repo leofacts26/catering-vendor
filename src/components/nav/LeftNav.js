@@ -124,8 +124,6 @@ const LeftNav = () => {
           })}
         </div>
       </Drawer>
-
-
     </div>
   )
 }
