@@ -106,8 +106,8 @@ const ResetPasswordSettings = () => {
                             variant="outlined"
                             type={showPassword ? 'text' : 'password'}
                             placeholder="Password"
-                            // value={values.new_password}
-                            value="*************"
+                            value={values.new_password}
+                            // value="*************"
                             onChange={handleChange}
                             name="new_password"
                             className='mb-1'

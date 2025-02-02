@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import Divider from '@mui/material/Divider';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -30,8 +30,8 @@ const Settings = () => {
   // console.log(vendor_id, "vendor_idvendor_idvendor_id");
   const [vendorSettingsList, setVendorSettingsList] = useState(null)
   const { accessToken } = useSelector((state) => state.user)
-
-  console.log(vendorSettings, "vendorSettings vendorSettings vendorSettings");
+  const navigate = useNavigate()
+  // console.log(vendorSettings, "vendorSettings vendorSettings vendorSettings");
 
 
   // const fetchVendorSettingsData = async () => {
@@ -60,6 +60,10 @@ const Settings = () => {
   //   }
   // }, [vendorBusinessProfile?.company_id, vendorBusinessProfile?.phone_number, vendor_id])
 
+  const onHandleChangePassword = () => {
+    navigate('/dashboard/update-phone-number')
+  }
+
   return (
     <>
       <TopHeader title="Settings" description="Manage all your personal settings here" />
@@ -81,7 +85,7 @@ const Settings = () => {
                         <p className="settings-user-number"> {vendorBusinessProfile?.phone_number} </p>
                       </div>
                     </Stack>
-                    <EditIcon style={{ color: '#c33332', fontSize: '18px' }} />
+                    <EditIcon style={{ color: '#c33332', fontSize: '18px', cursor: 'pointer' }} onClick={onHandleChangePassword} />
                   </Stack>
 
                   <h2 className="company-id mt-3">Company ID - {vendorBusinessProfile?.company_id} </h2>

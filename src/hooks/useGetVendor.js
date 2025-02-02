@@ -43,7 +43,7 @@ const useGetVendor = () => {
     }, [])
 
 
-    return { vendorBusinessProfile, vendorSettings, fetchVendorSettingsData }
+    return { vendorBusinessProfile, vendorSettings, fetchVendorSettingsData, fetchVendorData }
 }
 
 export default useGetVendor
