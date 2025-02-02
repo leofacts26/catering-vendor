@@ -33,8 +33,8 @@ const ResetPasswordSettings = () => {
             .required('New Password is required.')
     });
 
-     // fetchPassword 
-     const fetchPassword = async () => {
+    // fetchPassword 
+    const fetchPassword = async () => {
         try {
             const response = await api.get(`${BASE_URL}/get-vendor-infos`, {
                 headers: {
@@ -54,7 +54,7 @@ const ResetPasswordSettings = () => {
 
                 // Extract the password from the captured group
                 let password = match ? match[1] : null;
-                setInitialValues({ ...initialValues, new_password: password })
+                setInitialValues({ ...initialValues, new_password: "" })
             } else {
                 console.log("responseData is not a string.");
             }
@@ -94,7 +94,7 @@ const ResetPasswordSettings = () => {
         }
     }
 
-   
+
 
     return (
         <Formik enableReinitialize={true} initialValues={initialValues} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
@@ -105,7 +105,7 @@ const ResetPasswordSettings = () => {
                             id="outlined-number"
                             variant="outlined"
                             type={showPassword ? 'text' : 'password'}
-                            placeholder="Password"
+                            placeholder="*************"
                             value={values.new_password}
                             // value="*************"
                             onChange={handleChange}
