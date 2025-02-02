@@ -109,7 +109,7 @@ const SubscriptionPlanDetails = () => {
       result = await dispatch(createRecurringTimePayment(recurringMonthlydata));
       // console.log("Recurring Payment APi Calling");
     } else {
-      result = await dispatch(createOneTimePayment());
+      result = await dispatch(createOneTimePayment(calculaterOrderData));
       // console.log("ONE Time Payment APi Calling");
     }
 

@@ -70,7 +70,7 @@ export const createOneTimePayment = createAsyncThunk(
     const { subscriptionTypeId } = thunkAPI.getState().subscription.subscribeData;
 
     const id = Number(subscriptionTypeId)
-    const subscriptionDuration = "monthly";
+    const subscriptionDuration = data?.subType;
     const updatedData = {
       subscriptionTypeId: id,
       subscriptionDuration,
