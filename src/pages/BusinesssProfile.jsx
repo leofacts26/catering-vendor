@@ -328,7 +328,8 @@ const BusinesssProfile = () => {
     setValues({
       ...values,
       street_name: street_name?.long_name || "",
-      area: area?.long_name || "",
+      // area: area?.long_name || "",
+      area: name || "",
       pincode: pincode?.long_name || "",
       latitude: lat() || "",
       longitude: lng() || "",
