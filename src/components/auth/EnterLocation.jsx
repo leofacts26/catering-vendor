@@ -109,7 +109,8 @@ const EnterLocation = () => {
     const handleSubmit = async (addressData) => {
         const data = {
             street_name: addressData?.street_name || addressData?.area || "",
-            area: addressData?.area || "",
+            // area: addressData?.area || "",
+            area: addressData?.address,
             pincode: addressData?.pincode || "",
             latitude: addressData?.latitude || "",
             longitude: addressData?.longitude || "",
