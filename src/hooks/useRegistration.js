@@ -39,7 +39,7 @@ const useRegistration = () => {
             const response = await api.post('/register-vendor-verify-otp', data);
             dispatch(setAccessToken(response?.data?.data?.accessToken));
             dispatch(setRefreshToken(response?.data?.data?.refreshToken));
-            navigate('/enter-location')
+            navigate('/profile-steps')
             toast.success(successToast(response));
             setLoading(false);
             setOtp(['', '', '', '', '', '']);

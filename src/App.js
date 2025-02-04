@@ -35,8 +35,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/create-account" element={<RegisterLogin />} />
-          <Route path="/enter-location" element={<EnterLocation />} />
-          <Route path="/enter-location-manually" element={<EnterLocationManually />} />
+          {/* <Route path="/enter-location" element={<EnterLocation />} /> */}
+          {/* <Route path="/enter-location-manually" element={<EnterLocationManually />} /> */}
           <Route path="/profile-steps" element={<ProfileSteps />} />
           <Route path="*" element={<NoPage />} />
 
