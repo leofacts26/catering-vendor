@@ -116,7 +116,7 @@ const BusinesssProfile = () => {
       working_since: data?.working_since || "",
       about_description: data?.about_description,
       total_staffs_approx: data?.total_staffs_approx,
-      street_address: data?.street_address,
+      street_address: data?.street_address || "",
       business_email: data?.business_email,
       business_phone_number: data?.business_phone_number?.slice(4, 14),
       landline_number: data?.landline_number,
@@ -149,7 +149,7 @@ const BusinesssProfile = () => {
       .matches(/^[0-9]+$/, 'Phone number must contain only digits')
       .min(10, 'Phone number must be at least 10 digits')
       .max(15, 'Phone number must not exceed 15 digits'),
-      whatsapp_business_phone_number: Yup.string()
+    whatsapp_business_phone_number: Yup.string()
       .matches(/^[0-9]+$/, 'Phone number must contain only digits')
       .min(10, 'Phone number must be at least 10 digits')
       .max(10, 'Phone number must not exceed 15 digits'),
@@ -557,7 +557,27 @@ const BusinesssProfile = () => {
                 <Grid item xs={8} >
                   <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
                     <p className="business-profile-name">Street Address</p>
+
                     <CssTextField
+                      value={values.street_address}
+                      onChange={handleChange}
+                      name="street_address"
+                      variant="outlined"
+                      placeholder="E.g.. 15"
+                      className='mt-0'
+                      style={{ width: '100%' }}
+                      InputLabelProps={{
+                        style: { color: '#777777', fontSize: '10px' },
+                      }}
+                      InputProps={{
+                        style: {
+                          borderRadius: '8px',
+                          backgroundColor: '#FFFFFF',
+                        }
+                      }}
+                    />
+
+                    {/* <CssTextField
                       value={values.street_address}
                       onChange={handleChange}
                       name="street_address"
@@ -574,7 +594,7 @@ const BusinesssProfile = () => {
                           backgroundColor: '#FFFFFF',
                         }
                       }}
-                    />
+                    /> */}
                   </div>
                 </Grid>
               </Grid>
