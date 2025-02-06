@@ -166,7 +166,7 @@ const Subscription = () => {
                         Get Subscription
                       </Button>
                     </Link>
-                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern === "one_time_monthly" ? (
+                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern?.toLowerCase() === "one_time_monthly" ? (
                     <Link
                       to='/dashboard/subscription-plan'
                       className="text-decoration-none"
@@ -178,7 +178,7 @@ const Subscription = () => {
                         Upgrade Subscription
                       </Button>
                     </Link>
-                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern === "subscription-monthly" ? (
+                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern?.toLowerCase() === "subscription-monthly" ? (
                     <Button
                       variant="contained"
                       className="inquiries-btn mx-auto text-center"

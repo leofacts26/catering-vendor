@@ -850,6 +850,7 @@ code {
   color: var(--primarybg) !important;
   margin-right: 10px !important;
 }
+
 .ct-box-btn-profile-skip-step {
   background-color: var(--secondary) !important;
   font-size: 12px !important;
@@ -2242,30 +2243,34 @@ textarea:-webkit-autofill:active {
 .active-tab {
   color: black;
   border-color: #ff6347;
-  background-color: #ffffff  !important;
+  background-color: #ffffff !important;
   /* box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1); */
-  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   margin: 2px !important;
 }
 
 
 
-.due-date{
+.due-date {
   font-size: 10px !important;
   color: #57636c !important;
 }
 
-.text-gray{
+.text-gray {
   color: #57636c
 }
 
-.sub-text{
+.sub-text {
   font-size: 14px !important;
 }
 
-.error-box{
+.error-box {
   height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.otp-input-fields-settings {
+  justify-content: center;
 }

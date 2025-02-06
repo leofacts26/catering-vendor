@@ -30,7 +30,7 @@ const CssTextField = styled(TextField)(({ theme }) => ({
             border: '2px solid #F0F1F3',
         },
         '&.Mui-focused fieldset': {
-            border: '2px solid #D7792C',
+            border: '2px solid #c33332',
         },
     },
     '& input': {
@@ -111,27 +111,30 @@ const OtpInput = ({ length = 6 }) => {
 
     return (
         <div className='otp-input-fields-box'>
-            <form onSubmit={onOtpSubmit}>
-
-                {
-                    otp.map((value, index) => {
-                        return <input
-                            required
-                            ref={(input) => (inputRefs.current[index] = input)}
-                            key={index}
-                            type="text"
-                            value={value}
-                            onChange={(e) => handleChange(index, e)}
-                            onClick={() => handleClick(index)}
-                            onKeyDown={(e) => handleKeyDown(index, e)}
-                            className='otp__digit-settings mb-4 me-1'
-                        />
-                    })
-                }
+            <Stack display="flex" justifyContent="center" className="w-100">
+            <form onSubmit={onOtpSubmit} className="w-100">
+                <div>
+                    {
+                        otp.map((value, index) => {
+                            return <input
+                                required
+                                ref={(input) => (inputRefs.current[index] = input)}
+                                key={index}
+                                type="text"
+                                value={value}
+                                onChange={(e) => handleChange(index, e)}
+                                onClick={() => handleClick(index)}
+                                onKeyDown={(e) => handleKeyDown(index, e)}
+                                className='otp__digit-settings mb-4 me-1'
+                            />
+                        })
+                    }
+                </div>
                 <Button variant="contained" type="submit" className='ct-box-btn-catering mb-3' style={{ textTransform: 'capitalize', margin: '0px auto', display: 'block' }}>
                     Submit
                 </Button>
             </form>
+            </Stack>
         </div>
     )
 }
@@ -266,9 +269,9 @@ const UpdatePhoneNumber = () => {
                                                                                 {errors.phone_number && <small className='text-red mb-2 ms-1'>{errors.phone_number}</small>}
                                                                             </Grid>
 
-                                                                            <Stack direction="row" justifyContent="end" alignItems="center" className='mt-4 w-100'>
+                                                                            <Stack style={{ width: '100%' }} direction="row" justifyContent="end" alignItems="center" className='mt-3 w-100'>
                                                                                 <Button type="submit" size="small" variant="contained" sx={{
-                                                                                    width: 'auto', fontWeight: '600', padding: '10px 30px', fontSize: '16px',
+                                                                                    width: 'auto', fontWeight: '600', padding: '5px 20px', fontSize: '14px',
                                                                                     backgroundColor: '#c33332', borderRadius: '8px', textTransform: 'capitalize',
                                                                                     '&:hover': {
                                                                                         backgroundColor: '#c33332',
@@ -288,12 +291,12 @@ const UpdatePhoneNumber = () => {
                                             </Formik >
                                         ) : (
                                             <>
-                                                <Card className='p-5'>
+                                                <div className='p-3'>
                                                     <p className='text-center text-dark mt-5 mb-2'>Please enter Your OTP below </p>
-                                                    <div className="otp-input-fields mb-3 my-4">
+                                                    <div className="otp-input-fields otp-input-fields-settings mb-3 my-4">
                                                         <OtpInput length={6} />
                                                     </div>
-                                                </Card>
+                                                </div>
                                             </>
                                         )
                                     }
