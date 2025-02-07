@@ -146,11 +146,11 @@ const BusinesssProfile = () => {
     point_of_contact_name: Yup.string().required('Contact person name is required.'),
     business_phone_number: Yup.string()
       .required('Business phone number is required')
-      .matches(/^[0-9]+$/, 'Phone number must contain only digits')
+      .matches(/^[+]?[0-9-]+$/, 'Phone number must contain only digits, +, or -')
       .min(10, 'Phone number must be at least 10 digits')
       .max(15, 'Phone number must not exceed 15 digits'),
     whatsapp_business_phone_number: Yup.string()
-      .matches(/^[0-9]+$/, 'Phone number must contain only digits')
+      .matches(/^[+]?[0-9-]+$/, 'Phone number must contain only digits, +, or -')
       .min(10, 'Phone number must be at least 10 digits')
       .max(10, 'Phone number must not exceed 15 digits'),
   });
