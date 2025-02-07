@@ -131,7 +131,7 @@ const BusinesssProfile = () => {
       latitude: data?.latitude || "",
       longitude: data?.longitude || "",
       area: data?.area || "",
-      street_name: data?.street_name || "",
+      street_name: data?.street_name || "NA",
       country: data?.country || "",
       state: data?.state || "",
       formatted_address: data?.formatted_address || "",
@@ -552,56 +552,6 @@ const BusinesssProfile = () => {
 
 
 
-
-              <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
-                <Grid item xs={8} >
-                  <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
-                    <p className="business-profile-name">Street Address</p>
-
-                    <CssTextField
-                      value={values.street_address}
-                      onChange={handleChange}
-                      name="street_address"
-                      variant="outlined"
-                      placeholder="E.g.. 15"
-                      className='mt-0'
-                      style={{ width: '100%' }}
-                      InputLabelProps={{
-                        style: { color: '#777777', fontSize: '10px' },
-                      }}
-                      InputProps={{
-                        style: {
-                          borderRadius: '8px',
-                          backgroundColor: '#FFFFFF',
-                        }
-                      }}
-                    />
-
-                    {/* <CssTextField
-                      value={values.street_address}
-                      onChange={handleChange}
-                      name="street_address"
-                      variant="outlined"
-                      placeholder="Enter Street Address"
-                      className='mt-0'
-                      style={{ width: '100%' }}
-                      InputLabelProps={{
-                        style: { color: '#777777', fontSize: '10px' },
-                      }}
-                      InputProps={{
-                        style: {
-                          borderRadius: '8px',
-                          backgroundColor: '#FFFFFF',
-                        }
-                      }}
-                    /> */}
-                  </div>
-                </Grid>
-              </Grid>
-
-
-
-
               <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
                 <Grid item xs={8} >
                   <div className="mt-5">
@@ -670,6 +620,54 @@ const BusinesssProfile = () => {
                   </div>
                 </Grid>
               </Grid>
+
+
+              <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Grid item xs={8} >
+                  <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
+                    <p className="business-profile-name">Street Address</p>
+
+                    <CssTextField
+                      value={values.street_address}
+                      onChange={handleChange}
+                      name="street_address"
+                      variant="outlined"
+                      placeholder="E.g.. 15"
+                      className='mt-0'
+                      style={{ width: '100%' }}
+                      InputLabelProps={{
+                        style: { color: '#777777', fontSize: '10px' },
+                      }}
+                      InputProps={{
+                        style: {
+                          borderRadius: '8px',
+                          backgroundColor: '#FFFFFF',
+                        }
+                      }}
+                    />
+
+                    {/* <CssTextField
+                      value={values.street_address}
+                      onChange={handleChange}
+                      name="street_address"
+                      variant="outlined"
+                      placeholder="Enter Street Address"
+                      className='mt-0'
+                      style={{ width: '100%' }}
+                      InputLabelProps={{
+                        style: { color: '#777777', fontSize: '10px' },
+                      }}
+                      InputProps={{
+                        style: {
+                          borderRadius: '8px',
+                          backgroundColor: '#FFFFFF',
+                        }
+                      }}
+                    /> */}
+                  </div>
+                </Grid>
+              </Grid>
+
 
 
 
