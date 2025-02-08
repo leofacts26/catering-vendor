@@ -143,7 +143,7 @@ const Inquiries = () => {
                     ),
                   }}
                 />
-                <Button variant="contained" className="inquiries-red-btn" type="submit">Search</Button>
+                <Button variant="contained" className="inquiries-search-btn" type="submit">Search</Button>
               </Stack>
             </form>
 
