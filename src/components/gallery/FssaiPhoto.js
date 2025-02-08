@@ -163,9 +163,9 @@ const FssaiPhoto = () => {
 
                         {/* <p className="settings-small mt-1 mb-2">Upload FSSAI License</p> */}
 
-                        <Stack direction="row" justifyContent="center">
-                            <Button variant="contained" component="span" className="cuisines-list-white-btn" onClick={handleClickBoxOpen}>
-                                <UploadIcon />   Upload
+                        <Stack direction="row" justifyContent="center" spacing={2}>
+                            <Button variant="contained" component="span" className="cuisines-list-white-btn-setting" onClick={handleClickBoxOpen}>
+                                <UploadIcon /> Upload
                             </Button>
 
                             {!(settings['vendor-encf']?.length && settings['vendor-encf']?.length > 0) ? null : (
@@ -173,7 +173,7 @@ const FssaiPhoto = () => {
                                     onClick={handleBrandClickOpen}
                                     variant="contained"
                                     component="span"
-                                    className="cuisines-list-white-btn"
+                                    className="cuisines-list-white-btn-setting"
                                     disabled={isLoading}
                                 >
                                     <DeleteIcon style={{ fontSize: '18px' }} /> Delete
