@@ -22,7 +22,7 @@ const InquiryCard = ({ item }) => {
                     <h4 className="inquiries-title">{item?.user_name}</h4>
                     <p className="inquiries-date">{item?.enquiry_date.slice(0, 10)}</p>
                     <p className="inquiries-desc">{item?.user_phone_number}</p>
-                    <p className="inquiries-desc mt-1">{item?.description}</p>
+                    {/* <p className="inquiries-desc mt-1">{item?.description}</p> */}
                 </div>
                 <div>
                     <Button variant="contained" className="inquiries-btn-green" onClick={() => handleCopyText(item?.user_phone_number)}> <PhoneIcon style={{ fontSize: '14px' }} className="me-2" /> Call now</Button>
