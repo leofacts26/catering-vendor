@@ -68,6 +68,7 @@ const SubscriptionPlanDetails = () => {
     if (response.payload.status === "success") {
       await dispatch(setDiscountedData(response?.payload));
     }
+
   }
 
   // displayRazorpay 
@@ -231,6 +232,8 @@ const SubscriptionPlanDetails = () => {
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
+
+    await dispatch(setCouponCode(""));
 
     setLoading(false);
   }
