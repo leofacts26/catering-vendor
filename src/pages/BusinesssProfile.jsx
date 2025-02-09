@@ -120,7 +120,7 @@ const BusinesssProfile = () => {
       business_email: data?.business_email,
       business_phone_number: data?.business_phone_number?.slice(4, 14),
       landline_number: data?.landline_number,
-      whatsapp_business_phone_number: data?.whatsapp_business_phone_number?.slice(4, 14),
+      whatsapp_business_phone_number: data?.whatsapp_business_phone_number,
       website_link: data?.website_link,
       twitter_id: data?.twitter_id,
       instagram_link: data?.instagram_link,
@@ -150,9 +150,10 @@ const BusinesssProfile = () => {
       .min(10, 'Phone number must be at least 10 digits')
       .max(15, 'Phone number must not exceed 15 digits'),
     whatsapp_business_phone_number: Yup.string()
-      .matches(/^[+]?[0-9-]+$/, 'Phone number must contain only digits, +, or -')
-      .min(10, 'Phone number must be at least 10 digits')
-      .max(10, 'Phone number must not exceed 15 digits'),
+      .matches(/^\+?[0-9]{1,4}[-]?[0-9]{6,14}$/,
+        'Enter a valid phone number')
+      .min(10, 'Phone number must be at least 10 characters')
+      .max(15, 'Phone number must not exceed 15 characters')
   });
 
   useEffect(() => {
@@ -172,9 +173,9 @@ const BusinesssProfile = () => {
 
     try {
       setLoading(true);
-      if (values.whatsapp_business_phone_number) {
-        values.whatsapp_business_phone_number = formattedwhatsapp_business_phone_number;
-      }
+      // if (values.whatsapp_business_phone_number) {
+      //   values.whatsapp_business_phone_number = formattedwhatsapp_business_phone_number;
+      // }
       if (values.business_phone_number) {
         values.business_phone_number = formattedBusinessPhoneNumber;
       }
@@ -330,7 +331,7 @@ const BusinesssProfile = () => {
       street_name: street_name?.long_name || "N/A",
       // area: area?.long_name || "",
       area: name || "N/A",
-      pincode: pincode?.long_name || "N/A",
+      pincode: pincode?.long_name || "",
       latitude: lat() || "N/A",
       longitude: lng() || "N/A",
       address: name || "N/A",
@@ -553,7 +554,7 @@ const BusinesssProfile = () => {
 
 
               <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
-                <Grid item xs={8} >
+                <Grid item xs={8} style={{ zIndex: 9999 }}>
                   <div className="mt-5">
                     <p className="business-profile-name">Select your Area</p>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -814,7 +815,7 @@ const BusinesssProfile = () => {
                       name="whatsapp_business_phone_number"
                       variant="outlined"
                       className='mt-0'
-                      inputProps={{ maxLength: 10 }}
+                      inputProps={{ maxLength: 15 }}
                       style={{ width: '100%' }}
                       InputLabelProps={{
                         style: { color: '#777777', fontSize: '10px' },
