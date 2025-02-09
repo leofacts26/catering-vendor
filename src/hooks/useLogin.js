@@ -45,7 +45,7 @@ const useLogin = () => {
             const response = await api.post('/vendor-login-verify-otp', data);
             dispatch(setAccessToken(response?.data?.data?.accessToken));
             dispatch(setRefreshToken(response?.data?.data?.refreshToken));
-            navigate('/dashboard')
+            navigate('/dashboard/inquiries')
             toast.success(response?.data?.message);
             setLoading(false);
             setOtp(['', '', '', '', '', '']);
