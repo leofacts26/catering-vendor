@@ -184,9 +184,14 @@ const SubscriptionPlanDetails = () => {
       // console.log("onetime Payment in if Condition",);
       // console.log("result onetime Payment in if Condition",);
       const { amount, id, currency } = result?.payload?.data?.order;
+      // console.log("discoundedData:", discoundedData);
+      // console.log("Razorpay Order Response:", result?.payload?.data?.order);
+      // console.log("Final Amount (INR):", discoundedData?.finalAmount);
+      // console.log("Final Amount (Paise):", discoundedData?.finalAmount * 100);
+
       options = {
         key: "rzp_test_2M5D9mQwHZp8iP",
-        amount: amount.toString(),
+        amount: (discoundedData?.finalAmount * 100).toString(),
         currency: currency,
         name: "Caterings And Tiffins",
         description: "One Time Payment",
@@ -221,8 +226,8 @@ const SubscriptionPlanDetails = () => {
         },
       };
     }
-
-    // console.log(options, "options"); 
+    // console.log("Amount sent to Razorpay:", options.amount);
+    // console.log(options, "optionsoptionsoptions");
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
