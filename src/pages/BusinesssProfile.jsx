@@ -67,23 +67,6 @@ const formatPhoneNumber = (phoneNumber) => {
 };
 
 
-// const initialState = {
-//   street_name: '',
-//   area: '',
-//   pincode: '',
-//   latitude: '',
-//   longitude: '',
-//   address: '',
-//   city: '',
-//   state: '',
-//   country: '',
-//   formatted_address: '',
-//   map_location_link: '',
-//   place_id: '',
-//   city_id: ''
-// }
-
-// working_days_hours : "2024-05-17 00:20:00 - 2024-05-24 12:20:00"
 
 const BusinesssProfile = () => {
   const [values, setValues] = useState({})
@@ -98,12 +81,6 @@ const BusinesssProfile = () => {
 
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  // const [formattedStartTime, setFormattedStartTime] = useState('');
-  // const [formattedEndTime, setFormattedEndTime] = useState('');
-
-  // const formatTime = (time) => {
-  //   return time ? dayjs(time).format('hh:mm:ss A') : null;
-  // };
 
 
   useEffect(() => {
@@ -202,44 +179,6 @@ const BusinesssProfile = () => {
   }
 
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setStartDate(data?.start_day);
-  //     setEndDate(data?.end_day);
-
-  //     // Helper function to parse and format time
-  //     const formatTime = (timeString) => {
-  //       const parsedTime = parse(timeString, 'hh:mm:ss a', new Date());
-  //       if (isValid(parsedTime)) {
-  //         return format(parsedTime, 'hh:mm:ss a');
-  //       } else {
-  //         console.error('Invalid time format', timeString);
-  //         return '';
-  //       }
-  //     };
-
-  //     // Set the original times and format them
-  //     if (data?.start_time) {
-  //       setStartTime(data?.start_time);
-  //       setFormattedStartTime(formatTime(data?.start_time));
-  //     } else {
-  //       setStartTime('');
-  //       setFormattedStartTime('');
-  //     }
-
-  //     if (data?.end_time) {
-  //       setEndTime(data?.end_time);
-  //       setFormattedEndTime(formatTime(data?.end_time));
-  //     } else {
-  //       setEndTime('');
-  //       setFormattedEndTime('');
-  //     }
-  //   }
-  // }, [data])
-
-
-
-
 
   // location start
   const [locationPlaceId, setLocationPlaceId] = useState(null)
@@ -247,24 +186,6 @@ const BusinesssProfile = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   // location end 
 
-
-  // const handleStartTimeChange = (newValue, setTime) => {
-  //   if (newValue && newValue.isValid()) { // Check if newValue exists and is valid
-  //     const formattedTime = formatTime(newValue);
-  //     setTime(formattedTime);
-  //   } else {
-  //     setTime(null); // Set null if newValue is invalid
-  //   }
-  // };
-
-  // const handleEndTimeChange = (newValue, setTime) => {
-  //   if (newValue && newValue.isValid()) { // Check if newValue exists and is valid
-  //     const formattedTime = formatTime(newValue);
-  //     setTime(formattedTime);
-  //   } else {
-  //     setTime(null); // Set null if newValue is invalid
-  //   }
-  // };
 
   const handleStartChange = (event) => {
     setStartDate(event.target.value);
@@ -282,8 +203,6 @@ const BusinesssProfile = () => {
     setEndTime(newValue);
   };
 
-  // console.log({ startDate, startTime, endDate, endTime }, "startDate, startTime, endDate, endTime");
-  // console.log({ formattedEndTime, formattedStartTime }, "formattedEndTime, formattedStartTime");
 
 
   // loc start

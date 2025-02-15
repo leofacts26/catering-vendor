@@ -76,7 +76,7 @@ export const createOneTimePayment = createAsyncThunk(
       subscriptionDuration,
       couponCode: couponCode
     }
-    // console.log(updatedData, "updatedDataupdatedDataupdatedData");
+    // console.log(updatedData, "updatedDataupdatedDataupdatedData"); 
     
     try {
       const response = await api.post(`/rz-create-one-time-payment`, updatedData, {
