@@ -231,7 +231,7 @@ const Subscription = () => {
                             <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
                               <p className="subscription-type">Subscription Plan:</p>
                               <h4 className="subscription-dark">
-                                {itemData?.subscription_display_name ? itemData?.subscription_display_name : 'N/A'}
+                                {itemData?.subscription_pattern_display_text ? itemData?.subscription_pattern_display_text : 'N/A'}
                               </h4>
                             </Stack>
 
@@ -288,7 +288,7 @@ const Subscription = () => {
                             <Stack direction="row" justifyContent="space-between" alignItems="center" className="mt-3">
                               <p className="subscription-type">Subscription Plan:</p>
                               <h4 className="subscription-dark">
-                                {itemData?.subscription_display_name ? itemData?.subscription_display_name : 'N/A'}
+                                {itemData?.subscription_pattern_display_text ? itemData?.subscription_pattern_display_text : 'N/A'}
                               </h4>
                             </Stack>
 
