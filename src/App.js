@@ -26,6 +26,7 @@ import { Toaster } from 'react-hot-toast';
 import PhotoGalleryTest from "./pages/PhotoGalleryTest";
 import SubscriptionPlanDetails from "./pages/SubscriptionPlanDetails";
 import UpdatePhoneNumber from "./pages/UpdatePhoneNumber";
+import BusinesssProfileTest from "./pages/BusinesssProfileTest";
 // import SubscriptionDetails from "./pages/SubscriptionDetails";
 
 function App() {

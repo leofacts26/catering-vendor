@@ -12,15 +12,26 @@ import { useSelector } from 'react-redux'
 import useBusinessProfile from "../hooks/useBusinessProfile";
 import { vendor_type } from "../constant";
 import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
-import { Formik } from 'formik';
+import { format, parse, isValid } from 'date-fns';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import { api, BASE_URL } from "../api/apiConfig";
 import LoaderSpinner from "../components/LoaderSpinner";
+import { useLocation } from "react-router-dom";
 import { MenuItem, Select } from '@mui/material';
+
+import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+
 import dayjs from 'dayjs';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimeRangePicker } from '@mui/x-date-pickers-pro/DateTimeRangePicker';
 
 
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -42,43 +53,8 @@ const CssTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-
-const initialState = {
-  vendor_service_name: "",
-  vendor_type: vendor_type,
-  point_of_contact_name: "",
-  working_days_hours: "",
-  working_since: "",
-  about_description: "",
-  total_staffs_approx: "",
-  street_address: "",
-  business_email: "",
-  business_phone_number: "",
-  landline_number: "",
-  whatsapp_business_phone_number: "",
-  website_link: "",
-  twitter_id: "",
-  instagram_link: "",
-  facebook_link: "",
-}
-
-
-const locationInitialState = {
-  // loc values 
-  street_name: "",
-  area: "",
-  pincode: "",
-  latitude: "",
-  longitude: "",
-  address: "",
-  city: "",
-  state: "",
-  country: "",
-  formatted_address: "",
-  place_id: ""
-}
-
 const formatPhoneNumber = (phoneNumber) => {
+
   let formatedNumber = "";
   if (phoneNumber.startsWith('+91-')) {
     formatedNumber += phoneNumber;
@@ -87,32 +63,23 @@ const formatPhoneNumber = (phoneNumber) => {
   }
   console.log(formatedNumber, "formatedNumber");
   return formatedNumber
+
 };
 
 
 
 const BusinesssProfile = () => {
+  const [values, setValues] = useState({})
   const { accessToken } = useSelector((state) => state.user)
-  const [data, updateBusinessProfile, fetchBusinessProfile] = useBusinessProfile('/get-vendor-business-profile', accessToken)
   const { vendor_id } = useSelector((state) => state?.user?.vendorId)
-
-  console.log(data, "data");
-
-
-  const [values, setValues] = useState(initialState)
   const [loading, setLoading] = useState(false)
+  const [data, updateBusinessProfile, fetchBusinessProfile] = useBusinessProfile('/get-vendor-business-profile', accessToken)
+
 
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-
-  // location start
-  const [locationValues, setLocationValues] = useState(locationInitialState)
-  const [locationPlaceId, setLocationPlaceId] = useState(null)
-  const [manualLocation, setManualLocation] = useState("")
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  // location end 
 
 
   useEffect(() => {
@@ -134,13 +101,7 @@ const BusinesssProfile = () => {
       twitter_id: data?.twitter_id,
       instagram_link: data?.instagram_link,
       facebook_link: data?.facebook_link,
-    }));
-  }, [data]);
 
-
-  useEffect(() => {
-    setLocationValues((prevValues) => ({
-      ...prevValues,
       city_id: data?.city_id || "",
       pincode: data?.pincode || "",
       latitude: data?.latitude || "",
@@ -153,41 +114,7 @@ const BusinesssProfile = () => {
       city: data?.city || "",
       place_id: data?.place_id || "",
     }));
-  }, [data])
-
-  useEffect(() => {
-    if (data) {
-      setStartDate(data?.start_day);
-      setEndDate(data?.end_day);
-      setStartTime(data.start_time ? dayjs(data.start_time, 'HH:mm:ss') : null);
-      setEndTime(data.end_time ? dayjs(data.end_time, 'HH:mm:ss') : null);
-    }
-  }, [data])
-
-  const handleLocationChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setLocationValues(values => ({ ...values, [name]: value }))
-  }
-
-
-  const handleStartChange = (event) => {
-    setStartDate(event.target.value);
-  };
-
-  const handleEndChange = (event) => {
-    setEndDate(event.target.value);
-  };
-
-  const handleStartTimeChange = (newValue) => {
-    setStartTime(newValue);
-  };
-
-  const handleEndTimeChange = (newValue) => {
-    setEndTime(newValue);
-  };
-
-
+  }, [data]);
 
   // validation schema 
   const schema = Yup.object().shape({
@@ -205,6 +132,75 @@ const BusinesssProfile = () => {
       .max(15, 'Phone number must not exceed 15 characters')
   });
 
+  useEffect(() => {
+    if (data) {
+      setStartDate(data?.start_day);
+      setEndDate(data?.end_day);
+      setStartTime(data.start_time ? dayjs(data.start_time, 'HH:mm:ss') : null);
+      setEndTime(data.end_time ? dayjs(data.end_time, 'HH:mm:ss') : null);
+    }
+  }, [data])
+  console.log(data, "startTime, endTime");
+
+  const handleSubmit = async (values, resetForm) => {
+    console.log(values, "values");
+    const formattedBusinessPhoneNumber = formatPhoneNumber(values.business_phone_number);
+    const formattedwhatsapp_business_phone_number = values.whatsapp_business_phone_number ? formatPhoneNumber(values.whatsapp_business_phone_number) : '';
+
+    try {
+      setLoading(true);
+      // if (values.whatsapp_business_phone_number) {
+      //   values.whatsapp_business_phone_number = formattedwhatsapp_business_phone_number;
+      // }
+      if (values.business_phone_number) {
+        values.business_phone_number = formattedBusinessPhoneNumber;
+      }
+
+      const formattedStartTime = startTime ? dayjs(startTime).format('hh:mm:ss A') : '';
+      const formattedEndTime = endTime ? dayjs(endTime).format('hh:mm:ss A') : '';
+
+
+      const data = {
+        ...values,
+        working_hours_start: formattedStartTime || startTime,
+        working_hours_end: formattedEndTime || endTime,
+        working_days_start: startDate,
+        working_days_end: endDate,
+      }
+      console.log(data, "data 666");
+      await updateBusinessProfile(data, vendor_id);
+      setLoading(false);
+      fetchBusinessProfile()
+    } catch (error) {
+      setLoading(false);
+      console.error('Error while updating business profile:', error);
+    }
+  }
+
+
+
+  // location start
+  const [locationPlaceId, setLocationPlaceId] = useState(null)
+  const [manualLocation, setManualLocation] = useState("")
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  // location end 
+
+
+  const handleStartChange = (event) => {
+    setStartDate(event.target.value);
+  };
+
+  const handleEndChange = (event) => {
+    setEndDate(event.target.value);
+  };
+
+  const handleStartTimeChange = (newValue) => {
+    setStartTime(newValue);
+  };
+
+  const handleEndTimeChange = (newValue) => {
+    setEndTime(newValue);
+  };
 
 
 
@@ -248,9 +244,10 @@ const BusinesssProfile = () => {
     const { geometry: { location } } = places;
     const { lat, lng } = location;
 
-    setLocationValues((prev) => ({
-      ...prev,
+    setValues({
+      ...values,
       street_name: street_name?.long_name || "N/A",
+      // area: area?.long_name || "",
       area: name || "N/A",
       pincode: pincode?.long_name || "",
       latitude: lat() || "N/A",
@@ -261,7 +258,7 @@ const BusinesssProfile = () => {
       country: country?.long_name || "N/A",
       formatted_address: manualLocation || "N/A",
       place_id: locationPlaceId
-    }))
+    })
   }
 
   const selectLocation = (item) => {
@@ -270,61 +267,10 @@ const BusinesssProfile = () => {
     setManualLocation(item.description);
     setLocationPlaceId(item?.place_id)
   }
-
-  const handleManualLocationChange = (evt) => {
-    const inputValue = evt.target.value;
-    setSelectedLocation(null);
-    setManualLocation(inputValue);
-    getPlacePredictions({ input: inputValue });
-  };
-
   // loc end 
 
 
 
-  const handleSubmit = async (values, resetForm) => {
-    console.log(values, "values");
-    console.log(locationValues, "locationValues");
-
-
-
-
-    try {
-      setLoading(true);
-
-      const formattedBusinessPhoneNumber = formatPhoneNumber(values.business_phone_number);
-      const formattedStartTime = startTime ? dayjs(startTime).format('hh:mm:ss A') : '';
-      const formattedEndTime = endTime ? dayjs(endTime).format('hh:mm:ss A') : '';
-
-      const workingHoursData = {
-        working_hours_start: formattedStartTime || startTime,
-        working_hours_end: formattedEndTime || endTime,
-        working_days_start: startDate,
-        working_days_end: endDate,
-      }
-      console.log(workingHoursData, "workingHoursData");
-
-      if (values.business_phone_number) {
-        values.business_phone_number = formattedBusinessPhoneNumber;
-      }
-
-
-      const data = {
-        ...values,
-        ...locationValues,
-        ...workingHoursData,
-      }
-      console.log(data, "data 666");
-      await updateBusinessProfile(data, vendor_id);
-      setLoading(false);
-      fetchBusinessProfile()
-    } catch (error) {
-      setLoading(false);
-      console.error('Error while updating business profile:', error);
-    }
-
-
-  }
 
 
   return (
@@ -332,6 +278,7 @@ const BusinesssProfile = () => {
       <TopHeader title="Business Profile" description="below is a business overview" />
 
       <Container maxWidth="lg">
+        {/*   */}
         <Formik enableReinitialize={true} initialValues={values} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
           {({ values, errors, handleChange, handleSubmit }) => (
             <form className='card-box-shadow px-5 py-4 mb-4' onSubmit={handleSubmit} autocomplete="off">
@@ -373,6 +320,8 @@ const BusinesssProfile = () => {
                     {errors.vendor_service_name && <small className='text-danger mt-2 ms-1'>{errors.vendor_service_name}</small>}
                   </div>
                 </Grid>
+
+
 
                 <Grid item xs={6}>
                   <div className="mt-0">
@@ -492,6 +441,8 @@ const BusinesssProfile = () => {
               </Grid>
 
 
+
+
               <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
                 <Grid item xs={8} >
                   <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
@@ -500,34 +451,6 @@ const BusinesssProfile = () => {
                       value={values.total_staffs_approx}
                       onChange={handleChange}
                       name="total_staffs_approx"
-                      variant="outlined"
-                      placeholder="E.g.. 15"
-                      className='mt-0'
-                      style={{ width: '100%' }}
-                      InputLabelProps={{
-                        style: { color: '#777777', fontSize: '10px' },
-                      }}
-                      InputProps={{
-                        style: {
-                          borderRadius: '8px',
-                          backgroundColor: '#FFFFFF',
-                        }
-                      }}
-                    />
-                  </div>
-                </Grid>
-              </Grid>
-
-
-              <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
-                <Grid item xs={8} >
-                  <div style={{ marginTop: '50px' }}>
-                    <p className="business-profile-name">Street Address</p>
-
-                    <CssTextField
-                      value={values.street_address}
-                      onChange={handleChange}
-                      name="street_address"
                       variant="outlined"
                       placeholder="E.g.. 15"
                       className='mt-0'
@@ -557,8 +480,13 @@ const BusinesssProfile = () => {
                         autocomplete="false"
                         required
                         style={{ height: '65px' }}
-                        onChange={handleManualLocationChange}
-                        value={manualLocation ? manualLocation : locationValues.formatted_address}
+                        onChange={(evt) => {
+                          setSelectedLocation(null);
+                          setManualLocation(evt.target.value);
+                          getPlacePredictions({ input: evt.target.value });
+                          handleChange(evt); // This line ensures Formik's handleChange is called
+                        }}
+                        value={manualLocation ? manualLocation : values.formatted_address}
                         name="formatted_address" // Make sure the name matches the field name in initialValues
                         rows="20" id="comment_text" cols="40"
                         className="job-textarea" autoComplete="off" role="textbox"
@@ -584,14 +512,13 @@ const BusinesssProfile = () => {
               </Grid>
 
 
-
               <Grid className="mb-4" container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
                 <Grid item xs={8} >
-                  <div style={{ marginTop: '50px' }}>
+                  <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
                     <p className="business-profile-name">Pincode</p>
                     <CssTextField
-                      value={locationValues.pincode}
-                      onChange={handleLocationChange}
+                      value={values.pincode}
+                      onChange={handleChange}
                       name="pincode"
                       variant="outlined"
                       placeholder="Enter Pincode"
@@ -610,6 +537,39 @@ const BusinesssProfile = () => {
                   </div>
                 </Grid>
               </Grid>
+
+
+              <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Grid item xs={8} >
+                  <div style={values.working_days_hours ? { marginTop: '50px' } : { marginTop: '50px' }}>
+                    <p className="business-profile-name">Street Address</p>
+
+                    <CssTextField
+                      value={values.street_address}
+                      onChange={handleChange}
+                      name="street_address"
+                      variant="outlined"
+                      placeholder="E.g.. 15"
+                      className='mt-0'
+                      style={{ width: '100%' }}
+                      InputLabelProps={{
+                        style: { color: '#777777', fontSize: '10px' },
+                      }}
+                      InputProps={{
+                        style: {
+                          borderRadius: '8px',
+                          backgroundColor: '#FFFFFF',
+                        }
+                      }}
+                    />
+
+                
+                  </div>
+                </Grid>
+              </Grid>
+
+
+
 
               <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }} className={`${!selectedLocation && 'mt-5'}`}>
                 <Grid item xs={8} >
@@ -773,6 +733,17 @@ const BusinesssProfile = () => {
 
               <p className='cuisines-title text-center mt-5'>OTHERS</p>
 
+              <Divider
+                className='mt-2 mb-5'
+                variant="middle"
+                style={{
+                  backgroundColor: '#c33332',
+                  margin: '0px',
+                  width: '35%',
+                  margin: '0px auto'
+                }}
+              />
+
               <Grid container spacing={2} style={{ display: 'flex', justifyContent: 'center' }}>
                 <Grid item xs={8}>
                   <div>
@@ -862,16 +833,10 @@ const BusinesssProfile = () => {
               </Grid>
 
 
-
-
-
-
-
               <Stack direction="row" justifyContent="center" className="mt-4">
                 <Button type="submit" variant="contained" className="inquiries-red-btn" disabled={loading}>
                   {loading ? 'Loading...' : 'Update'}  </Button>
               </Stack>
-
 
             </form>
           )}
@@ -880,4 +845,5 @@ const BusinesssProfile = () => {
     </>
   )
 }
+
 export default BusinesssProfile
