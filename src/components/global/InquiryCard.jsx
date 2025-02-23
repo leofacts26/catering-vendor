@@ -22,10 +22,25 @@ const InquiryCard = ({ item }) => {
                 <div>
                     <h4 className="inquiries-title">{item?.user_name}</h4>
                     <p className="inquiries-date">{item?.area} </p>
-                    <p className="inquiries-date"> {item.food_types.length > 0 && item.food_types?.map((item) => item?.food_type_name)} </p>
-                    <p className="inquiries-desc mb-1">{item?.cuisines.length > 0 && item?.cuisines.map((item) => <span>{item.cuisine_name}, {" "}</span> )}</p>
-                    <p className="inquiries-desc mb-1">{item?.service_types.length > 0 && item?.service_types.map((item) => <span>{item.service_type_name}, {" "}</span> )}</p>
-                    <p className="inquiries-desc mb-1">{item?.occasions.length > 0 && item?.occasions.map((item) => <span>{item.occasion_name}, {" "}</span> )}</p>
+                    <p className="inquiries-date">
+                        {item.food_types.length > 0 && item.food_types.map((food) => food.food_type_name).join(", ")}
+                    </p>
+
+                    <p className="inquiries-desc mb-1">
+                        {item?.cuisines.length > 0 && item?.cuisines.map((cuisine) => cuisine.cuisine_name).join(", ")}
+                    </p>
+
+
+                    <p className="inquiries-desc mb-1">
+                        {item?.service_types.length > 0 && item?.service_types.map((service) => service.service_type_name).join(", ")}
+                    </p>
+
+
+                    <p className="inquiries-desc mb-1">
+                        {item?.occasions.length > 0 && item?.occasions.map((occasion) => occasion.occasion_name).join(", ")}
+                    </p>
+
+
                     <p className="inquiries-date">  {moment(item?.enquiry_date).format("DD MMM, YYYY")}</p>
                     <p className="inquiries-desc">{item?.user_phone_number}</p>
                 </div>
