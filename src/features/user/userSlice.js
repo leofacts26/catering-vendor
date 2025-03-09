@@ -14,6 +14,10 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        logout: (state) => {
+            localStorage.clear()
+            window.location.href = '/create-account'; // Redirect after logout
+        },
         setIsLoading: (state, action) => {
             state.isLoading = action.payload;
         },
@@ -45,5 +49,5 @@ export const userSlice = createSlice({
     }
 })
 
-export const { setIsLoading, setData, setLoginUserData, setVendorId, setAccessToken, setRefreshToken, logoutUser, setMultiImageDelete } = userSlice.actions;
+export const {logout, setIsLoading, setData, setLoginUserData, setVendorId, setAccessToken, setRefreshToken, logoutUser, setMultiImageDelete } = userSlice.actions;
 export default userSlice.reducer

@@ -2,7 +2,7 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../../features/user/userSlice';
+import { logout } from '../../features/user/userSlice';
 import { useDispatch } from 'react-redux';
 
 const TopHeader = ({ title, description, date }) => {
@@ -11,7 +11,7 @@ const TopHeader = ({ title, description, date }) => {
 
     const handleLogout = () => {
         localStorage.clear();
-        dispatch(logoutUser());
+        dispatch(logout());
         navigate("/create-account");
     }
 
