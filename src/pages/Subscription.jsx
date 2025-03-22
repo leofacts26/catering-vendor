@@ -181,7 +181,7 @@ const Subscription = () => {
                         Upgrade Subscription
                       </Button>
                     </Link>
-                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern?.toLowerCase() === "subscription-monthly" || "one_time_Yearly" ? (
+                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern?.toLowerCase() === "subscription-monthly" || "subscription-yearly" ? (
                     <Button
                       variant="contained"
                       className="inquiries-btn mx-auto text-center"
