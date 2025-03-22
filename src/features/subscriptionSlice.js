@@ -104,7 +104,7 @@ export const createQuickOneTimePayment = createAsyncThunk(
     const id = Number(data.subscription_type_id)
     const subscriptionDuration = data?.subType;
     const updatedData = {
-      id: data.id,
+      quickLinkId: data.id,
       subscriptionTypeId: id,
       subscriptionDuration,
       couponCode: data.couponCode
