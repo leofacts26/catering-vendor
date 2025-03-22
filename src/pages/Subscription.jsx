@@ -169,7 +169,7 @@ const Subscription = () => {
                         Get Subscription
                       </Button>
                     </Link>
-                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern?.toLowerCase() === "one_time_monthly" ? (
+                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern?.toLowerCase() === "one_time_monthly" || "one_time_Yearly" ? (
                     <Link
                       to='/dashboard/subscription-plan'
                       className="text-decoration-none"
@@ -181,7 +181,7 @@ const Subscription = () => {
                         Upgrade Subscription
                       </Button>
                     </Link>
-                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern?.toLowerCase() === "subscription-monthly" ? (
+                  ) : activeSubscriptionList?.activeSubscription?.subscription_pattern?.toLowerCase() === "subscription-monthly" || "one_time_Yearly" ? (
                     <Button
                       variant="contained"
                       className="inquiries-btn mx-auto text-center"
