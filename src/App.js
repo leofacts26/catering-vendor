@@ -27,6 +27,7 @@ import PhotoGalleryTest from "./pages/PhotoGalleryTest";
 import SubscriptionPlanDetails from "./pages/SubscriptionPlanDetails";
 import UpdatePhoneNumber from "./pages/UpdatePhoneNumber";
 import BusinesssProfileTest from "./pages/BusinesssProfileTest";
+import SubscriptionQuickCreate from "./pages/SubscriptionQuickCreate";
 // import SubscriptionDetails from "./pages/SubscriptionDetails";
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
             <Route path='subscription' element={<Subscription />} />
             <Route path='subscription-plan' element={<SubscriptionPlan />} />
             <Route path='subscription-plan-details' element={<SubscriptionPlanDetails />} />
+            <Route path='subscription-quick-create' element={<SubscriptionQuickCreate />} />
             {/* <Route path='/dashboard/subscription-details' element={<SubscriptionDetails />} /> */}
 
             <Route path='settings' element={<Settings />} />

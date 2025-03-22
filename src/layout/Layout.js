@@ -1,13 +1,21 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import LeftNav from "../components/nav/LeftNav";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import { listVendorQuickCreate } from "../features/subscriptionSlice";
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from "@mui/material";
 
 const Layout = () => {
   const { accessToken } = useSelector((state) => state.user);
+  const { listVendorQuickCreateData } = useSelector((state) => state.subscription);
+  // console.log(listVendorQuickCreateData, "listVendorQuickCreateData");
+
+
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const [openModal, setOpenModal] = useState(false);
 
   // if accesstoken is not there redirect to login page 
   useEffect(() => {
@@ -31,6 +39,28 @@ const Layout = () => {
   }, [accessToken, navigate]);
 
 
+  useEffect(() => {
+    dispatch(listVendorQuickCreate())
+  }, [])
+
+  // Open modal only if listVendorQuickCreateData exists and status is "active"
+  useEffect(() => {
+    if (listVendorQuickCreateData && listVendorQuickCreateData.status?.toLowerCase() === "active") {
+      setOpenModal(true);
+    } else {
+      setOpenModal(false);
+    }
+  }, [listVendorQuickCreateData]);
+
+
+
+  const handleConfirm = () => {
+    navigate("/dashboard/subscription-quick-create");
+    setOpenModal(false);
+  };
+
+
+
   return (
     <>
       <div className="dashboard-container">
@@ -45,6 +75,20 @@ const Layout = () => {
           </Grid>
         </Grid>
       </div>
+
+
+      {/* Modal Popup */}
+      <Dialog open={openModal}>
+        <DialogTitle>Quick Create Alert</DialogTitle>
+        <DialogContent>
+          You have a quick link to create. Do you want to proceed?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleConfirm} color="primary">
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 };

@@ -12,11 +12,11 @@ import moment from 'moment';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import toast from "react-hot-toast";
+// import QuickCreateAlert from "../components/QuickCreateAlert";
 
 
 const Subscription = () => {
   const { activeSubscriptionList, cancelSubData } = useSelector((state) => state.subscription)
-  // console.log(cancelSubData, "cancelSubData");
 
 
   const dispatch = useDispatch();
@@ -83,6 +83,9 @@ const Subscription = () => {
 
       <Container maxWidth="lg">
         <div className='card-box-shadow px-5 py-4 mb-4'>
+
+          {/* <QuickCreateAlert onConfirm={() => console.log("User confirmed! Proceed with action.")} /> */}
+
 
           <div className='mt-3 bg-primary'>
           </div>
