@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { listVendorQuickCreate } from "../features/subscriptionSlice";
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from "@mui/material";
+// import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, IconButton } from "@mui/material";
 
 const Layout = () => {
   const { accessToken } = useSelector((state) => state.user);
@@ -78,14 +79,21 @@ const Layout = () => {
 
 
       {/* Modal Popup */}
-      <Dialog open={openModal}>
-        <DialogTitle>Quick Create Alert</DialogTitle>
+      <Dialog open={openModal} maxWidth="sm" fullWidth>
+        <DialogTitle sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <Typography variant="h6" fontWeight="bold">
+            Customer Care Team
+          </Typography>
+         
+        </DialogTitle>
         <DialogContent>
-          You have a quick link to create. Do you want to proceed?
+          <Typography variant="body1" sx={{ mt: 1, mb: 2 }}>
+            Click the <strong>'Go'</strong> button to proceed.
+          </Typography>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleConfirm} color="primary">
-            Yes
+        <DialogActions sx={{ padding: "16px" }}>
+          <Button onClick={handleConfirm} color="primary" variant="contained">
+            Go
           </Button>
         </DialogActions>
       </Dialog>
