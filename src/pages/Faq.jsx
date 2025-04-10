@@ -29,7 +29,7 @@ const Faq = () => {
     const fetchFaqs = async () => {
         dispatch(setIsLoading(true))
         try {
-            const response = await api.get(`${BASE_URL}/faq?current_page=1&limit=5&type=vendor`, {
+            const response = await api.get(`${BASE_URL}/faq?current_page=1&limit=5&type=vendor-caterer`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 }
