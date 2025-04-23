@@ -28,6 +28,7 @@ import SubscriptionPlanDetails from "./pages/SubscriptionPlanDetails";
 import UpdatePhoneNumber from "./pages/UpdatePhoneNumber";
 import BusinesssProfileTest from "./pages/BusinesssProfileTest";
 import SubscriptionQuickCreate from "./pages/SubscriptionQuickCreate";
+import LoginVendorResetCreds from "./components/auth/LoginVendorResetCreds";
 // import SubscriptionDetails from "./pages/SubscriptionDetails";
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/create-account" element={<RegisterLogin />} />
+            <Route path='login-reset-vendor-creds' element={<LoginVendorResetCreds />} />
           {/* <Route path="/enter-location" element={<EnterLocation />} /> */}
           {/* <Route path="/enter-location-manually" element={<EnterLocationManually />} /> */}
           <Route path="/profile-steps" element={<ProfileSteps />} />

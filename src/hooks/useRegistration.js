@@ -11,6 +11,22 @@ const useRegistration = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+     // login reset creds 
+     const loginVendorResetCreds = async (registerData, setShowOtp) => {
+        setLoading(true);
+        try {
+            const response = await api.post('/reset-creds-send-otp', registerData);
+            dispatch(setVendorId(response?.data?.data));
+            dispatch(setData(registerData));
+            setShowOtp(false);
+            setLoading(false);
+            toast.success(successToast(response));
+        } catch (error) {
+            setLoading(false);
+            toast.error(datavalidationerror(error));
+        }
+    };
+
     // registerVendor 
     const registerVendor = async (registerData, setShowOtp) => {
         setLoading(true);
@@ -21,6 +37,30 @@ const useRegistration = () => {
             setShowOtp(false);
             setLoading(false);
             toast.success(successToast(response));
+        } catch (error) {
+            setLoading(false);
+            toast.error(datavalidationerror(error));
+        }
+    };
+
+    // verifyOtp 
+    const verifyResetCredsOtp = async (otp, user, setOtp, setValue) => {
+        const data = {
+            phone_number: user?.phone_number,
+            otp_code: otp,
+            vendor_type: user?.vendor_type
+        };
+        setLoading(true);
+        try {
+            const response = await api.post('/reset-creds', data);
+            console.log(response, "response");
+            dispatch(setAccessToken(response?.data?.data?.accessToken));
+            dispatch(setRefreshToken(response?.data?.data?.refreshToken));
+            navigate('/create-account', { state: { tab: '2' } });
+            setValue('2')
+            toast.success(response?.data?.message);
+            setLoading(false);
+            setOtp(['', '', '', '', '', '']);
         } catch (error) {
             setLoading(false);
             toast.error(datavalidationerror(error));
@@ -65,7 +105,7 @@ const useRegistration = () => {
         }
     }
 
-    return { loading, registerVendor, verifyOtp, resendOtp };
+    return { loading, registerVendor, loginVendorResetCreds, verifyOtp, verifyResetCredsOtp, resendOtp };
 };
 
 export default useRegistration;

@@ -15,7 +15,6 @@ import useRegistration from '../../hooks/useRegistration';
 import { inputNumberLimit, vendor_type } from '../../constant';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { useLocation } from 'react-router-dom';
 
 const CssTextField = styled(TextField)(({ theme }) => ({
     '& .MuiOutlinedInput-root': {
@@ -40,8 +39,7 @@ const CssTextField = styled(TextField)(({ theme }) => ({
 
 const initialState = {
     phone_number: '',
-    point_of_contact_name: '',
-    phone_number_extension: '+91',
+    // phone_number_extension: '+91',
     vendor_type: vendor_type
 }
 
@@ -116,17 +114,15 @@ const OtpInput = ({ length = 6, onOtpSubmit = () => { } }) => {
 
 
 
-const RegisterLogin = () => {
+const LoginVendorResetCreds = () => {
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(30);
 
-    const location = useLocation();
-    const defaultTab = location?.state?.tab || '1';
-    const [value, setValue] = useState(defaultTab);
+    const [value, setValue] = useState('1');
     const [showOtp, setShowOtp] = useState(true)
     const [otp, setOtp] = useState(['', '', '', '', '', ''])
     const user = useSelector((state) => state.user.userData)
-    const { loading, registerVendor, verifyOtp, resendOtp } = useRegistration();
+    const { loading, loginVendorResetCreds, verifyResetCredsOtp, resendOtp } = useRegistration();
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -136,13 +132,6 @@ const RegisterLogin = () => {
 
     // validation schema 
     const schema = Yup.object().shape({
-        point_of_contact_name: Yup.string()
-            .required('Name is required.')
-            .matches(
-                /^[a-zA-Z\s]+$/,
-                'Name must only contain alphabets and spaces.'
-            )
-            .max(50, 'Name cannot exceed 50 characters.'),
         phone_number: Yup.string()
             .required('Phone number is required.')
             .matches(/^[0-9]+$/, 'Phone number must contain only digits')
@@ -152,7 +141,7 @@ const RegisterLogin = () => {
 
     // onHandleRegisterSubmit 
     const handleSubmit = async (regData, resetForm) => {
-        registerVendor(regData, setShowOtp, initialState);
+        loginVendorResetCreds(regData, setShowOtp, initialState);
         resetForm(initialState);
     }
 
@@ -160,7 +149,7 @@ const RegisterLogin = () => {
 
     // onOtpSubmit 
     const onOtpSubmit = (otp) => {
-        verifyOtp(otp, user, setOtp, setValue);
+        verifyResetCredsOtp(otp, user, setOtp, setValue);
         console.log('Login Successfully', otp);
     }
 
@@ -210,12 +199,12 @@ const RegisterLogin = () => {
                         <div className="ct-box">
                             <Box sx={{ width: '100%', typography: 'body1' }}>
                                 <TabContext value={value}>
-                                    <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'center' }} className="custom-tab-list">
+                                    {/* <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'center' }} className="custom-tab-list">
                                         <TabList onChange={handleChange} aria-label="lab API tabs example">
                                             <Tab label="Create Account" value="1" sx={{ fontSize: '12px', '&.Mui-selected': { color: '#14181b' } }} />
                                             <Tab label="Log In" value="2" sx={{ fontSize: '12px', '&.Mui-selected': { color: '#14181b' } }} />
                                         </TabList>
-                                    </Box>
+                                    </Box> */}
                                     <TabPanel value="1" style={{ padding: '0px' }} className='mt-4'>
                                         <div>
                                             {showOtp ?
@@ -223,29 +212,7 @@ const RegisterLogin = () => {
                                                     <Formik initialValues={initialState} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
                                                         {({ values, errors, handleChange, handleSubmit }) => (
                                                             <form onSubmit={handleSubmit} className="px-4">
-                                                                <h4 className='ct-create-account'>Create Account</h4>
-                                                                <p className='ct-create-para'>Let's get started by filling out the form below.</p>
-
-                                                                <CssTextField
-                                                                    variant="outlined"
-                                                                    label="Enter your Name Here"
-                                                                    className='mt-3'
-                                                                    name='point_of_contact_name'
-                                                                    value={values?.point_of_contact_name}
-                                                                    onChange={handleChange}
-                                                                    style={{ width: '100%' }}
-                                                                    InputLabelProps={{
-                                                                        style: { color: '#777777', fontSize: '12px' },
-                                                                    }}
-                                                                    InputProps={{
-                                                                        style: {
-                                                                            borderRadius: '8px',
-                                                                            backgroundColor: '#FFFFFF',
-                                                                        }
-                                                                    }}
-                                                                />
-                                                                {errors.point_of_contact_name && <small className='text-danger mt-2 ms-1'>{errors.point_of_contact_name}</small>}
-
+                                                                <h4 className='ct-create-account'>Get Account Credentials</h4>
                                                                 <CssTextField
                                                                     variant="outlined"
                                                                     label="Enter your Phone Number"
@@ -287,7 +254,7 @@ const RegisterLogin = () => {
                                                     </Button>
                                                     {/* <p className='ct-box-both' onClick={handleResendOtp}>resend otp in : 30</p> */}
 
-                                                    <div className="countdown-text">
+                                                    {/* <div className="countdown-text">
                                                         {seconds > 0 || minutes > 0 ? (
                                                             <p className='ct-box-both'>
                                                                 Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
@@ -310,7 +277,7 @@ const RegisterLogin = () => {
                                                                 Resend OTP
                                                             </button>
                                                         </Box>
-                                                    </div>
+                                                    </div> */}
 
                                                 </form>}
 
@@ -329,4 +296,4 @@ const RegisterLogin = () => {
     )
 }
 
-export default RegisterLogin
+export default LoginVendorResetCreds
