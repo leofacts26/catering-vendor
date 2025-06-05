@@ -15,7 +15,7 @@ const SubscriptionPlan = () => {
   const { mode } = useSelector((state) => state.subscription);
   const dispatch = useDispatch()
 
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(1);
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);

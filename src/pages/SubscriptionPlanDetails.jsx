@@ -20,7 +20,7 @@ const SubscriptionPlanDetails = () => {
   const dispatch = useDispatch();
   const { subscribeData, discoundedData, couponCode, selectedSubscription, calculaterOrderData } = useSelector((state) => state.subscription);
   const [loading, setLoading] = useState(false);
-  const [recurringPayments, setRecurringPayments] = useState(true);
+  const [recurringPayments, setRecurringPayments] = useState(false);
   const { vendorBusinessProfile } = useGetVendor();
   // console.log(vendorBusinessProfile, "vendorBusinessProfile");
 
@@ -284,7 +284,14 @@ const SubscriptionPlanDetails = () => {
 
 
                       {recurringPayments === false && <>
-                        <form className="search-wrapper cf mt-3" onSubmit={onCouponCodeSubmit}>
+                        <Stack direction="row" justifyContent="start">
+                          <p
+                            className={`coupon-small ms-2 mt-3 me-2 text-gray`}
+                          >
+                             'Use "CNT100" to claim free subscription for a year'
+                          </p>
+                        </Stack>
+                        <form className="search-wrapper cf mt-1" onSubmit={onCouponCodeSubmit}>
                           <input
                             name="couponCode" value={couponCode} onChange={(e) => dispatch(setCouponCode(e.target.value))}
                             type="text" placeholder="Enter Coupon Code" required style={{ boxShadow: 'none', paddingLeft: '20px' }} />
