@@ -21,9 +21,9 @@ const SubscriptionPlan = () => {
     setActiveTab(newValue);
   };
 
-  const handleModeChange = (e) => {
-    dispatch(setMode(e.target.value));
-  };
+  // const handleModeChange = (e) => {
+  //   dispatch(setMode(e.target.value));
+  // };
 
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const SubscriptionPlan = () => {
             Choose your subscription types
           </p>
 
-          <FormControl variant="outlined" style={{ minWidth: 200 }}>
+          {/* <FormControl variant="outlined" style={{ minWidth: 200 }}>
             <InputLabel id="mode-label">Select Mode</InputLabel>
             <Select
               labelId="mode-label"
@@ -56,7 +56,7 @@ const SubscriptionPlan = () => {
               <MenuItem value="live">Live</MenuItem>
               <MenuItem value="test">Test</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
 
 
           <Stack
