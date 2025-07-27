@@ -156,7 +156,7 @@ const SubscriptionPlanDetails = () => {
 
 
       options = {
-        key: "rzp_test_2M5D9mQwHZp8iP",
+        key: "rzp_live_IXvMLZcvtKA1O2",
         subscription_id: subscriptionId,
         amount: discoundedData.finalAmount,
         currency: "INR",
@@ -222,7 +222,7 @@ const SubscriptionPlanDetails = () => {
 
 
       options = {
-        key: "rzp_test_2M5D9mQwHZp8iP",
+        key: "rzp_live_IXvMLZcvtKA1O2",
         amount: (discoundedData?.finalAmount * 100).toString(),
         currency: currency,
         name: "Caterings And Tiffins",

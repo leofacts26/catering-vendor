@@ -135,7 +135,7 @@ const SubscriptionQuickCreate = () => {
 
 
       options = {
-        key: "rzp_test_2M5D9mQwHZp8iP",
+        key: "rzp_live_IXvMLZcvtKA1O2",
         subscription_id: subscriptionId,
         amount: listVendorQuickCreateData.finalAmount,
         currency: "INR",
@@ -187,7 +187,7 @@ const SubscriptionQuickCreate = () => {
       // console.log("Final Amount (Paise):", discoundedData?.finalAmount * 100);
 
       options = {
-        key: "rzp_test_2M5D9mQwHZp8iP",
+        key: "rzp_live_IXvMLZcvtKA1O2",
         amount: (listVendorQuickCreateData?.finalAmount * 100).toString(),
         currency: currency,
         name: "Caterings And Tiffins",
