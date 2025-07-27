@@ -135,7 +135,7 @@ const SubscriptionQuickCreate = () => {
 
 
       options = {
-        key: "rzp_live_IXvMLZcvtKA1O2",
+        key: process.env.REACT_APP_RAZORPAY_KEY,
         subscription_id: subscriptionId,
         amount: listVendorQuickCreateData.finalAmount,
         currency: "INR",
@@ -187,7 +187,7 @@ const SubscriptionQuickCreate = () => {
       // console.log("Final Amount (Paise):", discoundedData?.finalAmount * 100);
 
       options = {
-        key: "rzp_live_IXvMLZcvtKA1O2",
+        key: process.env.REACT_APP_RAZORPAY_KEY,
         amount: (listVendorQuickCreateData?.finalAmount * 100).toString(),
         currency: currency,
         name: "Caterings And Tiffins",
