@@ -24,7 +24,7 @@ export const fetchSubscriptionTypes = createAsyncThunk(
   async (mode, thunkAPI) => {
     try {
       const response = await api.get(
-        `${BASE_URL}/rz-get-razorpay-plans?vendor_type=Caterer`,
+        `${BASE_URL}/rz-get-razorpay-plans?vendor_type=Caterer&mode=live`,
         {
           headers: {
             authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
