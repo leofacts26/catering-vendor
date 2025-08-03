@@ -231,11 +231,11 @@ const EnterLocationManually = () => {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
             navigate('/profile-steps')
         } catch (error) {
             console.log(error, "error");
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             setLoading(false)
         }
@@ -264,11 +264,11 @@ const EnterLocationManually = () => {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
             navigate('/profile-steps')
         } catch (error) {
             console.log(error, "error");
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             setLoading(false)
         }

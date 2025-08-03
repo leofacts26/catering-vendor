@@ -29,9 +29,9 @@ export const sendUpdateProfileOTP = createAsyncThunk(
                 },
             });
             thunkAPI.dispatch(setShowOtp(false));
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
             return thunkAPI.rejectWithValue(error.response.data.msg);
         }
     }
@@ -61,10 +61,10 @@ export const sendUpdateUserProfile = createAsyncThunk(
             // console.log(response, "response");
 
             thunkAPI.dispatch(setShowOtp(true));
-            toast.success(response.data.status)
+            toast.success(response.data.status, { duration: 5000 })
             // thunkAPI.dispatch(fetchUserData());
         } catch (error) {
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
             return thunkAPI.rejectWithValue(error.response.data.msg);
         }
     }

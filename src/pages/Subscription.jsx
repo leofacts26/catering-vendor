@@ -46,7 +46,7 @@ const Subscription = () => {
 
       // Check if the cancellation was successful
       if (response.status === "cancelled") {
-        toast.success("Subscription cancelled successfully!");
+        toast.success("Subscription cancelled successfully!", { duration: 5000 });
       } else {
         console.warn(
           "Subscription not cancelled programmatically. Opening short_url for manual cancellation."

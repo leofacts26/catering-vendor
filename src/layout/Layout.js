@@ -64,6 +64,7 @@ const Layout = () => {
 
   return (
     <>
+    
       <div className="dashboard-container">
         <Grid container spacing={0} >
           <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
@@ -84,7 +85,7 @@ const Layout = () => {
           <Typography variant="h6" fontWeight="bold">
             Customer Care Team
           </Typography>
-         
+
         </DialogTitle>
         <DialogContent>
           <Typography variant="body1" sx={{ mt: 1, mb: 2 }}>

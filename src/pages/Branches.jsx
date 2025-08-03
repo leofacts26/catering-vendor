@@ -194,10 +194,10 @@ const Branches = () => {
         }
       })
       fetchBranches()
-      toast.success(successToast(response))
+      toast.success(successToast(response), { duration: 5000 })
     } catch (error) {
       console.log(error);
-      toast.error(datavalidationerror(error))
+      toast.error(datavalidationerror(error), { duration: 5000 })
     }
   }
 
@@ -291,7 +291,7 @@ const Branches = () => {
         })
         fetchBranches()
         handleClose()
-        toast.success(successToast(response))
+        toast.success(successToast(response), { duration: 5000 })
       } else {
         const response = await api.post(`${BASE_URL}/insert-vendor-branch`, data, {
           headers: {
@@ -299,7 +299,7 @@ const Branches = () => {
           }
         })
         handleClose()
-        toast.success(successToast(response))
+        toast.success(successToast(response), { duration: 5000 })
         fetchBranches()
         setFormSubmitted(true);
       }

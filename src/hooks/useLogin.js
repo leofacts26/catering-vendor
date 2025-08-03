@@ -26,10 +26,10 @@ const useLogin = () => {
             dispatch(setLoginUserData(loginData));
             setShowOtp(false);
             setLoading(false);
-            toast.success(response?.data?.message);
+            toast.success(response?.data?.message, { duration: 5000 });
         } catch (error) {
             setLoading(false);
-            toast.error(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message, { duration: 5000 });
         }
     };
 
@@ -46,12 +46,12 @@ const useLogin = () => {
             dispatch(setAccessToken(response?.data?.data?.accessToken));
             dispatch(setRefreshToken(response?.data?.data?.refreshToken));
             navigate('/dashboard/inquiries')
-            toast.success(response?.data?.message);
+            toast.success(response?.data?.message, { duration: 5000 });
             setLoading(false);
             setOtp(['', '', '', '', '', '']);
         } catch (error) {
             setLoading(false);
-            toast.error(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message, { duration: 5000 });
         }
     };
 
@@ -65,10 +65,10 @@ const useLogin = () => {
                 vendor_type: vendor_type
             }
             const response = await api.post('/login-vendor-resend-otp', data)
-            toast.success(response?.data?.message);
+            toast.success(response?.data?.message, { duration: 5000 });
         } catch (error) {
             console.log(error);
-            toast.error(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message, { duration: 5000 });
         }
     }
 

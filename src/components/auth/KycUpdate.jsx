@@ -88,12 +88,12 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
                     Authorization: `Bearer ${accessToken}`
                 }
             });
-            toast.success(response?.data?.message);
+            toast.success(response?.data?.message, { duration: 5000 });
             setLoading(false);
             if (response?.data) {
                 navigate("/dashboard/inquiries");
             }
-            toast.success('Login Details have been sent to the registered Phone number');
+            toast.success('Login Details have been sent to the registered Phone number', { duration: 5000 });
         } catch (error) {
             setLoading(false);
             console.log(error, " error");

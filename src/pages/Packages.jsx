@@ -163,11 +163,11 @@ const Packages = () => {
                     Authorization: `Bearer ${accessToken}`,
                 }
             })
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
             fetchPackages()
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             setLoading(false)
         }

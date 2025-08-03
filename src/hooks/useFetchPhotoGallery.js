@@ -99,10 +99,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -112,7 +112,7 @@ const useFetchPhotoGallery = (handleBoxClose) => {
 
     const onReUploadBoxBrand = async (event) => {
         console.log(event, "event");
-        
+
         const formData = new FormData();
         formData.append('id', parseInt(gallery['vendor-brand-logo'][0]?.id && gallery['vendor-brand-logo'][0]?.id));
         formData.append('image', event.target.files[0]);
@@ -128,10 +128,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -160,10 +160,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -193,10 +193,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             toast.dismiss();
             dispatch(setIsLoading(false))
@@ -218,10 +218,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response));
+            toast.success(successToast(response), { duration: 5000 });
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error));
+            toast.error(datavalidationerror(error), { duration: 5000 });
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -248,10 +248,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -275,10 +275,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -310,10 +310,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -343,10 +343,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -369,10 +369,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response));
+            toast.success(successToast(response), { duration: 5000 });
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error));
+            toast.error(datavalidationerror(error), { duration: 5000 });
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -409,10 +409,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -443,10 +443,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -468,11 +468,11 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            toast.success(successToast(response));
+            toast.success(successToast(response), { duration: 5000 });
             getVendorImages();
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error));
+            toast.error(datavalidationerror(error), { duration: 5000 });
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -586,10 +586,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -614,10 +614,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -639,11 +639,11 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            toast.success(successToast(response));
+            toast.success(successToast(response), { duration: 5000 });
             getVendorImages();
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error));
+            toast.error(datavalidationerror(error), { duration: 5000 });
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -758,10 +758,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -786,10 +786,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -811,11 +811,11 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            toast.success(successToast(response));
+            toast.success(successToast(response), { duration: 5000 });
             getVendorImages();
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error));
+            toast.error(datavalidationerror(error), { duration: 5000 });
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -840,10 +840,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -867,10 +867,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -901,10 +901,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -934,10 +934,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -960,10 +960,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response));
+            toast.success(successToast(response), { duration: 5000 });
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error));
+            toast.error(datavalidationerror(error), { duration: 5000 });
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1045,10 +1045,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1072,10 +1072,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1106,10 +1106,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1139,10 +1139,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1165,10 +1165,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response));
+            toast.success(successToast(response), { duration: 5000 });
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error));
+            toast.error(datavalidationerror(error), { duration: 5000 });
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1198,10 +1198,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1225,10 +1225,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1259,10 +1259,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1292,10 +1292,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1318,10 +1318,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response));
+            toast.success(successToast(response), { duration: 5000 });
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error));
+            toast.error(datavalidationerror(error), { duration: 5000 });
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1348,10 +1348,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1375,10 +1375,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1409,10 +1409,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1442,10 +1442,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1468,10 +1468,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response));
+            toast.success(successToast(response), { duration: 5000 });
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error));
+            toast.error(datavalidationerror(error), { duration: 5000 });
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1499,10 +1499,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1526,10 +1526,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1560,10 +1560,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1593,10 +1593,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -1619,10 +1619,10 @@ const useFetchPhotoGallery = (handleBoxClose) => {
                 },
             });
             getVendorSettingsImages();
-            toast.success(successToast(response));
+            toast.success(successToast(response), { duration: 5000 });
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error));
+            toast.error(datavalidationerror(error), { duration: 5000 });
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();

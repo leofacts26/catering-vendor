@@ -85,12 +85,12 @@ export const createOneTimePayment = createAsyncThunk(
           authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
         },
       });
-      toast.success(`${response.data.status ? response.data.status : response.data.couponCode !== null && 'Coupon Code Applied'} `)
+      toast.success(`${response.data.status ? response.data.status : response.data.couponCode !== null && 'Coupon Code Applied'} `, { duration: 5000 })
       // console.log(response, "responseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponse");
       return response;
     } catch (error) {
       console.log(error);
-      toast.error(datavalidationerror(error))
+      toast.error(datavalidationerror(error), { duration: 5000 })
     }
   }
 );
@@ -117,12 +117,12 @@ export const createQuickOneTimePayment = createAsyncThunk(
           authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
         },
       });
-      toast.success(`${response.data.status ? response.data.status : response.data.couponCode !== null && 'Coupon Code Applied'} `)
+      toast.success(`${response.data.status ? response.data.status : response.data.couponCode !== null && 'Coupon Code Applied'} `, { duration: 5000 })
       // console.log(response, "responseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponse");
       return response;
     } catch (error) {
       console.log(error);
-      toast.error(datavalidationerror(error))
+      toast.error(datavalidationerror(error), { duration: 5000 })
     }
   }
 );

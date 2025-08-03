@@ -86,7 +86,7 @@ const Occasions = () => {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
-        toast.success("Occasions Updated Successfully...")
+        toast.success("Occasions Updated Successfully...", { duration: 5000 })
         setIsLoading(false)
         setOpen(false);
         fetchOccations()

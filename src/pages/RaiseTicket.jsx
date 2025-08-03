@@ -119,13 +119,13 @@ const RaiseTicket = () => {
                     Authorization: `Bearer ${accessToken}`,
                 },
             })
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
             resetForm(initialState);
             dispatch(setIsLoading(false))
             getVendorSupportTickets()
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         }
     }
 

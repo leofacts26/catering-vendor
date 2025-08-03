@@ -171,7 +171,7 @@ const Cuisines = () => {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
-        toast.success("Cuisines Updated Successfully...")
+        toast.success("Cuisines Updated Successfully...", { duration: 5000 })
         setIsLoading(false)
         setOpen(false);
         fetchCuisines()

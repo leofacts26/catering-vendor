@@ -83,10 +83,10 @@ const PhotoGalleryTest = () => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
@@ -118,10 +118,10 @@ const PhotoGalleryTest = () => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response))
+            toast.success(successToast(response), { duration: 5000 })
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error))
+            toast.error(datavalidationerror(error), { duration: 5000 })
         } finally {
             toast.dismiss();
             dispatch(setIsLoading(false))
@@ -143,10 +143,10 @@ const PhotoGalleryTest = () => {
                 },
             });
             getVendorImages();
-            toast.success(successToast(response));
+            toast.success(successToast(response), { duration: 5000 });
         } catch (error) {
             console.log(error);
-            toast.error(datavalidationerror(error));
+            toast.error(datavalidationerror(error), { duration: 5000 });
         } finally {
             dispatch(setIsLoading(false))
             toast.dismiss();
