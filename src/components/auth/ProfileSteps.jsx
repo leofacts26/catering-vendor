@@ -133,7 +133,7 @@ const ProfileSteps = () => {
 
             if (response.status === 200) {
                 setActiveStep((prevActiveStep) => prevActiveStep + 1);
-                toast.success(successToast(response), { duration: 5000 });
+                toast.success(successToast(response));
             }
 
         } catch (error) {

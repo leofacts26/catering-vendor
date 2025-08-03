@@ -94,13 +94,26 @@ const SubscriptionPlanDetails = () => {
 
     const { plans = [] } = subscribeData || {};
 
-    const planIndex = discoundedData?.subType?.toLowerCase() === 'monthly' ? 1 : 0;
+    // const planIndex = discoundedData?.subType?.toLowerCase() === 'monthly' ? 1 : 0;
+    const targetPeriod = discoundedData?.subType?.toLowerCase();
+
+    const matchedPlan = plans.find(
+      (plan) => plan.durations?.includes(targetPeriod)
+    );
 
     const recurringMonthlydata = {
-      subscription_type_id: plans[planIndex]?.subscriptionTypeId || null,
-      subscription_duration: plans[planIndex]?.durations?.[0] || null,
-      plan_id: plans[planIndex]?.id || null,
+      subscription_type_id: matchedPlan?.subscriptionTypeId || null,
+      subscription_duration: matchedPlan?.durations?.[0] || null,
+      plan_id: matchedPlan?.id || null,
     };
+
+    // const recurringMonthlydata = {
+    //   subscription_type_id: plans[planIndex]?.subscriptionTypeId || null,
+    //   subscription_duration: plans[planIndex]?.durations?.[0] || null,
+    //   plan_id: plans[planIndex]?.id || null,
+    // };
+
+
 
     let result;
 

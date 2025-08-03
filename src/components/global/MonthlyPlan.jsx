@@ -133,7 +133,8 @@ const MonthlyPlan = () => {
                         })}
                 </Grid>
             ) : (
-                <p>No subscription plans available at the moment.</p>
+                // <p>No subscription plans available at the moment.</p>
+                <LoadingAnimation reviewHeight="review-height" />
             )}
 
 

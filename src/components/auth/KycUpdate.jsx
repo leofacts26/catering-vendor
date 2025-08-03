@@ -88,12 +88,12 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
                     Authorization: `Bearer ${accessToken}`
                 }
             });
-            toast.success(response?.data?.message, { duration: 5000 });
+            toast.success(`${response?.data?.message}. Login Details have been sent to the registered Phone number`, { duration: 5000 });
             setLoading(false);
             if (response?.data) {
                 navigate("/dashboard/inquiries");
             }
-            toast.success('Login Details have been sent to the registered Phone number', { duration: 5000 });
+            // toast.success('Login Details have been sent to the registered Phone number', { duration: 5000 });
         } catch (error) {
             setLoading(false);
             console.log(error, " error");
@@ -103,8 +103,9 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
     };
 
 
+
     const handleBack = () => {
-            navigate('/dashboard/inquiries')
+        navigate('/dashboard/inquiries')
     }
 
 
@@ -207,7 +208,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
                                 Skip
                             </Button> */}
                             <Button className='ct-box-btn-profile-skip-step' onClick={handleBack}>
-                               Skip
+                                Skip
                             </Button>
                             <Box sx={{ flex: '1 1 auto' }} />
 
