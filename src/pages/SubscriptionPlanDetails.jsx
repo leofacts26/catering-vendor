@@ -12,7 +12,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { Checkbox } from "@mui/material";
 import moment from 'moment';
 import useGetVendor from "../hooks/useGetVendor";
-
+import CloseIcon from '@mui/icons-material/Close'
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const SubscriptionPlanDetails = () => {
@@ -281,6 +281,8 @@ const SubscriptionPlanDetails = () => {
     setLoading(false);
   }
 
+  // console.log(discoundedData, "discoundedData");
+
 
 
   return (
@@ -334,12 +336,48 @@ const SubscriptionPlanDetails = () => {
                             'Use "CNT100" to claim free subscription for a year'
                           </p>
                         </Stack>
-                        <form className="search-wrapper cf mt-1" onSubmit={onCouponCodeSubmit}>
+                        {/* <form className="search-wrapper cf mt-1" onSubmit={onCouponCodeSubmit}>
                           <input
                             name="couponCode" value={couponCode} onChange={(e) => dispatch(setCouponCode(e.target.value))}
                             type="text" placeholder="Enter Coupon Code" required style={{ boxShadow: 'none', paddingLeft: '20px' }} />
                           <button type="submit">Apply</button>
-                        </form>
+                        </form> */}
+
+                        <div className="search-wrapper cf mt-1" style={{ position: 'relative' }}>
+                          <form onSubmit={onCouponCodeSubmit} style={{ display: 'flex', width: '100%' }}>
+                            <input
+                              name="couponCode"
+                              value={couponCode}
+                              onChange={(e) => dispatch(setCouponCode(e.target.value))}
+                              type="text"
+                              placeholder="Enter Coupon Code"
+                              required
+                              style={{
+                                boxShadow: 'none',
+                                paddingLeft: '20px',
+                                paddingRight: couponCode ? '35px' : '20px',
+                                flex: 1,
+                              }}
+                            />
+
+                            {couponCode && (
+                              <CloseIcon
+                                onClick={() => dispatch(setCouponCode(''))}
+                                fontSize="small"
+                                style={{
+                                  position: 'absolute',
+                                  right: '118px', // adjust according to button position
+                                  top: '50%',
+                                  transform: 'translateY(-50%)',
+                                  cursor: 'pointer',
+                                  color: '#888',
+                                }}
+                              />
+                            )}
+
+                            <button type="submit">Apply</button>
+                          </form>
+                        </div>
 
                         <Stack direction="row" justifyContent="end">
                           <p
@@ -358,10 +396,10 @@ const SubscriptionPlanDetails = () => {
 
 
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
-                        <p className="sub-text">Coupon Code:</p> <p className="sub-text"> {discoundedData?.couponCode ? discoundedData?.couponCode : 'N/A'} </p>
+                        <p className="sub-text">Coupon Code:</p> <p className="sub-text"> {discoundedData?.couponDetails?.code ? discoundedData?.couponDetails?.code : 'N/A'} </p>
                       </Stack>
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-2">
-                        <p className="sub-text">Discount Percent:</p> <p className="sub-text"> {discoundedData?.discountPercent ? discoundedData?.discountPercent : 'N/A'}</p>
+                        <p className="sub-text">Discount Percent:</p> <p className="sub-text"> {discoundedData?.couponDetails?.discountPercent ? discoundedData?.couponDetails?.discountPercent : 'N/A'}</p>
                       </Stack>
 
                       <hr />
@@ -377,7 +415,7 @@ const SubscriptionPlanDetails = () => {
                         <p className="sub-text">Final Amount:</p>
                         <Stack direction="row" alignItems="center">
                           <CurrencyRupeeIcon className="text-success mt-1" style={{ fontSize: '14px' }} />
-                          <p className="sub-text">{discoundedData?.finalAmount ? discoundedData?.finalAmount : 'N/A'}</p>
+                          <p className="sub-text">{discoundedData?.finalAmount}</p>
                         </Stack>
                       </Stack>
 
@@ -388,7 +426,7 @@ const SubscriptionPlanDetails = () => {
                         <Stack direction="column">
                           <div className="coupon-flex">
                             <span className='coupon-text'>
-                              {recurringPayments ? 'Monthly Recurring Activated' : 'One time Payment Enabled'}
+                              {recurringPayments ? 'Monthly Recurring Autopay' : 'One time Payment Enabled'}
                             </span>
                             <Checkbox
                               disabled={discoundedData?.is_one_recurring_subscription_already_present}
@@ -398,7 +436,7 @@ const SubscriptionPlanDetails = () => {
                               className={recurringPayments ? 'checkbox-enabled' : 'checkbox-disabled'}
                             />
                           </div>
-                          <p className="due-date"> {discoundedData?.paymentTerms ? discoundedData?.paymentTerms : 'N/A'}</p>
+                          {/* <p className="due-date"> {discoundedData?.paymentTerms ? discoundedData?.paymentTerms : 'N/A'}</p> */}
                         </Stack>
                       </Stack>
 

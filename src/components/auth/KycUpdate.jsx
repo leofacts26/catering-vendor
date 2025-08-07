@@ -106,6 +106,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
 
     const handleBack = () => {
         navigate('/dashboard/inquiries')
+        toast.success(`Vendor Registration Success, Login Details have been sent to the registered Phone number`, { duration: 5000 });
     }
 
 
@@ -180,6 +181,7 @@ const KycUpdate = ({ activeStep, setActiveStep }) => {
 
                         <h4 className='ct-box-profile-title mt-4'>Please Enter Your FSSAI Licence Number</h4>
                         <CssTextFieldTwo
+                            required
                             value={values.fssai_number}
                             name="fssai_number"
                             onChange={handleChange}
