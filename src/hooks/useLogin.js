@@ -26,10 +26,10 @@ const useLogin = () => {
             dispatch(setLoginUserData(loginData));
             setShowOtp(false);
             setLoading(false);
-            toast.success(response?.data?.message, { duration: 5000 });
+            toast.success(response?.data?.message);
         } catch (error) {
             setLoading(false);
-            toast.error(error?.response?.data?.message, { duration: 5000 });
+            toast.error(error?.response?.data?.message);
         }
     };
 
@@ -46,7 +46,8 @@ const useLogin = () => {
             dispatch(setAccessToken(response?.data?.data?.accessToken));
             dispatch(setRefreshToken(response?.data?.data?.refreshToken));
             navigate('/dashboard/inquiries')
-            toast.success(response?.data?.message, { duration: 5000 });
+            // toast.success(response?.data?.message, { duration: 5000 });
+            toast.success(`Vendor Registration Success, Login Details have been sent to the registered Phone number`, { duration: 5000 });
             setLoading(false);
             setOtp(['', '', '', '', '', '']);
         } catch (error) {
