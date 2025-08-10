@@ -47,7 +47,7 @@ const useLogin = () => {
             dispatch(setRefreshToken(response?.data?.data?.refreshToken));
             navigate('/dashboard/inquiries')
             // toast.success(response?.data?.message, { duration: 5000 });
-            toast.success(`Vendor Registration Success, Login Details have been sent to the registered Phone number`, { duration: 5000 });
+            toast.success(`Login Success`, { duration: 5000 });
             setLoading(false);
             setOtp(['', '', '', '', '', '']);
         } catch (error) {
