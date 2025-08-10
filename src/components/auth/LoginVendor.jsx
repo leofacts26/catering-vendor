@@ -195,7 +195,7 @@ const LoginVendor = () => {
     // onOtpSubmit 
     const onOtpSubmit = (otp) => {
         verifyOtp(otp, loginUserData, setOtp, setValue);
-        console.log('Login Successfully', otp);
+        // console.log('Login Successfully', otp);
     }
 
 
