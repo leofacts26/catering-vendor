@@ -9,6 +9,7 @@ const initialState = {
     isLoading: true,
     editProfileData: null,
     showOtp: true,
+    notificationList: []
 }
 
 
@@ -70,6 +71,26 @@ export const sendUpdateUserProfile = createAsyncThunk(
     }
 )
 
+export const fetchNotification = createAsyncThunk(
+    "homepage/fetchNotification",
+    async (user, thunkAPI) => {
+        // console.log(vendor_id, "vendorIdvendorIdvendorId");
+        try {
+            const response = await api.get(
+                `${BASE_URL}/get-vendor-notifications?limit=1115&current_page=1&order_by=newest_first`,
+                {
+                    headers: {
+                        authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                    },
+                }
+            );
+            return response?.data.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+);
+
 
 export const settingSlice = createSlice({
     name: 'settings',
@@ -82,12 +103,27 @@ export const settingSlice = createSlice({
             state.showOtp = payload;
         }
     },
-    // extraReducers: (builder) => {
-    //     builder
-
-
-    // }
+    extraReducers: (builder) => {
+        builder
+            // fetchNotification
+            .addCase(fetchNotification.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchNotification.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.notificationList = payload;
+            })
+            .addCase(fetchNotification.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
+    }
 })
+
+
+
+
+
 
 
 // Action creators are generated for each case reducer function
