@@ -25,7 +25,7 @@ const SubscriptionPlanDetails = () => {
   // console.log(vendorBusinessProfile, "vendorBusinessProfile");
 
   // console.log(subscribeData, "subscribeData");
-  // console.log(discoundedData, "discoundedData");
+  console.log(discoundedData, "discoundedData");
   // console.log(recurringPayments, "recurringPayments");
 
   useEffect(() => {
@@ -346,11 +346,19 @@ const SubscriptionPlanDetails = () => {
 
                       {recurringPayments === false && <>
                         <Stack direction="row" justifyContent="start">
-                          <p
-                            className={`coupon-small ms-2 mt-3 me-2 text-gray`}
-                          >
-                            'Use "CNT100" to claim free subscription for a year'
-                          </p>
+                          {discoundedData?.subType === "Monthly" ? (
+                            <p
+                              className={`coupon-small ms-2 mt-3 me-2 text-gray`}
+                            >
+                              'Use "CNT100" to claim free subscription for 3 months'
+                            </p>
+                          ) : (
+                            <p
+                              className={`coupon-small ms-2 mt-3 me-2 text-gray`}
+                            >
+                            </p>
+                          )
+                          }
                         </Stack>
                         {/* <form className="search-wrapper cf mt-1" onSubmit={onCouponCodeSubmit}>
                           <input
