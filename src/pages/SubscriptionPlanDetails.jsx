@@ -346,7 +346,7 @@ const SubscriptionPlanDetails = () => {
 
                       {recurringPayments === false && <>
                         <Stack direction="row" justifyContent="start">
-                          {discoundedData?.subType === "Monthly" ? (
+                          {discoundedData?.subType.toLowerCase() === "monthly" ? (
                             <p
                               className={`coupon-small ms-2 mt-3 me-2 text-gray`}
                             >
