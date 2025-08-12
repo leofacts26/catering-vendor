@@ -70,6 +70,21 @@ const SubscriptionPlanDetails = () => {
     }
   }
 
+  const onHandleClearCouponCode = async () => {
+    await dispatch(setCouponCode(couponCode));
+    const subscriptionDuration = discoundedData?.subType.toLowerCase();
+    const newItem = {
+      ...subscribeData,
+      subscriptionDuration
+    }
+    const response = await dispatch(calculateOrderTotal(newItem));
+    if (response.payload.status === "success") {
+      await dispatch(setDiscountedData(response?.payload));
+    }
+    dispatch(setCouponCode(''))
+  }
+
+
   // displayRazorpay 
   async function displayRazorpay() {
     setLoading(true);
@@ -285,6 +300,7 @@ const SubscriptionPlanDetails = () => {
 
 
 
+
   return (
     <>
       <TopHeader
@@ -362,7 +378,7 @@ const SubscriptionPlanDetails = () => {
 
                             {couponCode && (
                               <CloseIcon
-                                onClick={() => dispatch(setCouponCode(''))}
+                                onClick={onHandleClearCouponCode}
                                 fontSize="small"
                                 style={{
                                   position: 'absolute',
@@ -426,7 +442,7 @@ const SubscriptionPlanDetails = () => {
                         <Stack direction="column">
                           <div className="coupon-flex">
                             <span className='coupon-text'>
-                              {recurringPayments ? 'Monthly Recurring Autopay' : 'One time Payment Enabled'}
+                              {recurringPayments ? 'Monthly Recurring Autopay' : 'Monthly Recurring Autopay'}
                             </span>
                             <Checkbox
                               disabled={discoundedData?.is_one_recurring_subscription_already_present}

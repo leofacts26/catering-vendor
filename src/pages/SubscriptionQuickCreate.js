@@ -334,7 +334,7 @@ const SubscriptionQuickCreate = () => {
                         <Stack direction="column">
                           <div className="coupon-flex">
                             <span className='coupon-text'>
-                              {recurringPayments ? 'Monthly Recurring Activated' : 'One time Payment Enabled'}
+                              {recurringPayments ? 'Monthly Recurring Autopay' : 'Monthly Recurring Autopay'}
                             </span>
                             {/* <Checkbox
                               disabled={listVendorQuickCreateData?.is_one_recurring_subscription_already_present}
