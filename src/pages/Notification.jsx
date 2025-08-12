@@ -28,9 +28,9 @@ const Notification = () => {
       <Container maxWidth="lg">
         <div className='card-box-shadow px-3 py-4 mb-4'>
 
-          <Stack direction="row" justifyContent="end">
+          {/* <Stack direction="row" justifyContent="end">
             <p className="mark-read">Mark all as read</p>
-          </Stack>
+          </Stack> */}
 
           {notificationList?.length > 0 ? (
             notificationList.map((item) => (

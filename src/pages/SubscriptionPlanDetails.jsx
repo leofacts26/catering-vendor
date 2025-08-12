@@ -71,7 +71,7 @@ const SubscriptionPlanDetails = () => {
   }
 
   const onHandleClearCouponCode = async () => {
-    await dispatch(setCouponCode(couponCode));
+    await dispatch(setCouponCode(""));
     const subscriptionDuration = discoundedData?.subType.toLowerCase();
     const newItem = {
       ...subscribeData,
