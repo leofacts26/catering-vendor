@@ -1889,6 +1889,13 @@ code {
   margin: 4px 0px 0px 15px;
   font-family: var(--fontSecondary) !important;
 }
+.notification-heading {
+  margin-top: 2px;
+  font-size: 14px;
+  color: #a81e1e;
+  margin: 4px 0px 0px 15px;
+  font-family: var(--fontSecondary) !important;
+}
 
 .notification-modal-heading {
   font-size: 18px;
