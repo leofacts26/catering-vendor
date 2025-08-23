@@ -23,7 +23,7 @@ const SubscriptionQuickCreate = () => {
   // const [recurringPayments, setRecurringPayments] = useState(true);
   const [recurringPayments, setRecurringPayments] = useState(false);
   const { vendorBusinessProfile } = useGetVendor();
-  console.log(listVendorQuickCreateData, "listVendorQuickCreateData");
+  // console.log(listVendorQuickCreateData, "listVendorQuickCreateData");
 
   // useEffect(() => {
   //   if (discoundedData?.is_one_recurring_subscription_already_present === true) {
@@ -101,6 +101,7 @@ const SubscriptionQuickCreate = () => {
 
     let result;
 
+
     // Updated logic for one-time or recurring payment
     if (recurringPayments && listVendorQuickCreateData?.is_one_recurring_subscription_already_present === false) {
       result = await dispatch(createRecurringTimePayment(recurringMonthlydata));
@@ -116,6 +117,7 @@ const SubscriptionQuickCreate = () => {
       setLoading(false);
       return;
     }
+    // console.log(result, "result111");
 
     // console.log(result, "result");
 
@@ -178,13 +180,35 @@ const SubscriptionQuickCreate = () => {
         },
       };
     } else {
-      // console.log("onetime Payment in if Condition",);
-      // console.log("result onetime Payment in if Condition",);
-      const { amount, id, currency } = result?.payload?.data?.order;
-      // console.log("discoundedData:", discoundedData);
-      // console.log("Razorpay Order Response:", result?.payload?.data?.order);
-      // console.log("Final Amount (INR):", discoundedData?.finalAmount);
-      // console.log("Final Amount (Paise):", discoundedData?.finalAmount * 100);
+
+      const apiResponse = result?.payload?.data;
+
+      if (!apiResponse) {
+        // toast.error(result?.payload?.message || "Failed to create order");
+        setLoading(false);
+        return;
+      }
+
+      // CASE 1: Local subscription created successfully (no Razorpay needed)
+      if (apiResponse.status === "success" && apiResponse.is_local === 1) {
+        toast.success(apiResponse.message || "Subscription created successfully");
+        await dispatch(setCouponCode(""));
+        navigate("/dashboard/subscription");
+        setLoading(false);
+        return;
+      }
+
+
+      const order = result?.payload?.data?.order;
+      if (!order) {
+        setLoading(false);
+        return;
+      }
+
+      const { id, currency } = order;
+
+      // const { id, currency } = result?.payload?.data?.order;
+
 
       options = {
         key: process.env.REACT_APP_RAZORPAY_KEY,
@@ -333,9 +357,9 @@ const SubscriptionQuickCreate = () => {
                         <p className="sub-text">Payment Terms:</p>
                         <Stack direction="column">
                           <div className="coupon-flex">
-                            <span className='coupon-text'>
+                            {/* <span className='coupon-text'>
                               {recurringPayments ? 'Monthly Recurring Autopay' : 'Monthly Recurring Autopay'}
-                            </span>
+                            </span> */}
                             {/* <Checkbox
                               disabled={listVendorQuickCreateData?.is_one_recurring_subscription_already_present}
                               size="small" {...label}

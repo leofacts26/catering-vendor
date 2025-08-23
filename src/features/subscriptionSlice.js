@@ -107,7 +107,7 @@ export const createQuickOneTimePayment = createAsyncThunk(
       quickLinkId: data.id,
       subscriptionTypeId: id,
       subscriptionDuration,
-      couponCode: data.couponCode
+      couponCode: data.couponCode ? data.couponCode : ""
     }
     // console.log(updatedData, "updatedDataupdatedDataupdatedData"); 
 
@@ -121,8 +121,9 @@ export const createQuickOneTimePayment = createAsyncThunk(
       // console.log(response, "responseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponseresponse");
       return response;
     } catch (error) {
-      console.log(error);
+      // console.log(error, "error123");
       toast.error(datavalidationerror(error), { duration: 5000 })
+      return thunkAPI.rejectWithValue(error.response?.data || { message: error.message });
     }
   }
 );
