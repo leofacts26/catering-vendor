@@ -25,7 +25,7 @@ const SubscriptionPlanDetails = () => {
   // console.log(vendorBusinessProfile, "vendorBusinessProfile");
 
   // console.log(subscribeData, "subscribeData");
-  console.log(discoundedData, "discoundedData");
+  // console.log(discoundedData, "discoundedData");
   // console.log(recurringPayments, "recurringPayments");
 
   useEffect(() => {
@@ -57,6 +57,8 @@ const SubscriptionPlanDetails = () => {
   }
 
   const onCouponCodeSubmit = async (e) => {
+    if (recurringPayments) return;
+
     e.preventDefault()
     await dispatch(setCouponCode(couponCode));
     const subscriptionDuration = discoundedData?.subType.toLowerCase();
@@ -71,6 +73,8 @@ const SubscriptionPlanDetails = () => {
   }
 
   const onHandleClearCouponCode = async () => {
+    if (recurringPayments) return;
+
     await dispatch(setCouponCode(""));
     const subscriptionDuration = discoundedData?.subType.toLowerCase();
     const newItem = {
@@ -134,6 +138,7 @@ const SubscriptionPlanDetails = () => {
 
     // Updated logic for one-time or recurring payment
     if (recurringPayments && discoundedData?.is_one_recurring_subscription_already_present === false) {
+      await dispatch(setCouponCode(""));  // 🚫 ensure no coupon applied
       result = await dispatch(createRecurringTimePayment(recurringMonthlydata));
       // console.log("Recurring Payment APi Calling");
     } else {
@@ -418,15 +423,18 @@ const SubscriptionPlanDetails = () => {
                       </>}
 
 
+                      {recurringPayments === false && (
+                        <>
+                          <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
+                            <p className="sub-text">Coupon Code:</p> <p className="sub-text"> {discoundedData?.couponDetails?.code ? discoundedData?.couponDetails?.code : 'N/A'} </p>
+                          </Stack>
+                          <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-2">
+                            <p className="sub-text">Discount Percent:</p> <p className="sub-text"> {discoundedData?.couponDetails?.discountPercent ? discoundedData?.couponDetails?.discountPercent : 'N/A'}</p>
+                          </Stack>
+                        </>
+                      )}
 
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
-                        <p className="sub-text">Coupon Code:</p> <p className="sub-text"> {discoundedData?.couponDetails?.code ? discoundedData?.couponDetails?.code : 'N/A'} </p>
-                      </Stack>
-                      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-3 mt-2">
-                        <p className="sub-text">Discount Percent:</p> <p className="sub-text"> {discoundedData?.couponDetails?.discountPercent ? discoundedData?.couponDetails?.discountPercent : 'N/A'}</p>
-                      </Stack>
-
-                      <hr />
+                      < hr />
 
                       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2} className="mb-1 mt-3">
                         <p className="sub-text">Sub Amount:</p> <p className="sub-text"> {discoundedData?.subAmount ? discoundedData?.subAmount : 'N/A'} </p>
@@ -439,7 +447,11 @@ const SubscriptionPlanDetails = () => {
                         <p className="sub-text">Final Amount:</p>
                         <Stack direction="row" alignItems="center">
                           <CurrencyRupeeIcon className="text-success mt-1" style={{ fontSize: '14px' }} />
-                          <p className="sub-text">{discoundedData?.finalAmount ? discoundedData?.finalAmount : 'N/A'}</p>
+                          <p className="sub-text">
+                            {recurringPayments
+                              ? (discoundedData?.subAmount ?? 'N/A')   // no discount in recurring
+                              : (discoundedData?.finalAmount ?? 'N/A')}
+                          </p>
                         </Stack>
                       </Stack>
 
@@ -456,7 +468,22 @@ const SubscriptionPlanDetails = () => {
                               disabled={discoundedData?.is_one_recurring_subscription_already_present}
                               size="small" {...label}
                               checked={recurringPayments}
-                              onChange={(e) => setRecurringPayments(e.target.checked)}
+                              onChange={(e) => {
+                                setRecurringPayments(e.target.checked)
+
+                                if (e.target.checked) {
+                                  // 🚫 Reset coupon when recurring is selected
+                                  dispatch(setCouponCode(""));
+                                  dispatch(setDiscountedData({
+                                    ...discoundedData,
+                                    couponDetails: null,
+                                    couponStatus: null,
+                                    discountAmount: 0,
+                                    finalAmount: discoundedData?.subAmount, // show full amount for recurring
+                                  }));
+                                }
+
+                              }}
                               className={recurringPayments ? 'checkbox-enabled' : 'checkbox-disabled'}
                             />
                           </div>
